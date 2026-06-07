@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strova — Веб-студия: сайты для любого бизнеса | 18 концепций</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#09090F;
+  --bg2:#0F0F1A;
+  --bg3:#141425;
+  --purple:#7C3AED;
+  --purple2:#9B5CF6;
+  --gold:#F59E0B;
+  --gold2:#FCD34D;
+  --white:#FFFFFF;
+  --gray:#9CA3AF;
+  --border:rgba(124,58,237,0.2);
+  --border2:rgba(255,255,255,0.07);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+/* PRELOADER */
+#preloader{
+  position:fixed;inset:0;background:var(--bg);z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity 0.6s ease;
+}
+#preloader.hide{opacity:0;pointer-events:none}
+.pl-logo{
+  font-family:'Montserrat',sans-serif;font-weight:900;font-size:3rem;
+  background:linear-gradient(135deg,#7C3AED,#F59E0B);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:plPulse 1.2s ease-in-out infinite;
+}
+@keyframes plPulse{0%,100%{opacity:0.4;transform:scale(0.97)}50%{opacity:1;transform:scale(1)}}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:0 60px;height:70px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(9,9,15,0.9);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border2);
+  transition:all 0.3s;
+}
+.nav-logo{
+  font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.5rem;
+  background:linear-gradient(135deg,#9B5CF6,#F59E0B);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  text-decoration:none;
+}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{
+  color:var(--gray);font-size:0.875rem;font-weight:500;text-decoration:none;
+  letter-spacing:0.04em;transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--white)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-badge{
+  background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.25);
+  color:var(--gold);font-size:0.72rem;font-weight:700;
+  padding:4px 12px;border-radius:20px;letter-spacing:0.06em;
+}
+.nav-cta{
+  background:linear-gradient(135deg,#7C3AED,#9B5CF6);
+  color:#fff;border:none;padding:10px 22px;border-radius:6px;
+  font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.82rem;
+  letter-spacing:0.05em;cursor:pointer;text-decoration:none;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(124,58,237,0.4)}
+
+/* HERO */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;padding-top:70px;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 50%, rgba(124,58,237,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 30%, rgba(245,158,11,0.07) 0%, transparent 55%);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+.hero-inner{
+  position:relative;z-index:1;
+  max-width:1200px;margin:0 auto;padding:0 60px;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+.hero-left{}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.28);
+  color:#9B5CF6;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;
+  text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:28px;
+}
+.hero-tag span{width:6px;height:6px;border-radius:50%;background:#9B5CF6;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero-title{
+  font-family:'Montserrat',sans-serif;font-weight:900;
+  font-size:clamp(2.6rem,5vw,4.2rem);line-height:1.08;
+  margin-bottom:22px;
+}
+.hero-title .grad{
+  background:linear-gradient(135deg,#9B5CF6 0%,#F59E0B 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{
+  font-size:1.05rem;color:var(--gray);line-height:1.75;
+  max-width:480px;margin-bottom:40px;
+}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px}
+.btn-primary{
+  background:linear-gradient(135deg,#7C3AED,#9B5CF6);
+  color:#fff;padding:14px 32px;border-radius:8px;text-decoration:none;
+  font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.9rem;
+  letter-spacing:0.04em;transition:transform 0.2s,box-shadow 0.2s;display:inline-block;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(124,58,237,0.4)}
+.btn-secondary{
+  background:transparent;border:1px solid rgba(255,255,255,0.14);
+  color:#fff;padding:14px 32px;border-radius:8px;text-decoration:none;
+  font-family:'Montserrat',sans-serif;font-weight:600;font-size:0.9rem;
+  transition:border-color 0.2s,background 0.2s;display:inline-block;
+}
+.btn-secondary:hover{border-color:rgba(245,158,11,0.4);background:rgba(245,158,11,0.05)}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap}
+.hero-pill{
+  display:flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border2);
+  padding:7px 14px;border-radius:20px;font-size:0.8rem;color:var(--gray);
+}
+.hero-pill svg{width:14px;height:14px;flex-shrink:0}
+
+/* Hero right — two cards */
+.hero-right{display:flex;flex-direction:column;gap:16px}
+.hero-card{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:14px;
+  padding:22px 24px;transition:border-color 0.3s;
+  display:flex;align-items:center;gap:18px;
+}
+.hero-card:hover{border-color:rgba(124,58,237,0.35)}
+.hc-icon{
+  width:52px;height:52px;border-radius:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:1.6rem;
+}
+.hc-icon.gaming{background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(124,58,237,0.05))}
+.hc-icon.hotel{background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(245,158,11,0.05))}
+.hc-body h4{font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.95rem;margin-bottom:4px}
+.hc-body p{font-size:0.82rem;color:var(--gray);line-height:1.5}
+.hc-count{
+  margin-left:auto;flex-shrink:0;
+  font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.6rem;
+  background:linear-gradient(135deg,#9B5CF6,#F59E0B);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-card-mini{
+  background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(245,158,11,0.05));
+  border:1px solid var(--border2);border-radius:14px;
+  padding:18px 24px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+}
+.hcm-item{text-align:center}
+.hcm-num{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.5rem;
+  background:linear-gradient(135deg,#9B5CF6,#F59E0B);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hcm-lbl{font-size:0.72rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px}
+
+/* STATS */
+.stats{
+  padding:48px 60px;display:flex;justify-content:center;gap:0;
+  border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);
+  background:var(--bg2);
+}
+.stat{
+  text-align:center;flex:1;max-width:200px;
+  padding:0 24px;position:relative;
+}
+.stat:not(:last-child)::after{
+  content:'';position:absolute;right:0;top:10%;bottom:10%;
+  width:1px;background:var(--border2);
+}
+.stat-num{
+  font-family:'Montserrat',sans-serif;font-weight:900;font-size:2.6rem;
+  background:linear-gradient(135deg,#9B5CF6,#F59E0B);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.stat-label{color:var(--gray);font-size:0.8rem;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;margin-top:4px}
+
+/* SECTION */
+.section{padding:90px 60px}
+.sec-tag{
+  display:inline-block;color:#9B5CF6;font-size:0.78rem;font-weight:700;
+  letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;
+}
+.sec-title{
+  font-family:'Montserrat',sans-serif;font-weight:900;
+  font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:14px;
+}
+.sec-sub{color:var(--gray);font-size:0.95rem;line-height:1.75;max-width:560px}
+.section-head{text-align:center;margin-bottom:60px}
+.section-head .sec-sub{margin:0 auto}
+
+/* ABOUT */
+.about-grid{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+.about-text p{color:var(--gray);line-height:1.8;margin-bottom:18px;font-size:0.95rem}
+.about-feats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px}
+.about-feat{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:20px;
+  transition:border-color 0.2s;
+}
+.about-feat:hover{border-color:rgba(124,58,237,0.3)}
+.af-icon{font-size:1.4rem;margin-bottom:10px}
+.af-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:4px}
+.af-desc{color:var(--gray);font-size:0.8rem;line-height:1.55}
+
+/* PORTFOLIO — tabs */
+#portfolio{background:var(--bg2)}
+.portfolio-tabs{
+  display:flex;gap:4px;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border2);
+  border-radius:12px;padding:4px;
+  width:fit-content;margin:0 auto 48px;
+}
+.ptab{
+  padding:10px 32px;border-radius:9px;cursor:pointer;
+  font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.85rem;
+  letter-spacing:0.04em;border:none;background:transparent;
+  color:var(--gray);transition:all 0.25s;display:flex;align-items:center;gap:8px;
+}
+.ptab.active{
+  background:linear-gradient(135deg,#7C3AED,#9B5CF6);
+  color:white;box-shadow:0 4px 16px rgba(124,58,237,0.35);
+}
+.ptab-count{
+  background:rgba(255,255,255,0.15);
+  font-size:0.72rem;padding:2px 7px;border-radius:10px;
+}
+.ptab.active .ptab-count{background:rgba(255,255,255,0.2)}
+.portfolio-pane{display:none}
+.portfolio-pane.active{display:block}
+
+.portfolio-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:24px;max-width:1200px;margin:0 auto;
+}
+
+/* Browser mockup */
+.browser{height:210px;position:relative;overflow:hidden;border-radius:0}
+.browser-bar{
+  height:30px;background:rgba(0,0,0,0.5);
+  display:flex;align-items:center;padding:0 12px;gap:6px;
+  position:relative;z-index:2;
+}
+.browser-dot{width:9px;height:9px;border-radius:50%}
+.browser-dot:nth-child(1){background:#FF5F57}
+.browser-dot:nth-child(2){background:#FFBD2E}
+.browser-dot:nth-child(3){background:#28C840}
+.browser-url{
+  margin-left:10px;background:rgba(255,255,255,0.06);
+  border-radius:4px;padding:2px 10px;font-size:0.68rem;
+  color:rgba(255,255,255,0.35);font-family:'Inter',sans-serif;
+}
+.browser-preview{
+  position:absolute;inset:0;top:30px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+
+/* Port card */
+.port-card{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:12px;
+  overflow:hidden;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;cursor:pointer;
+}
+.port-card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(124,58,237,0.4);
+  box-shadow:0 16px 48px rgba(124,58,237,0.12);
+}
+.port-card.hotel:hover{
+  border-color:rgba(245,158,11,0.4);
+  box-shadow:0 16px 48px rgba(245,158,11,0.08);
+}
+.port-card-body{padding:22px 24px}
+.port-card-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.05rem;margin-bottom:6px}
+.port-card-desc{color:var(--gray);font-size:0.85rem;line-height:1.6;margin-bottom:16px}
+.port-card-tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}
+.port-tag{
+  background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);
+  color:#9B5CF6;font-size:0.7rem;font-weight:600;letter-spacing:0.05em;
+  padding:3px 9px;border-radius:4px;
+}
+.port-tag.hotel-tag{
+  background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);
+  color:var(--gold);
+}
+.port-link{
+  display:inline-flex;align-items:center;gap:7px;
+  color:var(--gold);font-size:0.83rem;font-weight:600;
+  text-decoration:none;transition:gap 0.2s;
+}
+.port-link:hover{gap:11px}
+.port-link svg{width:14px;height:14px;fill:currentColor}
+
+/* Gaming previews */
+.prev-neon{background:linear-gradient(135deg,#080810 0%,#1a0a2e 50%,#0a0a1a 100%)}
+.prev-neon::after{
+  content:'NEON DISTRICT';position:absolute;
+  font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.6rem;
+  color:#FFE600;text-shadow:0 0 20px rgba(255,230,0,0.5),0 0 40px rgba(139,0,255,0.3);letter-spacing:0.08em;
+}
+.prev-neon .floating-el{position:absolute;width:60px;height:5px;background:linear-gradient(90deg,#8B00FF,#FFE600);border-radius:3px;bottom:40px;left:30px;box-shadow:0 0 10px rgba(139,0,255,0.4)}
+.prev-neon .floating-el2{position:absolute;width:100px;height:2px;background:rgba(255,230,0,0.25);bottom:56px;left:30px;border-radius:2px}
+.prev-warzone{background:linear-gradient(135deg,#0a1205 0%,#1a2a08 50%,#0d1a05 100%)}
+.prev-warzone::after{content:'WARZONE HQ';position:absolute;font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.6rem;color:#E8621A;text-shadow:0 0 16px rgba(232,98,26,0.4);letter-spacing:0.08em;}
+.prev-warzone .camo{position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent 0px,transparent 8px,rgba(232,98,26,0.03) 8px,rgba(232,98,26,0.03) 16px)}
+.prev-mono{background:linear-gradient(135deg,#f8f8f8 0%,#e0e0e0 100%)}
+.prev-mono::after{content:'MONOPLAY';position:absolute;font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.8rem;color:#111;letter-spacing:0.08em;}
+.prev-mono .mono-line{position:absolute;left:30px;right:30px;height:2px;background:#E50000;bottom:48px;}
+.prev-pulse{background:linear-gradient(135deg,#080814 0%,#0d0820 50%,#0a0a18 100%)}
+.prev-pulse::after{content:'PULSE';position:absolute;font-family:'Montserrat',sans-serif;font-weight:900;font-size:2.2rem;background:linear-gradient(135deg,#00D4FF,#8B5CF6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:0.1em;filter:drop-shadow(0 0 12px rgba(0,212,255,0.3))}
+.prev-pulse .pulse-ring{position:absolute;width:110px;height:110px;border-radius:50%;border:2px solid rgba(0,212,255,0.2);top:50%;left:50%;transform:translate(-50%,-50%);animation:pulseRing 2s ease-in-out infinite}
+.prev-pulse .pulse-ring2{position:absolute;width:160px;height:160px;border-radius:50%;border:1px solid rgba(139,92,246,0.12);top:50%;left:50%;transform:translate(-50%,-50%);animation:pulseRing 2s ease-in-out 0.5s infinite}
+@keyframes pulseRing{0%,100%{opacity:0.3;transform:translate(-50%,-50%) scale(0.95)}50%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+.prev-frag{background:#000}
+.prev-frag::after{content:'FRAG';position:absolute;font-family:'Montserrat',sans-serif;font-weight:900;font-size:3.5rem;color:rgba(232,0,26,0.18);letter-spacing:0.1em}
+.frag-accent{position:absolute;bottom:0;left:0;right:0;height:4px;background:#E8001A}
+
+/* Hotel previews */
+.prev-luxury{background:linear-gradient(135deg,#0C0A09 0%,#1a140a 60%,#0C0A09 100%)}
+.prev-luxury::after{
+  content:'GRAND PALACE';position:absolute;
+  font-family:'Georgia',serif;font-weight:700;font-size:1.3rem;
+  color:#D4AF37;letter-spacing:0.18em;text-shadow:0 0 24px rgba(212,175,55,0.35);
+}
+.prev-luxury .lux-line{position:absolute;bottom:48px;left:50%;transform:translateX(-50%);width:70px;height:1px;background:linear-gradient(90deg,transparent,#D4AF37,transparent)}
+.prev-luxury .lux-stars{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);color:#D4AF37;font-size:0.65rem;letter-spacing:5px}
+.prev-boutique{background:linear-gradient(135deg,#1E3A8A 0%,#1e40af 60%,#1E3A8A 100%)}
+.prev-boutique::after{content:'NAVBAHOR';position:absolute;font-family:'Georgia',serif;font-weight:700;font-size:1.5rem;color:#FCD34D;letter-spacing:0.1em}
+.prev-boutique .bout-sub{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.45);font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;white-space:nowrap}
+.prev-boutique .bout-ornament{position:absolute;top:18px;right:18px;width:36px;height:36px;border:1px solid rgba(253,211,77,0.25);border-radius:50%}
+.prev-hostel{background:linear-gradient(135deg,#FFF1F2 0%,#FFE4E6 100%)}
+.prev-hostel::after{content:'StayUz';position:absolute;font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.9rem;color:#E11D48}
+.prev-hostel .hos-price{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);background:#E11D48;color:white;font-size:0.62rem;font-weight:700;padding:4px 14px;border-radius:20px;white-space:nowrap;font-family:'Montserrat',sans-serif}
+.prev-hostel .hos-dot1{position:absolute;width:80px;height:80px;border-radius:50%;background:rgba(225,29,72,0.06);top:-20px;right:-20px}
+.prev-hostel .hos-dot2{position:absolute;width:50px;height:50px;border-radius:50%;background:rgba(37,99,235,0.06);bottom:10px;left:-10px}
+
+/* CTA card */
+.port-cta{
+  border:1px solid rgba(245,158,11,0.18);
+  background:linear-gradient(135deg,rgba(124,58,237,0.04),rgba(245,158,11,0.04));
+}
+.port-cta .port-cta-inner{padding:36px 28px;display:flex;flex-direction:column;justify-content:center;min-height:310px}
+
+/* SERVICES — two columns */
+#services{background:var(--bg)}
+.services-split{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:32px;
+}
+.srv-col{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:16px;
+  overflow:hidden;
+}
+.srv-col-head{
+  padding:28px 32px 24px;
+  display:flex;align-items:center;gap:14px;
+  border-bottom:1px solid var(--border2);
+}
+.srv-col-head.gaming{background:linear-gradient(135deg,rgba(124,58,237,0.1),transparent)}
+.srv-col-head.hotel{background:linear-gradient(135deg,rgba(245,158,11,0.08),transparent)}
+.srv-col-ico{font-size:2rem}
+.srv-col-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.15rem}
+.srv-col-sub{color:var(--gray);font-size:0.8rem;margin-top:2px}
+.srv-plans{padding:24px 32px;display:flex;flex-direction:column;gap:16px}
+.srv-plan{
+  border:1px solid var(--border2);border-radius:10px;padding:20px;
+  transition:border-color 0.2s,background 0.2s;position:relative;overflow:hidden;
+}
+.srv-plan:hover{border-color:rgba(124,58,237,0.3);background:rgba(124,58,237,0.03)}
+.srv-plan.hotel:hover{border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.02)}
+.srv-plan.popular{border-color:rgba(124,58,237,0.35)}
+.srv-plan.popular::before{
+  content:'ХИТОВЫЙ';position:absolute;top:0;right:0;
+  background:linear-gradient(135deg,#7C3AED,#F59E0B);
+  color:#fff;font-size:0.62rem;font-weight:700;
+  padding:3px 12px;border-radius:0 0 0 8px;letter-spacing:0.08em;
+}
+.srv-plan-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.srv-plan-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.95rem}
+.srv-plan-price{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.3rem;
+  background:linear-gradient(135deg,#9B5CF6,#F59E0B);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.srv-plan.hotel .srv-plan-price{background:linear-gradient(135deg,#F59E0B,#D97706);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.srv-plan-desc{color:var(--gray);font-size:0.8rem;line-height:1.55;margin-bottom:12px}
+.srv-plan-features{list-style:none;display:flex;flex-direction:column;gap:5px}
+.srv-plan-features li{font-size:0.8rem;color:var(--gray);display:flex;align-items:center;gap:7px}
+.srv-plan-features li::before{content:'';width:5px;height:5px;border-radius:50%;background:#9B5CF6;flex-shrink:0}
+.srv-plan.hotel .srv-plan-features li::before{background:var(--gold)}
+.srv-plan-days{
+  display:inline-block;margin-top:12px;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border2);
+  font-size:0.72rem;color:var(--gray);padding:3px 10px;border-radius:4px;
+}
+
+/* PROCESS */
+#process{background:var(--bg2)}
+.process-steps{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  max-width:1100px;margin:0 auto;position:relative;
+}
+.process-steps::before{
+  content:'';position:absolute;top:36px;left:12.5%;right:12.5%;
+  height:1px;background:linear-gradient(90deg,rgba(124,58,237,0.25),rgba(245,158,11,0.25));
+  z-index:0;
+}
+.proc-step{text-align:center;padding:0 20px;position:relative;z-index:1}
+.proc-num{
+  width:72px;height:72px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+  font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.5rem;
+  background:linear-gradient(135deg,#7C3AED,#9B5CF6);
+  color:#fff;box-shadow:0 0 20px rgba(124,58,237,0.25);
+}
+.proc-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.95rem;margin-bottom:8px}
+.proc-desc{color:var(--gray);font-size:0.82rem;line-height:1.6}
+
+/* CONTACT */
+#contact{background:var(--bg)}
+.contact-wrap{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;
+  max-width:1100px;margin:0 auto;align-items:start;
+}
+.contact-info p{color:var(--gray);font-size:0.95rem;line-height:1.75;margin-bottom:36px}
+.contact-items{display:flex;flex-direction:column;gap:18px}
+.contact-item{display:flex;align-items:center;gap:16px}
+.contact-ico{
+  width:44px;height:44px;border-radius:8px;
+  background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;
+}
+.contact-item-text{color:var(--white);font-size:0.93rem}
+.contact-item-label{color:var(--gray);font-size:0.76rem;margin-top:2px}
+.contact-form{background:var(--bg3);border:1px solid var(--border2);border-radius:14px;padding:36px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;color:var(--gray);font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:7px}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%;background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);border-radius:8px;
+  padding:12px 14px;color:#fff;font-family:'Inter',sans-serif;font-size:0.88rem;
+  outline:none;transition:border-color 0.2s;
+}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:rgba(124,58,237,0.45)}
+.form-group textarea{height:110px;resize:vertical}
+.form-group select option{background:#1a1a2e;color:#fff}
+.form-submit{
+  width:100%;background:linear-gradient(135deg,#7C3AED,#9B5CF6);
+  color:#fff;border:none;padding:14px;border-radius:8px;
+  font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.92rem;
+  letter-spacing:0.05em;cursor:pointer;transition:opacity 0.2s,transform 0.2s;
+}
+.form-submit:hover{opacity:0.9;transform:translateY(-1px)}
+
+/* FOOTER */
+footer{
+  background:var(--bg2);border-top:1px solid var(--border2);
+  padding:44px 60px 28px;
+  display:flex;flex-direction:column;align-items:center;gap:20px;
+}
+.footer-logo{
+  font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.7rem;
+  background:linear-gradient(135deg,#9B5CF6,#F59E0B);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.footer-cats{display:flex;gap:12px;margin-top:4px}
+.footer-cat{
+  background:rgba(255,255,255,0.04);border:1px solid var(--border2);
+  color:var(--gray);font-size:0.72rem;font-weight:600;letter-spacing:0.08em;
+  padding:3px 12px;border-radius:20px;
+}
+.footer-links{display:flex;gap:28px}
+.footer-links a{color:var(--gray);font-size:0.83rem;text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--white)}
+.footer-copy{color:rgba(156,163,175,0.45);font-size:0.76rem}
+
+/* Scroll top */
+.scroll-top{
+  position:fixed;bottom:32px;right:32px;
+  width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(135deg,#7C3AED,#9B5CF6);
+  border:none;cursor:pointer;color:#fff;font-size:1.1rem;
+  box-shadow:0 4px 16px rgba(124,58,237,0.4);
+  opacity:0;pointer-events:none;transition:opacity 0.3s,transform 0.2s;z-index:50;
+}
+.scroll-top.visible{opacity:1;pointer-events:all}
+.scroll-top:hover{transform:translateY(-2px)}
+
+/* Divider */
+.divider{
+  max-width:1100px;margin:0 auto;
+  display:flex;align-items:center;gap:16px;margin-bottom:48px;
+}
+.divider-line{flex:1;height:1px;background:var(--border2)}
+.divider-text{
+  font-size:0.75rem;font-weight:700;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--gray);white-space:nowrap;
+}
+
+/* ===== HAMBURGER MENU ===== */
+.mobile-menu-btn{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  cursor:pointer;padding:4px;background:none;border:none;
+}
+.mobile-menu-btn span{
+  display:block;width:24px;height:2px;background:#fff;border-radius:2px;
+  transition:all 0.3s ease;
+}
+.mobile-menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mobile-menu-btn.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mobile-menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.mobile-nav{
+  display:none;
+  position:fixed;inset:70px 0 0 0;
+  background:rgba(9,9,15,0.97);backdrop-filter:blur(20px);
+  z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  animation:fadeIn 0.2s ease;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.mobile-nav.open{display:flex}
+.mobile-nav a{
+  color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;
+  font-size:1.35rem;text-decoration:none;letter-spacing:0.04em;
+  padding:14px 0;width:220px;text-align:center;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  transition:color 0.2s;
+}
+.mobile-nav a:hover,.mobile-nav a:active{color:#9B5CF6}
+.mobile-nav .mn-cta{
+  margin-top:14px;
+  background:linear-gradient(135deg,#7C3AED,#9B5CF6);
+  color:#fff !important;border-radius:8px;padding:14px 40px;
+  border-bottom:none;box-shadow:0 6px 20px rgba(124,58,237,0.4);
+}
+
+/* Mobile floating CTA */
+.mobile-float-cta{
+  display:none;
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(135deg,#7C3AED,#9B5CF6);
+  color:#fff;padding:15px 36px;border-radius:50px;
+  font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.9rem;
+  text-decoration:none;z-index:40;
+  box-shadow:0 8px 28px rgba(124,58,237,0.5);
+  white-space:nowrap;letter-spacing:0.04em;
+  animation:floatPulse 3s ease-in-out infinite;
+}
+@keyframes floatPulse{0%,100%{box-shadow:0 8px 28px rgba(124,58,237,0.5)}50%{box-shadow:0 8px 36px rgba(124,58,237,0.75)}}
+
+/* ===== TABLET ===== */
+@media(max-width:1024px){
+  nav{padding:0 20px}
+  .nav-links,.nav-badge{display:none}
+  .mobile-menu-btn{display:flex}
+  .hero-inner{grid-template-columns:1fr;gap:40px;padding:0 20px}
+  .hero-right{display:none}
+  .section{padding:70px 20px}
+  .stats{padding:32px 20px;flex-wrap:wrap;justify-content:center}
+  .stat{min-width:33.33%;padding:16px 8px}
+  .stat:not(:last-child)::after{display:none}
+  .services-split{grid-template-columns:1fr}
+  .process-steps{grid-template-columns:1fr 1fr}
+  .process-steps::before{display:none}
+  .contact-wrap{grid-template-columns:1fr;gap:36px}
+  .about-grid{grid-template-columns:1fr;gap:40px}
+  footer{padding:36px 20px 24px}
+  .footer-links{gap:18px;flex-wrap:wrap;justify-content:center}
+  .footer-cats{flex-wrap:wrap;justify-content:center}
+}
+
+/* ===== PHONE ===== */
+@media(max-width:600px){
+  nav{padding:0 16px;height:60px}
+  .nav-cta{display:none}
+  .mobile-nav{inset:60px 0 0 0}
+  .hero-inner{padding:0 16px}
+  .hero-title{font-size:1.95rem;line-height:1.1}
+  .hero-sub{font-size:0.88rem;margin-bottom:28px}
+  .hero-btns{flex-direction:column;gap:10px}
+  .hero-btns a{text-align:center;padding:13px 28px}
+  .hero-pills{gap:7px}
+  .hero-pill{font-size:0.72rem;padding:5px 10px}
+  .section{padding:48px 16px}
+  .section-head{margin-bottom:32px}
+  .sec-title{font-size:clamp(1.5rem,5.5vw,1.85rem)}
+  .sec-sub{font-size:0.88rem}
+  /* Stats — 3 per row */
+  .stats{padding:20px 12px}
+  .stat{min-width:33.33%;padding:10px 4px}
+  .stat-num{font-size:1.75rem}
+  .stat-label{font-size:0.65rem;letter-spacing:0.04em}
+  /* Portfolio tabs — horizontal scroll */
+  .portfolio-tabs{
+    overflow-x:auto;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;width:100%;
+    justify-content:flex-start;padding:4px 0 8px;
+    margin-bottom:28px;
+  }
+  .portfolio-tabs::-webkit-scrollbar{display:none}
+  .ptab{flex-shrink:0;padding:9px 14px;font-size:0.75rem}
+  .portfolio-grid{grid-template-columns:1fr}
+  .process-steps{grid-template-columns:1fr}
+  .about-feats{grid-template-columns:1fr}
+  .srv-plans{padding:16px}
+  .srv-col-head{padding:20px 16px}
+  .contact-form{padding:20px 16px}
+  .contact-wrap{gap:24px}
+  footer{padding:28px 16px 80px}
+  .footer-links{gap:14px;flex-wrap:wrap;justify-content:center;font-size:0.8rem}
+  .footer-cats{gap:6px}
+  .scroll-top{bottom:84px;right:16px}
+  /* Show floating CTA */
+  .mobile-float-cta{display:block}
+  /* Port card body */
+  .port-card-body{padding:16px}
+  .hero-tag{font-size:0.72rem}
+}
+
+/* ===== SMALL PHONE ===== */
+@media(max-width:380px){
+  .hero-title{font-size:1.7rem}
+  .stat{min-width:50%}
+  .ptab{padding:8px 10px;font-size:0.7rem}
+  .sec-title{font-size:1.4rem}
+  .hero-pills .hero-pill:last-child{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:0.01ms!important}}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader"><div class="pl-logo">Strova</div></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Strova</a>
+  <ul class="nav-links">
+    <li><a href="#about">О студии</a></li>
+    <li><a href="#portfolio">Портфолио</a></li>
+    <li><a href="#services">Цены</a></li>
+    <li><a href="#process">Процесс</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-badge">8 шаблонов</div>
+    <a href="#contact" class="nav-cta">Обсудить проект</a>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Открыть меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" class="mn-link">О студии</a>
+  <a href="#portfolio" class="mn-link">Портфолио</a>
+  <a href="#services" class="mn-link">Цены</a>
+  <a href="#process" class="mn-link">Процесс</a>
+  <a href="#contact" class="mn-link">Контакты</a>
+  <a href="#contact" class="mn-cta">Обсудить проект</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag"><span></span>Веб-студия Strova</div>
+      <h1 class="hero-title">Сайты для<br><span class="grad">любого бизнеса</span></h1>
+      <p class="hero-sub">
+        Создаём профессиональные сайты для игровых клубов, отелей, ресторанов и агентств недвижимости.
+        18 готовых концепций — выбираем стиль, адаптируем под бренд, запускаем за 5–7 дней.
+      </p>
+      <div class="hero-btns">
+        <a href="#portfolio" class="btn-primary">Смотреть портфолио</a>
+        <a href="#contact" class="btn-secondary">Получить КП</a>
+      </div>
+      <div class="hero-pills">
+        <div class="hero-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#9B5CF6" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span>Премиум-дизайн</span>
+        </div>
+        <div class="hero-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Срок 5–7 дней</span>
+        </div>
+        <div class="hero-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>Гарантия 30 дней</span>
+        </div>
+        <div class="hero-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          <span>Mobile-first</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="hc-icon gaming">🎮</div>
+        <div class="hc-body">
+          <h4>Игровые клубы</h4>
+          <p>Киберпанк, неон, тактика, минимализм — 5 концепций</p>
+        </div>
+        <div class="hc-count">5</div>
+      </div>
+      <div class="hero-card">
+        <div class="hc-icon hotel">🏨</div>
+        <div class="hc-body">
+          <h4>Отели и хостелы</h4>
+          <p>Luxury, boutique, budget — 3 концепции</p>
+        </div>
+        <div class="hc-count">3</div>
+      </div>
+      <div class="hero-card">
+        <div class="hc-icon" style="background:rgba(239,68,68,0.15)">🍽️</div>
+        <div class="hc-body">
+          <h4>Рестораны и бары</h4>
+          <p>Fine dining, lounge, rooftop, фаст-фуд — 5 концепций</p>
+        </div>
+        <div class="hc-count">5</div>
+      </div>
+      <div class="hero-card">
+        <div class="hc-icon" style="background:rgba(16,185,129,0.15)">🏢</div>
+        <div class="hc-body">
+          <h4>Недвижимость</h4>
+          <p>Агентства, ЖК, инвест-платформы — 5 концепций</p>
+        </div>
+        <div class="hc-count">5</div>
+      </div>
+      <div class="hero-card-mini">
+        <div class="hcm-item"><div class="hcm-num">18</div><div class="hcm-lbl">Концепций</div></div>
+        <div class="hcm-item"><div class="hcm-num">5–7</div><div class="hcm-lbl">Дней</div></div>
+        <div class="hcm-item"><div class="hcm-num">100%</div><div class="hcm-lbl">Под бренд</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-num">18</div><div class="stat-label">Готовых концепций</div></div>
+  <div class="stat"><div class="stat-num">4</div><div class="stat-label">Ниши бизнеса</div></div>
+  <div class="stat"><div class="stat-num">5–7</div><div class="stat-label">Дней на сайт</div></div>
+  <div class="stat"><div class="stat-num">30</div><div class="stat-label">Дней поддержки</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Под ваш бренд</div></div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="sec-tag">О студии</div>
+      <h2 class="sec-title">18 концепций — 4 ниши бизнеса</h2>
+      <p>Strova — веб-студия с глубокой экспертизой в ключевых нишах. Мы делаем сайты для <strong style="color:#9B5CF6">игровых клубов</strong>, <strong style="color:var(--gold)">отелей</strong>, <strong style="color:#EF4444">ресторанов и баров</strong>, а также <strong style="color:#10B981">агентств недвижимости</strong>.</p>
+      <p>Каждая ниша — отдельный подход: тарифы и атмосфера для клубов, бронирование и галереи для отелей, меню и резервации для ресторанов, каталог объектов и фильтры для недвижимости.</p>
+      <a href="#portfolio" class="btn-primary" style="margin-top:8px">Смотреть работы</a>
+    </div>
+    <div>
+      <div class="about-feats">
+        <div class="about-feat">
+          <div class="af-icon">🎮</div>
+          <div class="af-title">Игровые клубы</div>
+          <div class="af-desc">Тарифы, турниры, атмосфера — 5 стилей от киберпанка до минимализма</div>
+        </div>
+        <div class="about-feat">
+          <div class="af-icon">🏨</div>
+          <div class="af-title">Отели и хостелы</div>
+          <div class="af-desc">3 языка, WhatsApp-бронирование, фотогалереи — 3 концепции</div>
+        </div>
+        <div class="about-feat">
+          <div class="af-icon">🍽️</div>
+          <div class="af-title">Рестораны и бары</div>
+          <div class="af-desc">Меню, резервация столиков, акции — 5 стилей от fine-dining до rooftop</div>
+        </div>
+        <div class="about-feat">
+          <div class="af-icon">🏢</div>
+          <div class="af-title">Недвижимость</div>
+          <div class="af-desc">Каталог объектов, фильтры, заявки — 5 концепций для агентств и ЖК</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="section" id="portfolio">
+  <div class="section-head">
+    <div class="sec-tag">Портфолио</div>
+    <h2 class="sec-title">18 готовых концепций</h2>
+    <p class="sec-sub">4 ниши, 18 стилей. Выберите нишу и смотрите готовые шаблоны — адаптируем под ваш бренд и запускаем за 5–7 дней.</p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="portfolio-tabs">
+    <button class="ptab active" onclick="switchTab('gaming')">
+      🎮 Игровые клубы <span class="ptab-count">5</span>
+    </button>
+    <button class="ptab" onclick="switchTab('hotel')">
+      🏨 Отели и хостелы <span class="ptab-count">3</span>
+    </button>
+    <button class="ptab" onclick="switchTab('resto')">
+      🍽️ Рестораны и лаунж <span class="ptab-count">5</span>
+    </button>
+    <button class="ptab" onclick="switchTab('realty')">
+      🏠 Недвижимость <span class="ptab-count">5</span>
+    </button>
+  </div>
+
+  <!-- Gaming Tab -->
+  <div class="portfolio-pane active" id="pane-gaming">
+    <div class="portfolio-grid">
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">neondistrict.club</div>
+          </div>
+          <div class="browser-preview prev-neon">
+            <div class="floating-el"></div><div class="floating-el2"></div>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <div class="port-card-title">Neon District</div>
+          <div class="port-card-desc">Агрессивный киберпанк: чёрный фон, неоновый жёлтый и фиолетовый. Глитч-эффекты, обрезанные кнопки, неоновое свечение.</div>
+          <div class="port-card-tags">
+            <span class="port-tag">Киберпанк</span><span class="port-tag">Тёмный</span><span class="port-tag">Агрессивный</span>
+          </div>
+          <a href="../site1_neondistrict/index.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">warzonehq.gg</div>
+          </div>
+          <div class="browser-preview prev-warzone"><div class="camo"></div></div>
+        </div>
+        <div class="port-card-body">
+          <div class="port-card-title">Warzone HQ</div>
+          <div class="port-card-desc">Военно-тактический стиль: тёмно-зелёный + оранжевый. Детальные характеристики ПК, расписание турниров.</div>
+          <div class="port-card-tags">
+            <span class="port-tag">Тактика</span><span class="port-tag">Зелёный</span><span class="port-tag">Подробный</span>
+          </div>
+          <a href="../site2_warzonehq/index.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">monoplay.pro</div>
+          </div>
+          <div class="browser-preview prev-mono"><div class="mono-line"></div></div>
+        </div>
+        <div class="port-card-body">
+          <div class="port-card-title">Monoplay</div>
+          <div class="port-card-desc">Минималистичный премиум: белый фон, чёрный текст, красный акцент. Для клубов, которые хотят выглядеть статусно.</div>
+          <div class="port-card-tags">
+            <span class="port-tag">Минимализм</span><span class="port-tag">Светлый</span><span class="port-tag">Премиум</span>
+          </div>
+          <a href="../site3_monoplay/index.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">pulse.gaming</div>
+          </div>
+          <div class="browser-preview prev-pulse">
+            <div class="pulse-ring"></div><div class="pulse-ring2"></div>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <div class="port-card-title">Pulse</div>
+          <div class="port-card-desc">Премиум-тёмный с градиентами: циан + фиолетовый. Preloader, анимации свечения, форма онлайн-записи.</div>
+          <div class="port-card-tags">
+            <span class="port-tag">Градиент</span><span class="port-tag">Анимации</span><span class="port-tag">Полный</span>
+          </div>
+          <a href="../site4_pulse/index.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">fragclub.gg</div>
+          </div>
+          <div class="browser-preview prev-frag"><div class="frag-accent"></div></div>
+        </div>
+        <div class="port-card-body">
+          <div class="port-card-title">FRAG Club</div>
+          <div class="port-card-desc">Жёсткий red-black стиль по образцу топовых клубов: рваная бумага, персонаж, водяные знаки, вертикальная навигация.</div>
+          <div class="port-card-tags">
+            <span class="port-tag">Красный</span><span class="port-tag">Жёсткий</span><span class="port-tag">Персонаж</span>
+          </div>
+          <a href="../site5_ravestyle/index.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card port-cta">
+        <div class="port-cta-inner">
+          <div style="font-size:2.2rem;margin-bottom:16px">✨</div>
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:10px">Уникальный дизайн</div>
+          <p style="color:var(--gray);font-size:0.85rem;line-height:1.7;margin-bottom:24px">Не нашли подходящий стиль? Разработаем с нуля под ваш брендинг и концепцию клуба.</p>
+          <a href="#contact" class="btn-primary" style="text-align:center;display:block">Обсудить идею →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Hotels Tab -->
+  <div class="portfolio-pane" id="pane-hotel">
+    <div class="portfolio-grid">
+
+      <div class="port-card hotel">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">grandpalace.uz</div>
+          </div>
+          <div class="browser-preview prev-luxury">
+            <div class="lux-line"></div><div class="lux-stars">★ ★ ★ ★ ★</div>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <div class="port-card-title">Grand Palace Hotel 5★</div>
+          <div class="port-card-desc">Роскошный dark-gold стиль. Playfair Display, тёмный фон, золото. Разделы: номера, спа, ресторан, галерея, отзывы. WhatsApp и Telegram бронирование.</div>
+          <div class="port-card-tags">
+            <span class="port-tag hotel-tag">Luxury 5★</span>
+            <span class="port-tag hotel-tag">Dark Gold</span>
+            <span class="port-tag hotel-tag">3 языка</span>
+          </div>
+          <a href="../hotels/luxury-hotel.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card hotel">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">navbahor.uz</div>
+          </div>
+          <div class="browser-preview prev-boutique">
+            <div class="bout-sub">Boutique Hotel · Samarkand</div>
+            <div class="bout-ornament"></div>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <div class="port-card-title">Navbahor Boutique Hotel</div>
+          <div class="port-card-desc">Тёмно-синий + золото в стиле Самарканда. Узбекский орнамент, секция опыта и культуры, карта, отзывы с Booking. Шрифт Calistoga.</div>
+          <div class="port-card-tags">
+            <span class="port-tag hotel-tag">Boutique</span>
+            <span class="port-tag hotel-tag">Navy Gold</span>
+            <span class="port-tag hotel-tag">Узбекистан</span>
+          </div>
+          <a href="../hotels/boutique-hotel.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card hotel">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">stayuz.com</div>
+          </div>
+          <div class="browser-preview prev-hostel">
+            <div class="hos-dot1"></div><div class="hos-dot2"></div>
+            <div class="hos-price">от $8 / ночь</div>
+          </div>
+        </div>
+        <div class="port-card-body">
+          <div class="port-card-title">StayUz Hostel</div>
+          <div class="port-card-desc">Яркий Rose + Blue стиль для бюджетных хостелов. Интерактивный выбор типа размещения, 3 города, карточки цен. Молодёжный и современный.</div>
+          <div class="port-card-tags">
+            <span class="port-tag hotel-tag">Hostel</span>
+            <span class="port-tag hotel-tag">Aurora UI</span>
+            <span class="port-tag hotel-tag">Бюджет</span>
+          </div>
+          <a href="../hotels/hostel-budget.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card port-cta hotel">
+        <div class="port-cta-inner">
+          <div style="font-size:2.2rem;margin-bottom:16px">🏨</div>
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:10px">Сайт под ваш отель</div>
+          <p style="color:var(--gray);font-size:0.85rem;line-height:1.7;margin-bottom:24px">Адаптируем любой шаблон под ваш отель или создадим уникальный дизайн с нуля.</p>
+          <a href="#contact" class="btn-primary" style="text-align:center;display:block">Заказать сайт →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Restaurants Tab -->
+  <div class="portfolio-pane" id="pane-resto">
+    <div class="portfolio-grid">
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">avesta-restaurant.uz</div>
+          </div>
+          <div class="browser-preview" style="background:linear-gradient(135deg,#0A0A0A 0%,#1A1208 50%,#2A1E0A 100%);display:flex;align-items:center;justify-content:center;font-size:3rem">🕯️</div>
+        </div>
+        <div class="port-info">
+          <div class="port-name">AVESTA Fine Dining</div>
+          <div class="port-desc">Тёмный элегантный стиль, золото, анимации. Меню, бронь, галерея.</div>
+          <div class="port-tags">
+            <span class="port-tag hotel-tag">Fine Dining</span>
+            <span class="port-tag">UZ/RU/EN</span>
+            <span class="port-tag">Telegram</span>
+          </div>
+          <a href="../restaurants/fine-dining.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">haze-lounge.uz</div>
+          </div>
+          <div class="browser-preview" style="background:linear-gradient(135deg,#0D0A1A 0%,#1A0D2E 50%,#2D1B4E 100%);display:flex;align-items:center;justify-content:center;font-size:3rem">🌙</div>
+        </div>
+        <div class="port-info">
+          <div class="port-name">HAZE Lounge Bar</div>
+          <div class="port-desc">Тёмный мудовый фиолетовый, glassmorphism. Коктейли, мероприятия, DJ.</div>
+          <div class="port-tags">
+            <span class="port-tag hotel-tag">Lounge Bar</span>
+            <span class="port-tag">Glassmorphism</span>
+            <span class="port-tag">Telegram</span>
+          </div>
+          <a href="../restaurants/lounge-bar.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">samarqand-resto.uz</div>
+          </div>
+          <div class="browser-preview" style="background:linear-gradient(135deg,#2C1A0E 0%,#5C2E0A 50%,#8B3A12 100%);display:flex;align-items:center;justify-content:center;font-size:3rem">🏺</div>
+        </div>
+        <div class="port-info">
+          <div class="port-name">SAMARQAND Узбекский ресторан</div>
+          <div class="port-desc">Терракотовый этнический стиль. Плов, шашлык, банкетный зал.</div>
+          <div class="port-tags">
+            <span class="port-tag hotel-tag">Узбекская кухня</span>
+            <span class="port-tag">UZ/RU/EN</span>
+            <span class="port-tag">Telegram</span>
+          </div>
+          <a href="../restaurants/uzbek-restaurant.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">plovexpress.uz</div>
+          </div>
+          <div class="browser-preview" style="background:linear-gradient(135deg,#7C0A02 0%,#C0392B 50%,#E74C3C 100%);display:flex;align-items:center;justify-content:center;font-size:3rem">🍚</div>
+        </div>
+        <div class="port-info">
+          <div class="port-name">PLOV EXPRESS Fast Casual</div>
+          <div class="port-desc">Красно-жёлтый энергичный стиль. Быстрый заказ, доставка, акции.</div>
+          <div class="port-tags">
+            <span class="port-tag hotel-tag">Fast Casual</span>
+            <span class="port-tag">Доставка</span>
+            <span class="port-tag">Акции</span>
+          </div>
+          <a href="../restaurants/plov-express.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">sky-rooftop.uz</div>
+          </div>
+          <div class="browser-preview" style="background:linear-gradient(135deg,#0A1628 0%,#0D2137 50%,#0E3A5C 100%);display:flex;align-items:center;justify-content:center;font-size:3rem">🌃</div>
+        </div>
+        <div class="port-info">
+          <div class="port-name">SKY Rooftop Bar</div>
+          <div class="port-desc">Тёмно-синий с бирюзой, виды города. Коктейли, sunset events.</div>
+          <div class="port-tags">
+            <span class="port-tag hotel-tag">Rooftop</span>
+            <span class="port-tag">Events</span>
+            <span class="port-tag">Telegram</span>
+          </div>
+          <a href="../restaurants/rooftop-bar.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card port-cta hotel">
+        <div class="port-cta-inner">
+          <div style="font-size:2.2rem;margin-bottom:16px">🍽️</div>
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:10px">Сайт под ваш ресторан</div>
+          <p style="color:var(--gray);font-size:0.85rem;line-height:1.7;margin-bottom:24px">Адаптируем шаблон под ваш ресторан, лаунж или кафе. Telegram-бронирование, меню, галерея.</p>
+          <a href="#contact" class="btn-primary" style="text-align:center;display:block">Заказать сайт →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Realty Tab -->
+  <div class="portfolio-pane" id="pane-realty">
+    <div class="portfolio-grid">
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">grand-residence.uz</div>
+          </div>
+          <div class="browser-preview" style="background:linear-gradient(135deg,#0A0A0F 0%,#1A1208 50%,#2A1E08 100%);display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#C9A96E;letter-spacing:3px">GRAND RESIDENCE</span>
+          </div>
+        </div>
+        <div class="port-info">
+          <div class="port-name">GRAND RESIDENCE</div>
+          <div class="port-desc">Премиум ЖК в Ташкенте. Тёмный luxury стиль, золото. Планировки, цены, форма заявки.</div>
+          <div class="port-tags">
+            <span class="port-tag hotel-tag">Новостройки</span>
+            <span class="port-tag">UZ/RU/EN</span>
+            <span class="port-tag">Telegram</span>
+          </div>
+          <a href="../realty/grand-residence.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">cityrealty.uz</div>
+          </div>
+          <div class="browser-preview" style="background:linear-gradient(135deg,#EEF2FF 0%,#DBEAFE 100%);display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'Montserrat',sans-serif;font-size:1.1rem;font-weight:800;color:#1B4FD8;letter-spacing:2px">CITY REALTY</span>
+          </div>
+        </div>
+        <div class="port-info">
+          <div class="port-name">CITY REALTY</div>
+          <div class="port-desc">Агентство недвижимости. Чистый синий стиль, каталог объектов, команда агентов.</div>
+          <div class="port-tags">
+            <span class="port-tag hotel-tag">Агентство</span>
+            <span class="port-tag">UZ/RU/EN</span>
+            <span class="port-tag">Каталог</span>
+          </div>
+          <a href="../realty/city-realty.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">greenvalley.uz</div>
+          </div>
+          <div class="browser-preview" style="background:linear-gradient(135deg,#1B4332 0%,#2D6A4F 50%,#40916C 100%);display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'Playfair Display',serif;font-size:1rem;color:#D8F3DC;letter-spacing:2px">GREEN VALLEY</span>
+          </div>
+        </div>
+        <div class="port-info">
+          <div class="port-name">GREEN VALLEY</div>
+          <div class="port-desc">Коттеджный посёлок. Природный зелёный стиль, типы домов, запись на осмотр.</div>
+          <div class="port-tags">
+            <span class="port-tag hotel-tag">Коттеджи</span>
+            <span class="port-tag">UZ/RU/EN</span>
+            <span class="port-tag">Telegram</span>
+          </div>
+          <a href="../realty/green-valley.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">metroloft.uz</div>
+          </div>
+          <div class="browser-preview" style="background:linear-gradient(135deg,#111118 0%,#1A1A2E 100%);display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;color:#06B6D4;letter-spacing:4px">METRO LOFT</span>
+          </div>
+        </div>
+        <div class="port-info">
+          <div class="port-name">METRO LOFT</div>
+          <div class="port-desc">Апарт-комплекс, урбан минимализм. Тёмный + циан, умный дом, CSS-карта.</div>
+          <div class="port-tags">
+            <span class="port-tag hotel-tag">Апартаменты</span>
+            <span class="port-tag">Smart Living</span>
+            <span class="port-tag">Telegram</span>
+          </div>
+          <a href="../realty/metro-loft.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+            <div class="browser-url">investpro.uz</div>
+          </div>
+          <div class="browser-preview" style="background:linear-gradient(135deg,#0D1B2A 0%,#1A3A5C 100%);display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'Raleway',sans-serif;font-size:1.1rem;font-weight:700;color:#D4A017;letter-spacing:3px">INVEST PRO</span>
+          </div>
+        </div>
+        <div class="port-info">
+          <div class="port-name">INVEST PRO</div>
+          <div class="port-desc">Коммерческая недвижимость. Navy+золото, B2B стиль, аналитика рынка, каталог.</div>
+          <div class="port-tags">
+            <span class="port-tag hotel-tag">Коммерческая</span>
+            <span class="port-tag">B2B</span>
+            <span class="port-tag">Аналитика</span>
+          </div>
+          <a href="../realty/invest-pro.html" class="port-link" target="_blank">Открыть сайт <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="port-card port-cta hotel">
+        <div class="port-cta-inner">
+          <div style="font-size:2.2rem;margin-bottom:16px">🏠</div>
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:10px">Сайт под вашу недвижимость</div>
+          <p style="color:var(--gray);font-size:0.85rem;line-height:1.7;margin-bottom:24px">ЖК, коттеджи, агентство или коммерция — адаптируем под ваш проект с нуля.</p>
+          <a href="#contact" class="btn-primary" style="text-align:center;display:block">Заказать сайт →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-head">
+    <div class="sec-tag">Услуги и цены</div>
+    <h2 class="sec-title">Пакеты для каждой ниши</h2>
+    <p class="sec-sub">Прозрачные цены без скрытых доплат. Выберите свою нишу и пакет.</p>
+  </div>
+  <div class="services-split">
+
+    <!-- Gaming -->
+    <div class="srv-col">
+      <div class="srv-col-head gaming">
+        <div class="srv-col-ico">🎮</div>
+        <div>
+          <div class="srv-col-title">Компьютерные клубы</div>
+          <div class="srv-col-sub">5 готовых концепций · тарифы · турниры · ПК</div>
+        </div>
+      </div>
+      <div class="srv-plans">
+        <div class="srv-plan popular">
+          <div class="srv-plan-top">
+            <div class="srv-plan-name">⚡ Бизнес</div>
+            <div class="srv-plan-price">от $300</div>
+          </div>
+          <div class="srv-plan-desc">Уникальный дизайн + расширенный функционал для клуба.</div>
+          <ul class="srv-plan-features">
+            <li>Уникальный дизайн под ваш бренд</li>
+            <li>Страница турниров с расписанием</li>
+            <li>Характеристики ПК и периферии</li>
+            <li>Форма онлайн-записи</li>
+            <li>SEO-оптимизация</li>
+          </ul>
+          <span class="srv-plan-days">⏱ Срок: 5–7 дней</span>
+        </div>
+        <div class="srv-plan">
+          <div class="srv-plan-top">
+            <div class="srv-plan-name">👑 Про</div>
+            <div class="srv-plan-price">от $500</div>
+          </div>
+          <div class="srv-plan-desc">Полная веб-экосистема: сайт + интеграции + хостинг + поддержка.</div>
+          <ul class="srv-plan-features">
+            <li>Всё из пакета «Бизнес»</li>
+            <li>Настройка хостинга и домена</li>
+            <li>Telegram-бот для записи</li>
+            <li>Аналитика Google/Yandex</li>
+            <li>Поддержка 3 месяца</li>
+          </ul>
+          <span class="srv-plan-days">⏱ Срок: 7–10 дней</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hotel -->
+    <div class="srv-col">
+      <div class="srv-col-head hotel">
+        <div class="srv-col-ico">🏨</div>
+        <div>
+          <div class="srv-col-title">Отели и хостелы</div>
+          <div class="srv-col-sub">3 концепции · 3 языка · WhatsApp бронирование</div>
+        </div>
+      </div>
+      <div class="srv-plans">
+        <div class="srv-plan hotel popular" style="border-color:rgba(245,158,11,0.35)">
+          <div class="srv-plan-top">
+            <div class="srv-plan-name">⭐ Стандарт</div>
+            <div class="srv-plan-price">от $280</div>
+          </div>
+          <div class="srv-plan-desc">Уникальный дизайн + полноценный сайт для продажи номеров.</div>
+          <ul class="srv-plan-features">
+            <li>Уникальный дизайн под ваш отель</li>
+            <li>Полная галерея с лайтбоксом</li>
+            <li>Форма бронирования + интеграция Booking</li>
+            <li>Отзывы с Booking / TripAdvisor</li>
+            <li>SEO под туристов из Google</li>
+          </ul>
+          <span class="srv-plan-days">⏱ Срок: 5–7 дней</span>
+        </div>
+        <div class="srv-plan hotel">
+          <div class="srv-plan-top">
+            <div class="srv-plan-name">💎 Премиум</div>
+            <div class="srv-plan-price">от $450</div>
+          </div>
+          <div class="srv-plan-desc">Полный пакет для отеля с маркетинговыми инструментами.</div>
+          <ul class="srv-plan-features">
+            <li>Всё из пакета «Стандарт»</li>
+            <li>Настройка хостинга и домена .uz</li>
+            <li>Интеграция с системой бронирования</li>
+            <li>Яндекс.Карты + Google Maps</li>
+            <li>Поддержка 3 месяца</li>
+          </ul>
+          <span class="srv-plan-days">⏱ Срок: 7–10 дней</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section" id="process">
+  <div class="section-head">
+    <div class="sec-tag">Как мы работаем</div>
+    <h2 class="sec-title">4 шага до готового сайта</h2>
+    <p class="sec-sub">Простой и прозрачный процесс — вы всегда знаете на каком этапе находится ваш проект.</p>
+  </div>
+  <div class="process-steps">
+    <div class="proc-step">
+      <div class="proc-num">1</div>
+      <div class="proc-title">Бриф</div>
+      <div class="proc-desc">Заполняете короткую анкету о бизнесе, стиле и пожеланиях. 15 минут вашего времени.</div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">2</div>
+      <div class="proc-title">Дизайн</div>
+      <div class="proc-desc">Разрабатываем макет и согласовываем с вами до старта вёрстки.</div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">3</div>
+      <div class="proc-title">Разработка</div>
+      <div class="proc-desc">Верстаем сайт, наполняем контентом, тестируем на всех устройствах.</div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">4</div>
+      <div class="proc-title">Запуск</div>
+      <div class="proc-desc">Размещаем на хостинге, передаём доступы. 30 дней бесплатных правок.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact" style="background:var(--bg2)">
+  <div class="section-head">
+    <div class="sec-tag">Контакты</div>
+    <h2 class="sec-title">Обсудим ваш проект</h2>
+    <p class="sec-sub">Оставьте заявку — свяжемся в течение 2 часов и пришлём коммерческое предложение.</p>
+  </div>
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <p>Расскажите о своём клубе или отеле — подберём оптимальный шаблон и пакет услуг.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-ico">💬</div>
+          <div>
+            <div class="contact-item-text">Telegram: @israfilov_atg</div>
+            <div class="contact-item-label">Отвечаем быстро</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-ico">📧</div>
+          <div>
+            <div class="contact-item-text">israfilov2012@list.ru</div>
+            <div class="contact-item-label">Для официальных запросов</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-ico">📍</div>
+          <div>
+            <div class="contact-item-text">Работаем онлайн</div>
+            <div class="contact-item-label">Клиенты по всему СНГ и Узбекистану</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-ico">🕐</div>
+          <div>
+            <div class="contact-item-text">Отвечаем в течение 2 часов</div>
+            <div class="contact-item-label">Пн–Вс, 9:00–22:00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form" id="contactForm">
+      <div class="form-group">
+        <label>Тип бизнеса</label>
+        <select name="type" id="bizType">
+          <option>🎮 Компьютерный клуб</option>
+          <option>🏨 Отель / гостиница</option>
+          <option>🏩 Хостел / гестхаус</option>
+          <option>🏢 Другой бизнес</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Название</label>
+        <input type="text" name="name" placeholder="Men Zone, Navbahor Hotel..." required>
+      </div>
+      <div class="form-group">
+        <label>Ваш контакт (Telegram / телефон)</label>
+        <input type="text" name="contact" placeholder="@username или +998..." required>
+      </div>
+      <div class="form-group">
+        <label>Пакет</label>
+        <select name="package">
+          <option>🎮 Клуб — Бизнес ($300)</option>
+          <option>🎮 Клуб — Про ($500)</option>
+          <option>🏨 Отель — Стандарт ($280)</option>
+          <option>🏨 Отель — Премиум ($450)</option>
+          <option>✨ Уникальный дизайн — обсудим</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Пожелания</label>
+        <textarea name="message" placeholder="Город, стиль, особые пожелания..."></textarea>
+      </div>
+      <button type="submit" class="form-submit" id="formBtn">Отправить заявку →</button>
+      <div id="formSuccess" style="display:none;text-align:center;padding:18px 0;color:#10B981;font-size:0.95rem;font-weight:600;">
+        ✅ Заявка отправлена! Свяжемся с вами в течение 1–2 часов.
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Strova</div>
+  <div class="footer-cats">
+    <span class="footer-cat">🎮 Игровые клубы</span>
+    <span class="footer-cat">🏨 Отели и хостелы</span>
+  </div>
+  <div class="footer-links">
+    <a href="#about">О нас</a>
+    <a href="#portfolio">Портфолио</a>
+    <a href="#services">Цены</a>
+    <a href="#contact">Контакты</a>
+  </div>
+  <div class="footer-copy">© 2026 Strova Web Studio. Все права защищены.</div>
+</footer>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- MOBILE FLOATING CTA -->
+<a href="#contact" class="mobile-float-cta" id="mobileFloatCta">Обсудить проект →</a>
+
+<script>
+// Preloader
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('preloader').classList.add('hide'), 1000);
+});
+
+// Scroll top
+window.addEventListener('scroll', () => {
+  document.querySelector('.scroll-top').classList.toggle('visible', window.scrollY > 400);
+});
+
+// Portfolio tabs
+function switchTab(tab) {
+  document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.portfolio-pane').forEach(p => p.classList.remove('active'));
+  document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
+  document.getElementById('pane-' + tab).classList.add('active');
+}
+
+// Hamburger menu
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileNav = document.getElementById('mobileNav');
+const mobileFloatCta = document.getElementById('mobileFloatCta');
+mobileMenuBtn.addEventListener('click', () => {
+  mobileMenuBtn.classList.toggle('open');
+  mobileNav.classList.toggle('open');
+  document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  if (mobileFloatCta) mobileFloatCta.style.display = mobileNav.classList.contains('open') ? 'none' : '';
+});
+mobileNav.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileMenuBtn.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+    if (mobileFloatCta) mobileFloatCta.style.display = '';
+  });
+});
+
+// Port card click
+document.querySelectorAll('.port-card').forEach(card => {
+  card.addEventListener('click', (e) => {
+    if (!e.target.closest('.port-link') && !e.target.closest('.btn-primary')) {
+      const link = card.querySelector('.port-link');
+      if (link) link.click();
+    }
+  });
+});
+
+// Contact form
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('formBtn');
+  btn.textContent = 'Отправляем...';
+  btn.disabled = true;
+
+  const data = new FormData(e.target);
+  const type    = data.get('type') || '-';
+  const name    = data.get('name') || '-';
+  const contact = data.get('contact') || '-';
+  const pkg     = data.get('package') || '-';
+  const msg     = data.get('message') || '-';
+
+  const tgText = [
+    '🔔 Новая заявка с сайта Strova!',
+    '',
+    '📋 Тип: ' + type,
+    '🏢 Название: ' + name,
+    '📱 Контакт: ' + contact,
+    '📦 Пакет: ' + pkg,
+    '💬 Пожелания: ' + msg
+  ].join('\n');
+
+  try {
+    await fetch('https://api.telegram.org/bot8294315634:AAHYHAikSetei6pwW-8XmupO7D_AGFPm5Fg/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: '7118891995', text: tgText })
+    });
+    btn.style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+    e.target.reset();
+  } catch {
+    btn.textContent = 'Отправить заявку →';
+    btn.disabled = false;
+    alert('Ошибка. Напишите нам напрямую в Telegram: @israfilov_atg');
+  }
+});
+</script>
+</body>
+</html>
