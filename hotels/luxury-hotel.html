@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grand Palace Hotel — Ташкент</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0C0A09;
+      --bg2:       #1C1917;
+      --bg3:       #292524;
+      --card:      #1E1B18;
+      --border:    rgba(212,175,55,0.15);
+      --gold:      #D4AF37;
+      --gold2:     #A16207;
+      --fg:        #FAF7F0;
+      --muted:     #A8A29E;
+      --font-head: 'Playfair Display', Georgia, serif;
+      --font-body: 'Inter', sans-serif;
+      --ease:      cubic-bezier(0.16,1,0.3,1);
+      --r:         4px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+    ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--gold2); border-radius: 3px; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── LANG ── */
+    .lang-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: flex-end; padding: 8px 40px; gap: 4px; background: rgba(12,10,9,0.6); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(212,175,55,0.1); }
+    .lang-btn { background: none; border: 1px solid rgba(212,175,55,0.25); color: var(--muted); font-family: var(--font-body); font-size: 11px; letter-spacing: 2px; padding: 4px 12px; border-radius: 2px; cursor: pointer; transition: all 200ms; }
+    .lang-btn:hover, .lang-btn.active { border-color: var(--gold); color: var(--gold); }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 33px; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 20px 60px; background: rgba(12,10,9,0); transition: background 400ms var(--ease); }
+    nav.scrolled { background: rgba(12,10,9,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-head); font-size: 22px; font-weight: 500; color: var(--gold); letter-spacing: 2px; text-decoration: none; }
+    .nav-logo span { display: block; font-size: 10px; font-family: var(--font-body); font-weight: 300; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; margin-top: -2px; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: color 200ms; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-book { background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: var(--font-body); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 11px 28px; cursor: pointer; transition: all 250ms var(--ease); text-decoration: none; }
+    .nav-book:hover { background: var(--gold); color: var(--bg); }
+
+    /* ── HERO ── */
+    .hero { position: relative; height: 100vh; min-height: 700px; display: flex; align-items: flex-end; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #1a0a00 0%, #2d1a00 30%, #0f0d0b 100%); }
+    .hero-pattern { position: absolute; inset: 0; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4AF37' fill-opacity='1'%3E%3Cpath d='M30 0l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,10,9,0.95) 0%, rgba(12,10,9,0.3) 50%, rgba(12,10,9,0.1) 100%); }
+    .hero-mockup { position: absolute; right: 0; top: 0; bottom: 0; width: 55%; opacity: 0.35; background: linear-gradient(135deg, #3d2800, #1a1000); display: flex; align-items: center; justify-content: center; }
+    .hotel-illustration { width: 80%; max-width: 500px; opacity: 0.6; }
+    .hero-content { position: relative; z-index: 2; padding: 0 60px 80px; max-width: 700px; animation: fadeInUp 1s var(--ease) both; }
+    .hero-tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .hero-tag::before { content: ''; width: 40px; height: 1px; background: var(--gold); }
+    .hero-title { font-family: var(--font-head); font-size: clamp(42px, 5.5vw, 80px); font-weight: 400; line-height: 1.1; margin-bottom: 24px; }
+    .hero-title em { color: var(--gold); font-style: italic; }
+    .hero-desc { font-size: 17px; color: var(--muted); font-weight: 300; max-width: 480px; margin-bottom: 40px; line-height: 1.8; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-gold { background: var(--gold); color: var(--bg); border: none; font-family: var(--font-body); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; padding: 16px 40px; cursor: pointer; transition: all 250ms var(--ease); text-decoration: none; display: inline-block; }
+    .btn-gold:hover { background: #c9a227; transform: translateY(-1px); box-shadow: 0 8px 30px rgba(212,175,55,0.3); }
+    .btn-outline-gold { background: transparent; border: 1px solid rgba(212,175,55,0.5); color: var(--gold); font-family: var(--font-body); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 16px 40px; cursor: pointer; transition: all 250ms; text-decoration: none; display: inline-block; }
+    .btn-outline-gold:hover { border-color: var(--gold); background: rgba(212,175,55,0.08); }
+    .hero-stats { position: absolute; bottom: 80px; right: 60px; z-index: 2; display: flex; gap: 48px; }
+    .hero-stat { text-align: center; }
+    .hero-stat-num { font-family: var(--font-head); font-size: 36px; color: var(--gold); display: block; }
+    .hero-stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+    /* ── DIVIDER ── */
+    .gold-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0; }
+
+    /* ── SECTION ── */
+    section { padding: 100px 60px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-label { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .section-title { font-family: var(--font-head); font-size: clamp(32px, 4vw, 56px); font-weight: 400; line-height: 1.15; margin-bottom: 20px; }
+    .section-sub { color: var(--muted); font-size: 16px; font-weight: 300; line-height: 1.8; max-width: 520px; }
+
+    /* ── ROOMS ── */
+    .rooms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 60px; }
+    .room-card { position: relative; overflow: hidden; cursor: pointer; }
+    .room-img { height: 380px; background: linear-gradient(135deg, #2d1a00, #1a1000); display: flex; align-items: center; justify-content: center; transition: transform 500ms var(--ease); }
+    .room-img svg { opacity: 0.2; }
+    .room-card:hover .room-img { transform: scale(1.04); }
+    .room-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,10,9,0.92) 0%, rgba(12,10,9,0.2) 60%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 32px; }
+    .room-type { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .room-name { font-family: var(--font-head); font-size: 24px; font-weight: 400; margin-bottom: 8px; }
+    .room-price { font-size: 13px; color: var(--muted); }
+    .room-price strong { color: var(--gold); font-size: 20px; font-family: var(--font-head); }
+    .room-btn { margin-top: 16px; display: inline-block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid rgba(212,175,55,0.4); padding-bottom: 2px; transition: all 200ms; opacity: 0; transform: translateY(8px); }
+    .room-card:hover .room-btn { opacity: 1; transform: translateY(0); }
+
+    /* ── AMENITIES ── */
+    .amenities { background: var(--bg2); }
+    .amenities-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-top: 60px; }
+    .amenity { text-align: center; padding: 40px 20px; border: 1px solid var(--border); transition: border-color 300ms; }
+    .amenity:hover { border-color: rgba(212,175,55,0.4); }
+    .amenity-icon { width: 56px; height: 56px; margin: 0 auto 20px; color: var(--gold); }
+    .amenity-name { font-family: var(--font-head); font-size: 18px; font-weight: 400; margin-bottom: 8px; }
+    .amenity-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* ── BOOKING ── */
+    .booking-bar { background: var(--bg3); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 40px 60px; }
+    .booking-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
+    .booking-title { font-family: var(--font-head); font-size: 24px; font-weight: 400; margin-right: auto; }
+    .booking-field { display: flex; flex-direction: column; gap: 6px; min-width: 160px; }
+    .booking-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+    .booking-input { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--fg); font-family: var(--font-body); font-size: 14px; padding: 12px 16px; outline: none; transition: border-color 200ms; min-width: 160px; }
+    .booking-input:focus { border-color: var(--gold); }
+    .booking-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%23D4AF37'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+
+    /* ── GALLERY ── */
+    .gallery-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 300px 300px; gap: 4px; margin-top: 60px; }
+    .gallery-item { overflow: hidden; }
+    .gallery-item:first-child { grid-row: 1 / 3; }
+    .gallery-img { width: 100%; height: 100%; transition: transform 500ms var(--ease); cursor: pointer; }
+    .gallery-img-bg { width: 100%; height: 100%; background: linear-gradient(135deg, #2d1a00, #1c1410); }
+    .gallery-item:hover .gallery-img-bg { transform: scale(1.05); }
+
+    /* ── REVIEWS ── */
+    .reviews { background: var(--bg2); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; }
+    .review-card { border: 1px solid var(--border); padding: 36px; transition: border-color 300ms; }
+    .review-card:hover { border-color: rgba(212,175,55,0.35); }
+    .review-stars { display: flex; gap: 4px; margin-bottom: 20px; }
+    .star { color: var(--gold); font-size: 14px; }
+    .review-text { font-family: var(--font-head); font-style: italic; font-size: 16px; line-height: 1.8; color: var(--fg); margin-bottom: 24px; }
+    .review-author { display: flex; align-items: center; gap: 12px; }
+    .review-av { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--gold2), #78350f); display: flex; align-items: center; justify-content: center; font-family: var(--font-head); font-size: 16px; color: var(--fg); flex-shrink: 0; }
+    .review-name { font-weight: 500; font-size: 14px; }
+    .review-meta { font-size: 12px; color: var(--muted); }
+
+    /* ── LOCATION ── */
+    .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .map-placeholder { height: 440px; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; color: var(--muted); }
+    .map-placeholder svg { color: var(--gold); opacity: 0.5; }
+    .contact-list { list-style: none; display: flex; flex-direction: column; gap: 24px; margin-top: 32px; }
+    .contact-list li { display: flex; align-items: flex-start; gap: 16px; font-size: 15px; color: var(--muted); }
+    .contact-list li svg { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+    .contact-list a { color: var(--fg); text-decoration: none; transition: color 200ms; }
+    .contact-list a:hover { color: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer { background: #06050A; border-top: 1px solid var(--border); padding: 60px 60px 32px; }
+    .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; }
+    .footer-logo { font-family: var(--font-head); font-size: 24px; color: var(--gold); margin-bottom: 16px; }
+    .footer-desc { font-size: 13px; color: var(--muted); line-height: 1.8; max-width: 260px; }
+    .footer-col h4 { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--fg); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 200ms; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom { max-width: 1200px; margin: 48px auto 0; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); flex-wrap: wrap; gap: 8px; }
+    .social-links { display: flex; gap: 16px; }
+    .social-links a { color: var(--muted); transition: color 200ms; }
+    .social-links a:hover { color: var(--gold); }
+
+    /* ── WHATSAPP FLOAT ── */
+    .wa-float { position: fixed; bottom: 32px; right: 32px; z-index: 500; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.4); text-decoration: none; transition: transform 250ms var(--ease), box-shadow 250ms; }
+    .wa-float:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.5); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; } .reveal-delay-3 { transition-delay: 0.3s; }
+
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:none; } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) { nav, section, .booking-bar, footer { padding-left: 32px; padding-right: 32px; } .rooms-grid { grid-template-columns: 1fr 1fr; } .amenities-grid { grid-template-columns: repeat(2,1fr); } .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; } .hero-stats { display: none; } }
+    @media (max-width: 768px) { .nav-links { display: none; } .rooms-grid, .reviews-grid, .location-grid { grid-template-columns: 1fr; } .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; } .gallery-item:first-child { grid-row: auto; } .hero-content { padding: 0 24px 60px; } .booking-inner { flex-direction: column; align-items: stretch; } .footer-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- Lang -->
+<div class="lang-bar">
+  <button class="lang-btn" onclick="setLang('uz')">UZ</button>
+  <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+  <button class="lang-btn" onclick="setLang('en')">EN</button>
+</div>
+
+<!-- Nav -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Grand Palace <span>Tashkent • Since 1998</span></a>
+  <ul class="nav-links">
+    <li><a href="#rooms">Номера</a></li>
+    <li><a href="#amenities">Услуги</a></li>
+    <li><a href="#gallery">Галерея</a></li>
+    <li><a href="#reviews">Отзывы</a></li>
+    <li><a href="#location">Контакты</a></li>
+  </ul>
+  <a href="#booking" class="nav-book">Забронировать</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-mockup">
+    <svg class="hotel-illustration" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="100" y="100" width="300" height="250" fill="#D4AF37" opacity="0.15" rx="2"/>
+      <rect x="120" y="120" width="50" height="70" fill="#D4AF37" opacity="0.3" rx="1"/>
+      <rect x="190" y="120" width="50" height="70" fill="#D4AF37" opacity="0.3" rx="1"/>
+      <rect x="260" y="120" width="50" height="70" fill="#D4AF37" opacity="0.3" rx="1"/>
+      <rect x="120" y="210" width="50" height="70" fill="#D4AF37" opacity="0.3" rx="1"/>
+      <rect x="190" y="210" width="50" height="70" fill="#D4AF37" opacity="0.3" rx="1"/>
+      <rect x="260" y="210" width="50" height="70" fill="#D4AF37" opacity="0.3" rx="1"/>
+      <rect x="190" y="300" width="120" height="50" fill="#D4AF37" opacity="0.4" rx="1"/>
+      <rect x="60" y="90" width="380" height="15" fill="#D4AF37" opacity="0.2" rx="1"/>
+      <polygon points="250,40 80,95 420,95" fill="#D4AF37" opacity="0.1"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <p class="hero-tag">Ташкент, Узбекистан</p>
+    <h1 class="hero-title">Роскошь &<br><em>Гостеприимство</em><br>5 звёзд</h1>
+    <p class="hero-desc">Откройте для себя непревзойдённое великолепие в самом сердце Ташкента. 147 номеров, ресторан высокой кухни и спа-центр мирового класса.</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-gold">Забронировать номер</a>
+      <a href="#rooms" class="btn-outline-gold">Наши номера</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="hero-stat-num">147</span><span class="hero-stat-label">Номеров</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">25+</span><span class="hero-stat-label">Лет опыта</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">4.9</span><span class="hero-stat-label">Рейтинг</span></div>
+  </div>
+</section>
+
+<!-- Booking Bar -->
+<div class="booking-bar" id="booking">
+  <div class="booking-inner">
+    <h2 class="booking-title">Быстрое бронирование</h2>
+    <div class="booking-field">
+      <label class="booking-label">Заезд</label>
+      <input type="date" class="booking-input" aria-label="Дата заезда">
+    </div>
+    <div class="booking-field">
+      <label class="booking-label">Выезд</label>
+      <input type="date" class="booking-input" aria-label="Дата выезда">
+    </div>
+    <div class="booking-field">
+      <label class="booking-label">Гостей</label>
+      <select class="booking-input booking-select" aria-label="Количество гостей">
+        <option>1 гость</option><option>2 гостя</option><option>3 гостя</option><option>4 гостя</option>
+      </select>
+    </div>
+    <div class="booking-field">
+      <label class="booking-label">Тип номера</label>
+      <select class="booking-input booking-select" aria-label="Тип номера">
+        <option>Стандарт</option><option>Делюкс</option><option>Сюит</option><option>Президентский</option>
+      </select>
+    </div>
+    <button class="btn-gold" style="white-space:nowrap">Проверить наличие</button>
+  </div>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- Rooms -->
+<section id="rooms">
+  <div class="container">
+    <p class="section-label reveal">Размещение</p>
+    <h2 class="section-title reveal reveal-delay-1">Наши номера<br>и апартаменты</h2>
+    <p class="section-sub reveal reveal-delay-2">Каждый номер — это воплощение утончённого вкуса, где традиции узбекского гостеприимства встречаются с современным комфортом.</p>
+  </div>
+  <div class="rooms-grid" style="margin-top:60px">
+    <div class="room-card reveal">
+      <div class="room-img">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+        </svg>
+      </div>
+      <div class="room-overlay">
+        <p class="room-type">Стандарт</p>
+        <h3 class="room-name">Делюкс Стандарт</h3>
+        <p class="room-price">от <strong>350 000</strong> сум / ночь</p>
+        <span class="room-btn">Подробнее →</span>
+      </div>
+    </div>
+    <div class="room-card reveal reveal-delay-1">
+      <div class="room-img">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1">
+          <path d="M2 4h20v16H2z"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01"/>
+        </svg>
+      </div>
+      <div class="room-overlay">
+        <p class="room-type">Премиум</p>
+        <h3 class="room-name">Бизнес Сюит</h3>
+        <p class="room-price">от <strong>680 000</strong> сум / ночь</p>
+        <span class="room-btn">Подробнее →</span>
+      </div>
+    </div>
+    <div class="room-card reveal reveal-delay-2">
+      <div class="room-img">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1">
+          <circle cx="12" cy="12" r="10"/><path d="M12 2v10l4 4"/>
+        </svg>
+      </div>
+      <div class="room-overlay">
+        <p class="room-type">Эксклюзив</p>
+        <h3 class="room-name">Президентский Сюит</h3>
+        <p class="room-price">от <strong>1 500 000</strong> сум / ночь</p>
+        <span class="room-btn">Подробнее →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Amenities -->
+<section class="amenities" id="amenities">
+  <div class="container">
+    <p class="section-label reveal">Сервис</p>
+    <h2 class="section-title reveal reveal-delay-1">Всё для<br>вашего комфорта</h2>
+    <div class="amenities-grid">
+      <div class="amenity reveal">
+        <div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 17h18M5 17V7a1 1 0 011-1h4v11M14 17V10a1 1 0 011-1h4a1 1 0 011 1v7"/></svg></div>
+        <h3 class="amenity-name">Ресторан</h3>
+        <p class="amenity-desc">Узбекская и европейская кухня. Завтрак включён. Работает с 07:00 до 23:00.</p>
+      </div>
+      <div class="amenity reveal reveal-delay-1">
+        <div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22c4.97 0 9-4.03 9-9H3c0 4.97 4.03 9 9 9zM5.6 13H18.4M12 2v5M8 4l1 3M16 4l-1 3"/></svg></div>
+        <h3 class="amenity-name">Спа & Wellness</h3>
+        <p class="amenity-desc">Хаммам, сауна, массаж и косметические процедуры. Бесплатно для гостей отеля.</p>
+      </div>
+      <div class="amenity reveal reveal-delay-2">
+        <div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <h3 class="amenity-name">Бизнес-центр</h3>
+        <p class="amenity-desc">Конференц-залы на 10–200 человек. Высокоскоростной Wi-Fi. Оборудование для презентаций.</p>
+      </div>
+      <div class="amenity reveal reveal-delay-3">
+        <div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg></div>
+        <h3 class="amenity-name">Консьерж 24/7</h3>
+        <p class="amenity-desc">Трансфер из аэропорта, экскурсии по Узбекистану, бронирование билетов и туров.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section id="gallery" style="padding:80px 0;">
+  <div class="container" style="padding:0 60px">
+    <p class="section-label reveal">Галерея</p>
+    <h2 class="section-title reveal reveal-delay-1">Атмосфера<br>роскоши</h2>
+  </div>
+  <div class="gallery-grid" style="margin-top:40px; padding:0 60px">
+    <div class="gallery-item reveal"><div class="gallery-img-bg" style="background:linear-gradient(135deg,#3d2200,#1c0f00)"></div></div>
+    <div class="gallery-item reveal reveal-delay-1"><div class="gallery-img-bg" style="background:linear-gradient(135deg,#2a1800,#0d0800)"></div></div>
+    <div class="gallery-item reveal reveal-delay-2"><div class="gallery-img-bg" style="background:linear-gradient(135deg,#1a1000,#2d1800)"></div></div>
+    <div class="gallery-item reveal"><div class="gallery-img-bg" style="background:linear-gradient(135deg,#0d0800,#3d2200)"></div></div>
+    <div class="gallery-item reveal reveal-delay-1"><div class="gallery-img-bg" style="background:linear-gradient(135deg,#2a1800,#1a1000)"></div></div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <p class="section-label reveal">Отзывы</p>
+    <h2 class="section-title reveal reveal-delay-1">Наши гости<br>говорят</h2>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">"Великолепный отель с безупречным сервисом. Номер превзошёл все ожидания — просторный, элегантный, с видом на город."</p>
+        <div class="review-author">
+          <div class="review-av">АК</div>
+          <div><p class="review-name">Алибек Каримов</p><p class="review-meta">Ташкент · Booking.com</p></div>
+        </div>
+      </div>
+      <div class="review-card reveal reveal-delay-1">
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">"Лучший отель в котором мы останавливались. Спа-центр просто потрясающий. Персонал встречает с искренней улыбкой."</p>
+        <div class="review-author">
+          <div class="review-av" style="background:linear-gradient(135deg,#1d4ed8,#1e3a8a)">МС</div>
+          <div><p class="review-name">Мария Соколова</p><p class="review-meta">Москва · TripAdvisor</p></div>
+        </div>
+      </div>
+      <div class="review-card reveal reveal-delay-2">
+        <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="review-text">"Идеально для деловых поездок. Конференц-зал оснащён всем необходимым, а ресторан предлагает отличный бизнес-ланч."</p>
+        <div class="review-author">
+          <div class="review-av" style="background:linear-gradient(135deg,#059669,#065f46)">JL</div>
+          <div><p class="review-name">James Liu</p><p class="review-meta">Dubai · Google</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Location -->
+<section id="location">
+  <div class="container">
+    <div class="location-grid">
+      <div>
+        <p class="section-label reveal">Расположение</p>
+        <h2 class="section-title reveal reveal-delay-1">В сердце<br>Ташкента</h2>
+        <p class="section-sub reveal reveal-delay-2">5 минут от станции метро Амир Темур. 30 минут от международного аэропорта Ташкент.</p>
+        <ul class="contact-list reveal">
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>ул. Амира Темура 108, Ташкент, Узбекистан</span>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            <a href="tel:+998712345678">+998 71 234 56 78</a>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:info@grandpalace.uz">info@grandpalace.uz</a>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Стойка регистрации — 24 часа, 7 дней в неделю</span>
+          </li>
+        </ul>
+        <div style="display:flex;gap:12px;margin-top:32px">
+          <a href="https://wa.me/998901234567" class="btn-gold" style="font-size:11px;padding:12px 24px">WhatsApp</a>
+          <a href="https://t.me/grandpalacetashkent" class="btn-outline-gold" style="font-size:11px;padding:12px 24px">Telegram</a>
+        </div>
+      </div>
+      <div class="map-placeholder reveal">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span style="font-size:13px;letter-spacing:2px">ОТКРЫТЬ КАРТУ</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Grand Palace</div>
+      <p class="footer-desc">Пятизвёздочный отель в Ташкенте. Безупречный сервис, роскошные номера и незабываемое гостеприимство с 1998 года.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Отель</h4>
+      <ul>
+        <li><a href="#">О нас</a></li><li><a href="#">Номера</a></li><li><a href="#">Рестораны</a></li><li><a href="#">Спа</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Гостям</h4>
+      <ul>
+        <li><a href="#">Бронирование</a></li><li><a href="#">Правила отеля</a></li><li><a href="#">Экскурсии</a></li><li><a href="#">Трансфер</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Контакты</h4>
+      <ul>
+        <li><a href="tel:+998712345678">+998 71 234 56 78</a></li>
+        <li><a href="https://wa.me/998901234567">WhatsApp</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Telegram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Grand Palace Hotel, Ташкент. Все права защищены.</span>
+    <div class="social-links">
+      <a href="#" aria-label="Instagram">IG</a>
+      <a href="#" aria-label="Telegram">TG</a>
+      <a href="#" aria-label="Facebook">FB</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp -->
+<a href="https://wa.me/998901234567" class="wa-float" aria-label="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); }, {passive:true});
+
+  // Reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:0.1, rootMargin:'0px 0px -40px 0px'}).observe
+  ? revealEls.forEach(el => new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, {threshold:0.1, rootMargin:'0px 0px -40px 0px'}).observe(el)) : null;
+
+  // Lang stub
+  function setLang(l) {
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+</script>
+</body>
+</html>

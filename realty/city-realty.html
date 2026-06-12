@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CITY REALTY — Недвижимость в Узбекистане</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #1B4FD8;
+    --blue2: #2563EB;
+    --blue-dark: #0F2E8A;
+    --blue-light: #EEF2FF;
+    --white: #FFFFFF;
+    --bg: #F8FAFF;
+    --text: #1E293B;
+    --text-muted: #64748B;
+    --border: #E2E8F0;
+    --shadow: 0 4px 24px rgba(27,79,216,0.08);
+    --shadow-hover: 0 8px 40px rgba(27,79,216,0.18);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5 { font-family: 'Montserrat', sans-serif; }
+
+  /* ─── LANG BAR ─── */
+  #lang-bar {
+    background: var(--blue);
+    padding: 8px 0;
+  }
+  #lang-bar .lb-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+  }
+  .lang-btn {
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.8);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+  }
+  .lang-btn:hover, .lang-btn.active {
+    background: rgba(255,255,255,0.18);
+    border-color: var(--white);
+    color: var(--white);
+  }
+  .lang-btn.active {
+    background: var(--white);
+    color: var(--blue);
+  }
+
+  /* ─── NAV ─── */
+  #nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 16px rgba(27,79,216,0.06);
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 38px; height: 38px;
+    background: var(--blue);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--blue);
+    letter-spacing: -0.3px;
+  }
+  .logo-text span { color: var(--text); }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue); background: var(--blue-light); }
+  .btn-primary {
+    background: var(--blue);
+    color: var(--white);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 11px 22px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary:hover {
+    background: var(--blue-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-hover);
+  }
+  .nav-burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 8px;
+  }
+  .nav-burger span {
+    display: block;
+    width: 24px; height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 16px 24px 20px;
+    gap: 4px;
+  }
+  .mobile-menu a {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu a:last-of-type { border-bottom: none; }
+  .mobile-menu .btn-primary { margin-top: 8px; justify-content: center; }
+  .mobile-menu.open { display: flex; }
+
+  /* ─── HERO ─── */
+  #hero {
+    background: linear-gradient(135deg, #EEF2FF 0%, #F8FAFF 50%, #E0E7FF 100%);
+    padding: 80px 24px 70px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  #hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(27,79,216,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(27,79,216,0.1);
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    letter-spacing: 0.3px;
+  }
+  .hero-title {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 18px;
+    letter-spacing: -0.5px;
+  }
+  .hero-title .hl { color: var(--blue); }
+  .hero-sub {
+    font-size: 17px;
+    color: var(--text-muted);
+    max-width: 540px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+  }
+  .search-box {
+    background: var(--white);
+    border-radius: 14px;
+    box-shadow: 0 8px 40px rgba(27,79,216,0.14);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0;
+    overflow: hidden;
+    max-width: 700px;
+    margin: 0 auto 50px;
+    border: 1px solid var(--border);
+  }
+  .search-box select, .search-box input {
+    flex: 1;
+    min-width: 160px;
+    border: none;
+    outline: none;
+    padding: 16px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: transparent;
+    border-right: 1px solid var(--border);
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .search-box select option { color: var(--text); }
+  .search-box .btn-search {
+    background: var(--blue);
+    color: var(--white);
+    border: none;
+    padding: 16px 28px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .search-box .btn-search:hover { background: var(--blue-dark); }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--blue);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+
+  /* ─── SECTION COMMONS ─── */
+  section { padding: 80px 24px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    display: inline-block;
+    background: var(--blue-light);
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-size: clamp(22px, 3.5vw, 36px);
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+  .section-sub { font-size: 15px; color: var(--text-muted); max-width: 520px; line-height: 1.7; margin-bottom: 48px; }
+
+  /* ─── CATEGORIES ─── */
+  #categories { background: var(--white); }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .cat-card {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .cat-card:hover {
+    background: var(--blue);
+    border-color: var(--blue);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+  }
+  .cat-card:hover .cat-icon { background: rgba(255,255,255,0.2); }
+  .cat-card:hover .cat-icon svg path,
+  .cat-card:hover .cat-icon svg rect,
+  .cat-card:hover .cat-icon svg polyline,
+  .cat-card:hover .cat-icon svg circle { stroke: var(--white); }
+  .cat-card:hover .cat-name { color: var(--white); }
+  .cat-card:hover .cat-count { color: rgba(255,255,255,0.7); }
+  .cat-icon {
+    width: 64px; height: 64px;
+    background: var(--blue-light);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 18px;
+    transition: all 0.3s;
+  }
+  .cat-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    transition: color 0.3s;
+  }
+  .cat-count { font-size: 13px; color: var(--text-muted); transition: color 0.3s; }
+
+  /* ─── LISTINGS ─── */
+  #listings { background: var(--bg); }
+  .listings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .listing-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s;
+    border: 1px solid var(--border);
+  }
+  .listing-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+  }
+  .listing-photo {
+    height: 200px;
+    display: flex;
+    align-items: flex-end;
+    padding: 16px;
+    position: relative;
+  }
+  .listing-photo-1 { background: linear-gradient(135deg, #1B4FD8 0%, #2563EB 50%, #7C3AED 100%); }
+  .listing-photo-2 { background: linear-gradient(135deg, #0891B2 0%, #1B4FD8 50%, #2563EB 100%); }
+  .listing-photo-3 { background: linear-gradient(135deg, #059669 0%, #0891B2 50%, #1B4FD8 100%); }
+  .listing-badge {
+    background: rgba(255,255,255,0.92);
+    color: var(--blue);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.3px;
+  }
+  .listing-body { padding: 20px 22px 22px; }
+  .listing-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .listing-loc {
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+  .listing-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .listing-price {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--blue);
+  }
+  .listing-area { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .btn-outline {
+    background: transparent;
+    border: 1.5px solid var(--blue);
+    color: var(--blue);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+  }
+  .btn-outline:hover {
+    background: var(--blue);
+    color: var(--white);
+  }
+
+  /* ─── WHY US ─── */
+  #why-us { background: var(--white); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+  .why-card {
+    padding: 32px 24px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    transition: all 0.3s;
+  }
+  .why-card:hover {
+    border-color: var(--blue);
+    box-shadow: var(--shadow);
+    transform: translateY(-3px);
+  }
+  .why-icon {
+    width: 52px; height: 52px;
+    background: var(--blue-light);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .why-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .why-desc { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+  /* ─── TEAM ─── */
+  #team { background: var(--bg); }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .team-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 36px 28px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  .team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+  }
+  .avatar {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--white);
+    margin: 0 auto 18px;
+  }
+  .av1 { background: linear-gradient(135deg, #1B4FD8, #7C3AED); }
+  .av2 { background: linear-gradient(135deg, #0891B2, #1B4FD8); }
+  .av3 { background: linear-gradient(135deg, #059669, #2563EB); }
+  .team-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 5px;
+  }
+  .team-spec { font-size: 13px; color: var(--blue); font-weight: 600; margin-bottom: 14px; }
+  .team-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .team-phone:hover { color: var(--blue); }
+
+  /* ─── CONTACT FORM ─── */
+  #contact-form {
+    background: linear-gradient(135deg, #EEF2FF 0%, #F8FAFF 100%);
+    padding: 80px 24px;
+  }
+  .form-wrap {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 24px;
+    box-shadow: 0 16px 64px rgba(27,79,216,0.12);
+    padding: 48px 48px;
+    border: 1px solid var(--border);
+  }
+  .form-header { text-align: center; margin-bottom: 36px; }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 7px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.2px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+    resize: vertical;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(27,79,216,0.1);
+    background: var(--white);
+  }
+  .form-group textarea { min-height: 100px; }
+  .btn-submit {
+    width: 100%;
+    background: var(--blue);
+    color: var(--white);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .btn-submit:hover {
+    background: var(--blue-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-hover);
+  }
+  .btn-submit:disabled { background: #94A3B8; cursor: not-allowed; transform: none; box-shadow: none; }
+  .form-note { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 12px; }
+  .form-msg {
+    display: none;
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 16px;
+    text-align: center;
+  }
+  .form-msg.success { background: #D1FAE5; color: #065F46; display: block; }
+  .form-msg.error { background: #FEE2E2; color: #991B1B; display: block; }
+
+  /* ─── FOOTER ─── */
+  #footer {
+    background: #0F2047;
+    color: rgba(255,255,255,0.75);
+    padding: 60px 24px 30px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .footer-logo-icon {
+    width: 36px; height: 36px;
+    background: var(--blue);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .footer-logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--white);
+  }
+  .footer-desc { font-size: 13px; line-height: 1.8; max-width: 240px; }
+  .footer-col h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 18px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .footer-contact-item svg { flex-shrink: 0; margin-top: 2px; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-copy { font-size: 12px; }
+  .footer-dev {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+  }
+  .footer-dev a {
+    color: var(--blue2);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .footer-dev a:hover { color: #93C5FD; }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    .listings-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    section { padding: 56px 16px; }
+    #hero { padding: 60px 16px 50px; }
+    .nav-links, .nav-cta { display: none; }
+    .nav-burger { display: flex; }
+    .search-box { flex-direction: column; }
+    .search-box select, .search-box input { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+    .search-box .btn-search { width: 100%; justify-content: center; }
+    .hero-stats { gap: 24px; }
+    .stat-num { font-size: 28px; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .listings-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; }
+    .form-wrap { padding: 28px 20px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── LANG BAR ─── -->
+<div id="lang-bar">
+  <div class="lb-inner">
+    <button class="lang-btn" onclick="setLang('uz')" id="btn-uz">UZ</button>
+    <button class="lang-btn active" onclick="setLang('ru')" id="btn-ru">RU</button>
+    <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+  </div>
+</div>
+
+<!-- ─── NAV ─── -->
+<header id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="logo">
+      <div class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="logo-text">CITY <span>REALTY</span></span>
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#listings" data-key="nav_buy">Купить</a></li>
+        <li><a href="#contact-form" data-key="nav_sell">Продать</a></li>
+        <li><a href="#listings" data-key="nav_rent">Аренда</a></li>
+        <li><a href="#why-us" data-key="nav_about">О нас</a></li>
+        <li><a href="#contact-form" data-key="nav_contacts">Контакты</a></li>
+      </ul>
+    </nav>
+    <a href="#contact-form" class="btn-primary nav-cta">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>
+      <span data-key="nav_cta">Оставить заявку</span>
+    </a>
+    <button class="nav-burger" onclick="toggleMenu()" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#listings" data-key="nav_buy">Купить</a>
+    <a href="#contact-form" data-key="nav_sell">Продать</a>
+    <a href="#listings" data-key="nav_rent">Аренда</a>
+    <a href="#why-us" data-key="nav_about">О нас</a>
+    <a href="#contact-form" data-key="nav_contacts">Контакты</a>
+    <a href="#contact-form" class="btn-primary" data-key="nav_cta">Оставить заявку</a>
+  </div>
+</header>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke="#1B4FD8" stroke-width="2" stroke-linejoin="round"/></svg>
+      <span data-key="hero_badge">Агентство №1 в Узбекистане</span>
+    </div>
+    <h1 class="hero-title" data-key="hero_title">Найдём вашу <span class="hl">идеальную</span><br>недвижимость</h1>
+    <p class="hero-sub" data-key="hero_sub">Более 500 проверенных объектов в Ташкенте и регионах. Юридическая чистота, ипотека, онлайн-просмотр.</p>
+    <div class="search-box">
+      <select data-key-opt="search_type" aria-label="Тип объекта">
+        <option value="" data-key="search_type_ph">Тип объекта</option>
+        <option data-key="type_new">Новостройка</option>
+        <option data-key="type_sec">Вторичное жильё</option>
+        <option data-key="type_com">Коммерческая</option>
+        <option data-key="type_rent">Аренда</option>
+      </select>
+      <select aria-label="Город">
+        <option value="" data-key="search_city_ph">Город</option>
+        <option>Ташкент</option>
+        <option>Самарканд</option>
+        <option>Бухара</option>
+        <option>Наманган</option>
+        <option>Андижан</option>
+        <option>Нукус</option>
+      </select>
+      <button class="btn-search" onclick="alert('Поиск...')">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="white" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+        <span data-key="search_btn">Найти</span>
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num" data-key="stat1_num">500+</div>
+        <div class="stat-label" data-key="stat1_label">объектов</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-key="stat2_num">8</div>
+        <div class="stat-label" data-key="stat2_label">лет на рынке</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-key="stat3_num">1200+</div>
+        <div class="stat-label" data-key="stat3_label">сделок</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CATEGORIES ─── -->
+<section id="categories">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label" data-key="cat_label">Категории</span>
+      <h2 class="section-title" data-key="cat_title">Выберите тип недвижимости</h2>
+      <p class="section-sub" data-key="cat_sub">Широкий выбор объектов на любой запрос и бюджет</p>
+    </div>
+    <div class="cat-grid reveal">
+      <div class="cat-card">
+        <div class="cat-icon">
+          <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M2 20h20M4 20V9.5L12 4l8 5.5V20" stroke="#1B4FD8" stroke-width="2" stroke-linejoin="round"/><rect x="9" y="12" width="6" height="8" rx="1" stroke="#1B4FD8" stroke-width="2"/></svg>
+        </div>
+        <div class="cat-name" data-key="cat1_name">Новостройки</div>
+        <div class="cat-count" data-key="cat1_count">180+ объектов</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">
+          <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" stroke="#1B4FD8" stroke-width="2" stroke-linejoin="round"/><path d="M9 21V12h6v9" stroke="#1B4FD8" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="cat-name" data-key="cat2_name">Вторичное жильё</div>
+        <div class="cat-count" data-key="cat2_count">210+ объектов</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">
+          <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" stroke="#1B4FD8" stroke-width="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="#1B4FD8" stroke-width="2"/><line x1="12" y1="12" x2="12" y2="16" stroke="#1B4FD8" stroke-width="2" stroke-linecap="round"/><line x1="10" y1="14" x2="14" y2="14" stroke="#1B4FD8" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="cat-name" data-key="cat3_name">Коммерческая</div>
+        <div class="cat-count" data-key="cat3_count">75+ объектов</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">
+          <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="#1B4FD8" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="cat-name" data-key="cat4_name">Аренда</div>
+        <div class="cat-count" data-key="cat4_count">95+ объектов</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LISTINGS ─── -->
+<section id="listings">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label" data-key="list_label">Объявления</span>
+      <h2 class="section-title" data-key="list_title">Актуальные объекты</h2>
+      <p class="section-sub" data-key="list_sub">Свежие предложения от проверенных собственников и застройщиков</p>
+    </div>
+    <div class="listings-grid reveal">
+      <!-- Card 1 -->
+      <div class="listing-card">
+        <div class="listing-photo listing-photo-1">
+          <span class="listing-badge" data-key="badge1">Новостройка</span>
+        </div>
+        <div class="listing-body">
+          <div class="listing-name" data-key="l1_name">ЖК «Grand Residence»</div>
+          <div class="listing-loc">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="#94A3B8" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke="#94A3B8" stroke-width="2"/></svg>
+            <span data-key="l1_loc">Ташкент, Юнусабадский район</span>
+          </div>
+          <div class="listing-meta">
+            <div class="listing-price" data-key="l1_price">$145 000</div>
+            <div class="listing-area" data-key="l1_area">85 м²</div>
+          </div>
+          <button class="btn-outline" data-key="details_btn">Подробнее</button>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="listing-card">
+        <div class="listing-photo listing-photo-2">
+          <span class="listing-badge" data-key="badge2">Вторичное</span>
+        </div>
+        <div class="listing-body">
+          <div class="listing-name" data-key="l2_name">3-к квартира у метро</div>
+          <div class="listing-loc">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="#94A3B8" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke="#94A3B8" stroke-width="2"/></svg>
+            <span data-key="l2_loc">Ташкент, Мирзо-Улугбекский</span>
+          </div>
+          <div class="listing-meta">
+            <div class="listing-price" data-key="l2_price">$89 000</div>
+            <div class="listing-area" data-key="l2_area">72 м²</div>
+          </div>
+          <button class="btn-outline" data-key="details_btn">Подробнее</button>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="listing-card">
+        <div class="listing-photo listing-photo-3">
+          <span class="listing-badge" data-key="badge3">Аренда</span>
+        </div>
+        <div class="listing-body">
+          <div class="listing-name" data-key="l3_name">Офис в бизнес-центре</div>
+          <div class="listing-loc">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="#94A3B8" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke="#94A3B8" stroke-width="2"/></svg>
+            <span data-key="l3_loc">Ташкент, Яккасарайский район</span>
+          </div>
+          <div class="listing-meta">
+            <div class="listing-price" data-key="l3_price">$1 200/мес</div>
+            <div class="listing-area" data-key="l3_area">120 м²</div>
+          </div>
+          <button class="btn-outline" data-key="details_btn">Подробнее</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY US ─── -->
+<section id="why-us">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label" data-key="why_label">Преимущества</span>
+      <h2 class="section-title" data-key="why_title">Почему выбирают нас</h2>
+      <p class="section-sub" data-key="why_sub">Мы делаем каждую сделку безопасной, прозрачной и выгодной для клиента</p>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="26" height="26" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#1B4FD8" stroke-width="2" stroke-linejoin="round"/><polyline points="9 12 11 14 15 10" stroke="#1B4FD8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="why-title" data-key="why1_title">Юридическая чистота</div>
+        <div class="why-desc" data-key="why1_desc">Полная проверка документов и история объекта. Сопровождение сделки от начала до конца.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="26" height="26" fill="none" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke="#1B4FD8" stroke-width="2"/><line x1="2" y1="10" x2="22" y2="10" stroke="#1B4FD8" stroke-width="2"/></svg>
+        </div>
+        <div class="why-title" data-key="why2_title">Помощь с ипотекой</div>
+        <div class="why-desc" data-key="why2_desc">Работаем с ведущими банками Узбекистана. Поможем одобрить ипотеку на лучших условиях.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="26" height="26" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#1B4FD8" stroke-width="2"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" stroke="#1B4FD8" stroke-width="2"/></svg>
+        </div>
+        <div class="why-title" data-key="why3_title">Онлайн-просмотр</div>
+        <div class="why-desc" data-key="why3_desc">Виртуальные туры и видеопоказы. Выбирайте объект, не выходя из дома — удобно и быстро.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="26" height="26" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#1B4FD8" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7" r="4" stroke="#1B4FD8" stroke-width="2"/></svg>
+        </div>
+        <div class="why-title" data-key="why4_title">Личный менеджер</div>
+        <div class="why-desc" data-key="why4_desc">Персональный специалист на связи 7 дней в неделю. Ответим на любой вопрос в течение 15 минут.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TEAM ─── -->
+<section id="team">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label" data-key="team_label">Наша команда</span>
+      <h2 class="section-title" data-key="team_title">Опытные агенты</h2>
+      <p class="section-sub" data-key="team_sub">Каждый специалист с опытом от 5 лет и сотнями закрытых сделок</p>
+    </div>
+    <div class="team-grid reveal">
+      <div class="team-card">
+        <div class="avatar av1">АЮ</div>
+        <div class="team-name" data-key="a1_name">Азиз Юсупов</div>
+        <div class="team-spec" data-key="a1_spec">Новостройки · Инвестиции</div>
+        <a href="tel:+998901234567" class="team-phone">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#94A3B8" stroke-width="1.5"/></svg>
+          +998 90 123-45-67
+        </a>
+      </div>
+      <div class="team-card">
+        <div class="avatar av2">МК</div>
+        <div class="team-name" data-key="a2_name">Малика Каримова</div>
+        <div class="team-spec" data-key="a2_spec">Вторичное жильё · Аренда</div>
+        <a href="tel:+998901234568" class="team-phone">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#94A3B8" stroke-width="1.5"/></svg>
+          +998 90 123-45-68
+        </a>
+      </div>
+      <div class="team-card">
+        <div class="avatar av3">ДН</div>
+        <div class="team-name" data-key="a3_name">Давлат Назаров</div>
+        <div class="team-spec" data-key="a3_spec">Коммерческая · Офисы</div>
+        <a href="tel:+998901234569" class="team-phone">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#94A3B8" stroke-width="1.5"/></svg>
+          +998 90 123-45-69
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT FORM ─── -->
+<section id="contact-form">
+  <div class="form-wrap">
+    <div class="form-header reveal">
+      <span class="section-label" data-key="form_label">Заявка</span>
+      <h2 class="section-title" data-key="form_title">Получить консультацию</h2>
+      <p class="section-sub" style="margin-bottom:0" data-key="form_sub">Оставьте заявку — наш менеджер свяжется с вами в течение 15 минут</p>
+    </div>
+    <form id="cf" novalidate>
+      <div class="form-grid">
+        <div class="form-group reveal">
+          <label for="cf-name" data-key="form_name_label">Ваше имя</label>
+          <input type="text" id="cf-name" name="name" placeholder="" data-key-ph="form_name_ph" required autocomplete="name">
+        </div>
+        <div class="form-group reveal">
+          <label for="cf-phone" data-key="form_phone_label">Номер телефона</label>
+          <input type="tel" id="cf-phone" name="phone" placeholder="" data-key-ph="form_phone_ph" required autocomplete="tel">
+        </div>
+        <div class="form-group reveal">
+          <label for="cf-type" data-key="form_type_label">Цель</label>
+          <select id="cf-type" name="type">
+            <option value="buy" data-key="ft_buy">Купить</option>
+            <option value="sell" data-key="ft_sell">Продать</option>
+            <option value="rent" data-key="ft_rent">Аренда</option>
+          </select>
+        </div>
+        <div class="form-group reveal">
+          <label for="cf-budget" data-key="form_budget_label">Бюджет</label>
+          <input type="text" id="cf-budget" name="budget" placeholder="" data-key-ph="form_budget_ph" autocomplete="off">
+        </div>
+        <div class="form-group full reveal">
+          <label for="cf-comment" data-key="form_comment_label">Комментарий</label>
+          <textarea id="cf-comment" name="comment" rows="3" placeholder="" data-key-ph="form_comment_ph"></textarea>
+        </div>
+      </div>
+      <button type="submit" class="btn-submit" id="cf-submit">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13" stroke="white" stroke-width="2" stroke-linecap="round"/><polygon points="22 2 15 22 11 13 2 9 22 2" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>
+        <span data-key="form_submit">Получить консультацию</span>
+      </button>
+      <p class="form-note" data-key="form_note">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+      <div class="form-msg" id="cf-msg"></div>
+    </form>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-icon">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" stroke="white" stroke-width="2" stroke-linejoin="round"/><path d="M9 21V12h6v9" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="footer-logo-text">CITY REALTY</span>
+        </div>
+        <p class="footer-desc" data-key="footer_desc">Профессиональное агентство недвижимости в Узбекистане. Покупка, продажа, аренда — с гарантией безопасности.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-key="footer_col1">О компании</h4>
+        <ul>
+          <li><a href="#" data-key="fc1_1">О нас</a></li>
+          <li><a href="#team" data-key="fc1_2">Наша команда</a></li>
+          <li><a href="#" data-key="fc1_3">Лицензия</a></li>
+          <li><a href="#" data-key="fc1_4">Отзывы клиентов</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-key="footer_col2">Услуги</h4>
+        <ul>
+          <li><a href="#" data-key="fc2_1">Купить квартиру</a></li>
+          <li><a href="#" data-key="fc2_2">Продать объект</a></li>
+          <li><a href="#" data-key="fc2_3">Аренда</a></li>
+          <li><a href="#" data-key="fc2_4">Коммерческая</a></li>
+          <li><a href="#" data-key="fc2_5">Ипотека</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-key="footer_col3">Контакты</h4>
+        <div class="footer-contact-item">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="rgba(255,255,255,0.6)" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke="rgba(255,255,255,0.6)" stroke-width="2"/></svg>
+          <span data-key="footer_addr">г. Ташкент, ул. Амира Темура, 107</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/></svg>
+          <span>+998 71 200-00-00</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/><polyline points="22,6 12,13 2,6" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/></svg>
+          <span>info@cityrealty.uz</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy" data-key="footer_copy">© 2024 CITY REALTY. Все права защищены.</span>
+      <span class="footer-dev" data-key="footer_dev">Сайт разработан <a href="#" target="_blank">Strova Agency</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── TRANSLATIONS ───
+const T = {
+  uz: {
+    hero_badge: "O'zbekistonda №1 agentlik",
+    hero_title: "Ideal ko'chmas mulkingizni <span class='hl'>topamiz</span>",
+    hero_sub: "Toshkent va viloyatlarda 500+ tekshirilgan ob'ekt. Yuridik tozalik, ipoteka, onlayn ko'rish.",
+    search_type_ph: "Ob'ekt turi",
+    search_city_ph: "Shahar",
+    search_btn: "Qidirish",
+    type_new: "Yangi qurilish",
+    type_sec: "Ikkilamchi uy-joy",
+    type_com: "Tijorat",
+    type_rent: "Ijara",
+    stat1_num: "500+", stat1_label: "ob'ekt",
+    stat2_num: "8", stat2_label: "yillik tajriba",
+    stat3_num: "1200+", stat3_label: "bitim",
+    nav_buy: "Sotib olish", nav_sell: "Sotish", nav_rent: "Ijara",
+    nav_about: "Biz haqimizda", nav_contacts: "Aloqa",
+    nav_cta: "Murojaat qoldirish",
+    cat_label: "Kategoriyalar",
+    cat_title: "Ko'chmas mulk turini tanlang",
+    cat_sub: "Har qanday talab va byudjetga mos keng tanlov",
+    cat1_name: "Yangi qurilish", cat1_count: "180+ ob'ekt",
+    cat2_name: "Ikkilamchi uy-joy", cat2_count: "210+ ob'ekt",
+    cat3_name: "Tijorat", cat3_count: "75+ ob'ekt",
+    cat4_name: "Ijara", cat4_count: "95+ ob'ekt",
+    list_label: "E'lonlar",
+    list_title: "Dolzarb ob'ektlar",
+    list_sub: "Tekshirilgan egalari va qurilish kompaniyalaridan yangi takliflar",
+    badge1: "Yangi qurilish", badge2: "Ikkilamchi", badge3: "Ijara",
+    l1_name: "«Grand Residence» TK", l1_loc: "Toshkent, Yunusobod tumani", l1_price: "$145 000", l1_area: "85 m²",
+    l2_name: "3 xonali kvartira metro yaqinida", l2_loc: "Toshkent, Mirzo-Ulug'bek", l2_price: "$89 000", l2_area: "72 m²",
+    l3_name: "Biznes markazda ofis", l3_loc: "Toshkent, Yakkasaroy tumani", l3_price: "$1 200/oy", l3_area: "120 m²",
+    details_btn: "Batafsil",
+    why_label: "Afzalliklar",
+    why_title: "Nega bizni tanlashadi",
+    why_sub: "Har bir bitishuvni xavfsiz, shaffof va mijoz uchun foydali qilamiz",
+    why1_title: "Yuridik tozalik", why1_desc: "Hujjatlar va ob'ekt tarixini to'liq tekshirish. Boshidan oxirigacha bitim hamrohligi.",
+    why2_title: "Ipotekada yordam", why2_desc: "O'zbekistonning yetakchi banklari bilan ishlaymiz. Eng qulay shartlarda ipotekani tasdiqlashga yordam beramiz.",
+    why3_title: "Onlayn ko'rish", why3_desc: "Virtual turlar va video namoyishlar. Uydan chiqmasdan ob'ektni tanlang — qulay va tez.",
+    why4_title: "Shaxsiy menejer", why4_desc: "Haftasiga 7 kun aloqada bo'lgan shaxsiy mutaxassis. 15 daqiqa ichida har qanday savolga javob beramiz.",
+    team_label: "Bizning jamoa",
+    team_title: "Tajribali agentlar",
+    team_sub: "Har bir mutaxassis 5 yildan ortiq tajribaga va yuzlab yopilgan bitimlarga ega",
+    a1_name: "Aziz Yusupov", a1_spec: "Yangi qurilish · Investitsiya",
+    a2_name: "Malika Karimova", a2_spec: "Ikkilamchi uy-joy · Ijara",
+    a3_name: "Davlat Nazarov", a3_spec: "Tijorat · Ofislar",
+    form_label: "Ariza",
+    form_title: "Konsultatsiya olish",
+    form_sub: "Ariza qoldiring — menejerimiz 15 daqiqa ichida siz bilan bog'lanadi",
+    form_name_label: "Ismingiz", form_name_ph: "Isming, familiyangiz",
+    form_phone_label: "Telefon raqami", form_phone_ph: "+998 xx xxx-xx-xx",
+    form_type_label: "Maqsad",
+    ft_buy: "Sotib olish", ft_sell: "Sotish", ft_rent: "Ijara",
+    form_budget_label: "Byudjet", form_budget_ph: "masalan: $50 000",
+    form_comment_label: "Izoh", form_comment_ph: "Qo'shimcha ma'lumot...",
+    form_submit: "Konsultatsiya olish",
+    form_note: "Tugmani bosish orqali siz maxfiylik siyosatiga rozisiz",
+    form_success: "Rahmat! Menejerimiz tez orada siz bilan bog'lanadi.",
+    form_error: "Xatolik yuz berdi. Qayta urinib ko'ring.",
+    footer_desc: "O'zbekistonda professional ko'chmas mulk agentligi. Xavfsizlik kafolati bilan sotib olish, sotish, ijara.",
+    footer_col1: "Kompaniya haqida", footer_col2: "Xizmatlar", footer_col3: "Aloqa",
+    fc1_1: "Biz haqimizda", fc1_2: "Jamoa", fc1_3: "Litsenziya", fc1_4: "Mijozlar sharhi",
+    fc2_1: "Kvartira sotib olish", fc2_2: "Ob'ektni sotish", fc2_3: "Ijara", fc2_4: "Tijorat mulki", fc2_5: "Ipoteka",
+    footer_addr: "Toshkent sh., Amir Temur ko'chasi, 107",
+    footer_copy: "© 2024 CITY REALTY. Barcha huquqlar himoyalangan.",
+    footer_dev: "Sayt <a href='#' target='_blank'>Strova Agency</a> tomonidan ishlab chiqilgan",
+  },
+  ru: {
+    hero_badge: "Агентство №1 в Узбекистане",
+    hero_title: "Найдём вашу <span class='hl'>идеальную</span><br>недвижимость",
+    hero_sub: "Более 500 проверенных объектов в Ташкенте и регионах. Юридическая чистота, ипотека, онлайн-просмотр.",
+    search_type_ph: "Тип объекта",
+    search_city_ph: "Город",
+    search_btn: "Найти",
+    type_new: "Новостройка",
+    type_sec: "Вторичное жильё",
+    type_com: "Коммерческая",
+    type_rent: "Аренда",
+    stat1_num: "500+", stat1_label: "объектов",
+    stat2_num: "8", stat2_label: "лет на рынке",
+    stat3_num: "1200+", stat3_label: "сделок",
+    nav_buy: "Купить", nav_sell: "Продать", nav_rent: "Аренда",
+    nav_about: "О нас", nav_contacts: "Контакты",
+    nav_cta: "Оставить заявку",
+    cat_label: "Категории",
+    cat_title: "Выберите тип недвижимости",
+    cat_sub: "Широкий выбор объектов на любой запрос и бюджет",
+    cat1_name: "Новостройки", cat1_count: "180+ объектов",
+    cat2_name: "Вторичное жильё", cat2_count: "210+ объектов",
+    cat3_name: "Коммерческая", cat3_count: "75+ объектов",
+    cat4_name: "Аренда", cat4_count: "95+ объектов",
+    list_label: "Объявления",
+    list_title: "Актуальные объекты",
+    list_sub: "Свежие предложения от проверенных собственников и застройщиков",
+    badge1: "Новостройка", badge2: "Вторичное", badge3: "Аренда",
+    l1_name: "ЖК «Grand Residence»", l1_loc: "Ташкент, Юнусабадский район", l1_price: "$145 000", l1_area: "85 м²",
+    l2_name: "3-к квартира у метро", l2_loc: "Ташкент, Мирзо-Улугбекский", l2_price: "$89 000", l2_area: "72 м²",
+    l3_name: "Офис в бизнес-центре", l3_loc: "Ташкент, Яккасарайский район", l3_price: "$1 200/мес", l3_area: "120 м²",
+    details_btn: "Подробнее",
+    why_label: "Преимущества",
+    why_title: "Почему выбирают нас",
+    why_sub: "Мы делаем каждую сделку безопасной, прозрачной и выгодной для клиента",
+    why1_title: "Юридическая чистота", why1_desc: "Полная проверка документов и история объекта. Сопровождение сделки от начала до конца.",
+    why2_title: "Помощь с ипотекой", why2_desc: "Работаем с ведущими банками Узбекистана. Поможем одобрить ипотеку на лучших условиях.",
+    why3_title: "Онлайн-просмотр", why3_desc: "Виртуальные туры и видеопоказы. Выбирайте объект, не выходя из дома — удобно и быстро.",
+    why4_title: "Личный менеджер", why4_desc: "Персональный специалист на связи 7 дней в неделю. Ответим на любой вопрос в течение 15 минут.",
+    team_label: "Наша команда",
+    team_title: "Опытные агенты",
+    team_sub: "Каждый специалист с опытом от 5 лет и сотнями закрытых сделок",
+    a1_name: "Азиз Юсупов", a1_spec: "Новостройки · Инвестиции",
+    a2_name: "Малика Каримова", a2_spec: "Вторичное жильё · Аренда",
+    a3_name: "Давлат Назаров", a3_spec: "Коммерческая · Офисы",
+    form_label: "Заявка",
+    form_title: "Получить консультацию",
+    form_sub: "Оставьте заявку — наш менеджер свяжется с вами в течение 15 минут",
+    form_name_label: "Ваше имя", form_name_ph: "Имя, фамилия",
+    form_phone_label: "Номер телефона", form_phone_ph: "+998 xx xxx-xx-xx",
+    form_type_label: "Цель",
+    ft_buy: "Купить", ft_sell: "Продать", ft_rent: "Аренда",
+    form_budget_label: "Бюджет", form_budget_ph: "например: $50 000",
+    form_comment_label: "Комментарий", form_comment_ph: "Дополнительная информация...",
+    form_submit: "Получить консультацию",
+    form_note: "Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности",
+    form_success: "Спасибо! Наш менеджер скоро свяжется с вами.",
+    form_error: "Произошла ошибка. Попробуйте ещё раз.",
+    footer_desc: "Профессиональное агентство недвижимости в Узбекистане. Покупка, продажа, аренда — с гарантией безопасности.",
+    footer_col1: "О компании", footer_col2: "Услуги", footer_col3: "Контакты",
+    fc1_1: "О нас", fc1_2: "Наша команда", fc1_3: "Лицензия", fc1_4: "Отзывы клиентов",
+    fc2_1: "Купить квартиру", fc2_2: "Продать объект", fc2_3: "Аренда", fc2_4: "Коммерческая", fc2_5: "Ипотека",
+    footer_addr: "г. Ташкент, ул. Амира Темура, 107",
+    footer_copy: "© 2024 CITY REALTY. Все права защищены.",
+    footer_dev: "Сайт разработан <a href='#' target='_blank'>Strova Agency</a>",
+  },
+  en: {
+    hero_badge: "Agency #1 in Uzbekistan",
+    hero_title: "Find your <span class='hl'>perfect</span><br>property",
+    hero_sub: "500+ verified listings in Tashkent and regions. Legal clarity, mortgage assistance, online viewing.",
+    search_type_ph: "Property type",
+    search_city_ph: "City",
+    search_btn: "Search",
+    type_new: "New build",
+    type_sec: "Secondary housing",
+    type_com: "Commercial",
+    type_rent: "Rental",
+    stat1_num: "500+", stat1_label: "listings",
+    stat2_num: "8", stat2_label: "years on market",
+    stat3_num: "1200+", stat3_label: "deals closed",
+    nav_buy: "Buy", nav_sell: "Sell", nav_rent: "Rent",
+    nav_about: "About", nav_contacts: "Contacts",
+    nav_cta: "Leave a request",
+    cat_label: "Categories",
+    cat_title: "Choose property type",
+    cat_sub: "Wide selection for any request and budget",
+    cat1_name: "New builds", cat1_count: "180+ listings",
+    cat2_name: "Secondary housing", cat2_count: "210+ listings",
+    cat3_name: "Commercial", cat3_count: "75+ listings",
+    cat4_name: "Rental", cat4_count: "95+ listings",
+    list_label: "Listings",
+    list_title: "Current properties",
+    list_sub: "Fresh offers from verified owners and developers",
+    badge1: "New build", badge2: "Secondary", badge3: "Rental",
+    l1_name: "Grand Residence Complex", l1_loc: "Tashkent, Yunusabad district", l1_price: "$145,000", l1_area: "85 m²",
+    l2_name: "3-room flat near metro", l2_loc: "Tashkent, Mirzo-Ulugbek", l2_price: "$89,000", l2_area: "72 m²",
+    l3_name: "Office in business centre", l3_loc: "Tashkent, Yakkasaray district", l3_price: "$1,200/mo", l3_area: "120 m²",
+    details_btn: "Details",
+    why_label: "Advantages",
+    why_title: "Why choose us",
+    why_sub: "We make every deal safe, transparent and profitable for our clients",
+    why1_title: "Legal clarity", why1_desc: "Full document and property history check. Deal support from start to finish.",
+    why2_title: "Mortgage assistance", why2_desc: "We work with Uzbekistan's leading banks. We'll help you get approved on the best terms.",
+    why3_title: "Online viewing", why3_desc: "Virtual tours and video showings. Choose a property without leaving home — convenient and fast.",
+    why4_title: "Personal manager", why4_desc: "A dedicated specialist available 7 days a week. We answer any question within 15 minutes.",
+    team_label: "Our team",
+    team_title: "Experienced agents",
+    team_sub: "Every specialist has 5+ years experience and hundreds of closed deals",
+    a1_name: "Aziz Yusupov", a1_spec: "New builds · Investment",
+    a2_name: "Malika Karimova", a2_spec: "Secondary housing · Rental",
+    a3_name: "Davlat Nazarov", a3_spec: "Commercial · Offices",
+    form_label: "Request",
+    form_title: "Get a consultation",
+    form_sub: "Leave a request — our manager will contact you within 15 minutes",
+    form_name_label: "Your name", form_name_ph: "First and last name",
+    form_phone_label: "Phone number", form_phone_ph: "+998 xx xxx-xx-xx",
+    form_type_label: "Goal",
+    ft_buy: "Buy", ft_sell: "Sell", ft_rent: "Rent",
+    form_budget_label: "Budget", form_budget_ph: "e.g. $50,000",
+    form_comment_label: "Comment", form_comment_ph: "Additional information...",
+    form_submit: "Get consultation",
+    form_note: "By clicking the button you agree to our privacy policy",
+    form_success: "Thank you! Our manager will contact you soon.",
+    form_error: "An error occurred. Please try again.",
+    footer_desc: "Professional real estate agency in Uzbekistan. Buy, sell, rent — with a safety guarantee.",
+    footer_col1: "About company", footer_col2: "Services", footer_col3: "Contacts",
+    fc1_1: "About us", fc1_2: "Our team", fc1_3: "License", fc1_4: "Client reviews",
+    fc2_1: "Buy apartment", fc2_2: "Sell property", fc2_3: "Rental", fc2_4: "Commercial", fc2_5: "Mortgage",
+    footer_addr: "Tashkent, Amir Temur street, 107",
+    footer_copy: "© 2024 CITY REALTY. All rights reserved.",
+    footer_dev: "Website developed by <a href='#' target='_blank'>Strova Agency</a>",
+  }
+};
+
+let currentLang = 'ru';
+
+function setLang(l) {
+  currentLang = l;
+  // buttons
+  ['uz','ru','en'].forEach(lang => {
+    document.getElementById('btn-'+lang).classList.toggle('active', lang === l);
+  });
+  const dict = T[l];
+  // data-key elements (innerHTML)
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.getAttribute('data-key');
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+  // data-key-ph elements (placeholder)
+  document.querySelectorAll('[data-key-ph]').forEach(el => {
+    const key = el.getAttribute('data-key-ph');
+    if (dict[key] !== undefined) el.placeholder = dict[key];
+  });
+  // html lang attribute
+  document.documentElement.lang = l === 'uz' ? 'uz' : l === 'en' ? 'en' : 'ru';
+}
+
+// init
+setLang('ru');
+
+// ─── MOBILE MENU ───
+function toggleMenu() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+document.querySelectorAll('#mobile-menu a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('open'));
+});
+
+// ─── SCROLL REVEAL ───
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ─── CONTACT FORM / TELEGRAM ───
+const TELEGRAM_TOKEN = '8294315634:AAHYHAikSetei6pwW-8XmupO7D_AGFPm5Fg';
+const TELEGRAM_CHAT  = '7118891995';
+
+document.getElementById('cf').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('cf-submit');
+  const msg = document.getElementById('cf-msg');
+  const dict = T[currentLang];
+
+  const name    = document.getElementById('cf-name').value.trim();
+  const phone   = document.getElementById('cf-phone').value.trim();
+  const type    = document.getElementById('cf-type');
+  const typeVal = type.options[type.selectedIndex].text;
+  const budget  = document.getElementById('cf-budget').value.trim();
+  const comment = document.getElementById('cf-comment').value.trim();
+
+  if (!name || !phone) {
+    msg.className = 'form-msg error';
+    msg.textContent = currentLang === 'uz' ? 'Iltimos, ism va telefon raqamingizni kiriting.' :
+                      currentLang === 'en' ? 'Please enter your name and phone number.' :
+                      'Пожалуйста, введите имя и номер телефона.';
+    return;
+  }
+
+  btn.disabled = true;
+  msg.className = 'form-msg';
+  msg.style.display = 'none';
+
+  const text = [
+    '🏠 *CITY REALTY — новая заявка*',
+    `👤 Имя: ${name}`,
+    `📞 Телефон: ${phone}`,
+    `🎯 Цель: ${typeVal}`,
+    budget  ? `💰 Бюджет: ${budget}` : null,
+    comment ? `💬 Комментарий: ${comment}` : null,
+  ].filter(Boolean).join('\n');
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TELEGRAM_CHAT, text, parse_mode: 'Markdown' })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      msg.className = 'form-msg success';
+      msg.textContent = dict.form_success || 'Спасибо! Наш менеджер свяжется с вами.';
+      document.getElementById('cf').reset();
+    } else {
+      throw new Error(data.description || 'API error');
+    }
+  } catch(err) {
+    msg.className = 'form-msg error';
+    msg.textContent = dict.form_error || 'Произошла ошибка. Попробуйте ещё раз.';
+    console.error(err);
+  } finally {
+    btn.disabled = false;
+    msg.style.display = 'block';
+  }
+});
+</script>
+</body>
+</html>

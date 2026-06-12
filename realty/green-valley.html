@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GREEN VALLEY — Коттеджный посёлок</title>
+  <meta name="description" content="GREEN VALLEY — коттеджный посёлок в 20 минутах от Ташкента. 48 домов, 5 га природы, собственная инфраструктура.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    :root {
+      --color-primary:    #2D6A4F;
+      --color-secondary:  #40916C;
+      --color-accent:     #B7860D;
+      --color-bg:         #F5F9F0;
+      --color-white:      #FFFFFF;
+      --color-dark:       #1A2E1E;
+      --color-text:       #2C3E2D;
+      --color-muted:      #6B7E6D;
+      --color-border:     #C8DEC9;
+      --color-hero-dark:  #1B3A2A;
+
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+
+      --radius-sm:  8px;
+      --radius-md:  16px;
+      --radius-lg:  24px;
+      --radius-xl:  32px;
+
+      --shadow-sm:  0 1px 4px rgba(45,106,79,.08);
+      --shadow-md:  0 4px 16px rgba(45,106,79,.12);
+      --shadow-lg:  0 8px 32px rgba(45,106,79,.16);
+
+      --transition: 240ms ease;
+
+      --max-w: 1200px;
+      --nav-h: 68px;
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+    ul { list-style: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ============================================================
+       UTILITY
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    @media (min-width: 768px)  { .container { padding: 0 32px; } }
+    @media (min-width: 1024px) { .container { padding: 0 48px; } }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
+      cursor: pointer;
+      touch-action: manipulation;
+      min-height: 48px;
+    }
+    .btn:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
+    .btn:active { transform: scale(.97); }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+    .btn-primary:hover { background: var(--color-secondary); box-shadow: var(--shadow-md); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-white);
+      border: 2px solid rgba(255,255,255,.6);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,.12); border-color: var(--color-white); }
+
+    .btn-gold {
+      background: var(--color-accent);
+      color: var(--color-white);
+    }
+    .btn-gold:hover { background: #9A6F0A; box-shadow: var(--shadow-md); }
+
+    .section { padding: 80px 0; }
+    @media (min-width: 768px) { .section { padding: 100px 0; } }
+
+    .section-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 600;
+      color: var(--color-dark);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 17px;
+      color: var(--color-muted);
+      max-width: 560px;
+    }
+    .text-center { text-align: center; }
+    .text-center .section-sub { margin: 0 auto; }
+
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    /* ============================================================
+       LANG BAR
+    ============================================================ */
+    #lang-bar {
+      background: var(--color-primary);
+      padding: 8px 0;
+    }
+    #lang-bar .container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      background: transparent;
+      color: rgba(255,255,255,.7);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      transition: color var(--transition), background var(--transition);
+      min-height: 28px;
+    }
+    .lang-btn:hover { color: var(--color-white); background: rgba(255,255,255,.12); }
+    .lang-btn.active { color: var(--color-white); background: rgba(255,255,255,.2); }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    #nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--color-white);
+      box-shadow: var(--shadow-sm);
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+    }
+    #nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-primary);
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: none;
+      gap: 4px;
+    }
+    @media (min-width: 1024px) { .nav-links { display: flex; } }
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      transition: color var(--transition), background var(--transition);
+      white-space: nowrap;
+    }
+    .nav-link:hover { color: var(--color-primary); background: var(--color-bg); }
+    .nav-cta { display: none; }
+    @media (min-width: 768px) { .nav-cta { display: inline-flex; } }
+
+    /* Mobile burger */
+    .burger {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 18px;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      min-height: 44px;
+      min-width: 44px;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (min-width: 1024px) { .burger { display: none; } }
+    .burger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-primary);
+      border-radius: 2px;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu */
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      top: calc(var(--nav-h) + 40px);
+      left: 0;
+      right: 0;
+      background: var(--color-white);
+      padding: 20px;
+      box-shadow: var(--shadow-lg);
+      z-index: 99;
+      flex-direction: column;
+      gap: 4px;
+      border-top: 1px solid var(--color-border);
+    }
+    #mobile-menu.open { display: flex; }
+    .mobile-link {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-text);
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      transition: background var(--transition);
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    .mobile-link:hover { background: var(--color-bg); color: var(--color-primary); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      background:
+        linear-gradient(160deg, rgba(27,58,42,.92) 0%, rgba(45,106,79,.78) 60%, rgba(64,145,108,.6) 100%),
+        radial-gradient(ellipse at 70% 40%, #2D6A4F 0%, #1B3A2A 100%);
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* decorative organic shapes */
+    #hero::before {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      left: -80px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,.04) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(183,134,13,.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(183,134,13,.18);
+      border: 1px solid rgba(183,134,13,.35);
+      color: #F5C842;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 6vw, 64px);
+      font-weight: 700;
+      color: var(--color-white);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      max-width: 720px;
+    }
+    .hero-title span { color: #A8D5BA; font-style: italic; }
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 19px);
+      color: rgba(255,255,255,.8);
+      max-width: 520px;
+      margin-bottom: 36px;
+      line-height: 1.65;
+    }
+    .hero-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 56px;
+    }
+    /* Stats */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,.15);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      max-width: 480px;
+    }
+    .hero-stat {
+      background: rgba(255,255,255,.07);
+      padding: 20px 16px;
+      text-align: center;
+      backdrop-filter: blur(6px);
+    }
+    .hero-stat-val {
+      font-family: var(--font-heading);
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 700;
+      color: var(--color-white);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .hero-stat-val span { color: #F5C842; }
+    .hero-stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,.65);
+      letter-spacing: .04em;
+    }
+    /* Wave divider */
+    .hero-wave {
+      display: block;
+      margin-top: -2px;
+      width: 100%;
+    }
+
+    /* ============================================================
+       FEATURES
+    ============================================================ */
+    #features { background: var(--color-white); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 48px;
+    }
+    @media (min-width: 600px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .features-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .feature-card {
+      background: var(--color-bg);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      border: 1px solid var(--color-border);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .feature-icon svg { width: 28px; height: 28px; stroke: white; fill: none; }
+    .feature-title {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--color-dark);
+      margin-bottom: 10px;
+    }
+    .feature-desc { font-size: 14px; color: var(--color-muted); line-height: 1.65; }
+
+    /* ============================================================
+       HOUSES
+    ============================================================ */
+    #houses { background: var(--color-bg); }
+    .houses-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      margin-top: 48px;
+    }
+    @media (min-width: 768px)  { .houses-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .houses-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .house-card {
+      background: var(--color-white);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .house-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+    .house-visual {
+      height: 200px;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .house-visual.s {
+      background: linear-gradient(135deg, #40916C 0%, #2D6A4F 60%, #1B5E3B 100%);
+    }
+    .house-visual.m {
+      background: linear-gradient(135deg, #52B788 0%, #40916C 50%, #2D6A4F 100%);
+    }
+    .house-visual.l {
+      background: linear-gradient(135deg, #74C69D 0%, #52B788 40%, #2D6A4F 100%);
+    }
+    /* Decorative house silhouette */
+    .house-visual::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: rgba(0,0,0,.08);
+      clip-path: polygon(0 100%, 5% 40%, 15% 40%, 15% 20%, 40% 0%, 65% 20%, 65% 40%, 75% 40%, 75% 60%, 85% 60%, 85% 40%, 95% 40%, 100% 55%, 100% 100%);
+    }
+    .house-badge {
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.25);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      padding: 5px 12px;
+      border-radius: 50px;
+    }
+
+    .house-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 16px; }
+    .house-name {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-dark);
+    }
+    .house-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .spec-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--color-muted);
+    }
+    .spec-item svg { width: 16px; height: 16px; stroke: var(--color-primary); flex-shrink: 0; fill: none; }
+    .house-price {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .price-from { font-size: 12px; color: var(--color-muted); }
+    .price-val {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+    .house-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      color: white;
+      border-radius: var(--radius-md);
+      padding: 13px;
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .house-btn:hover { opacity: .88; transform: scale(.99); }
+    .house-btn:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+
+    /* ============================================================
+       TERRITORY
+    ============================================================ */
+    #territory { background: var(--color-white); }
+    .territory-intro {
+      max-width: 640px;
+      font-size: 17px;
+      color: var(--color-muted);
+      margin: 16px 0 48px;
+      line-height: 1.7;
+    }
+    .infra-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    @media (min-width: 600px)  { .infra-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1024px) { .infra-grid { grid-template-columns: repeat(6, 1fr); } }
+
+    .infra-item {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 24px 16px;
+      text-align: center;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .infra-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .infra-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, rgba(45,106,79,.12), rgba(64,145,108,.08));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+    }
+    .infra-icon svg { width: 24px; height: 24px; stroke: var(--color-primary); fill: none; }
+    .infra-label { font-size: 13px; font-weight: 600; color: var(--color-text); line-height: 1.3; }
+
+    /* ============================================================
+       LOCATION
+    ============================================================ */
+    #location { background: var(--color-bg); }
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      margin-top: 48px;
+      align-items: start;
+    }
+    @media (min-width: 768px) { .location-grid { grid-template-columns: 1fr 1fr; } }
+
+    .location-text p {
+      font-size: 16px;
+      color: var(--color-muted);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+    .distances {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .dist-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      transition: box-shadow var(--transition);
+    }
+    .dist-item:hover { box-shadow: var(--shadow-sm); }
+    .dist-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text);
+    }
+    .dist-left svg { width: 20px; height: 20px; stroke: var(--color-primary); flex-shrink: 0; fill: none; }
+    .dist-right {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-primary);
+      white-space: nowrap;
+    }
+
+    /* Map placeholder */
+    .map-placeholder {
+      background: linear-gradient(135deg, #c8dac9, #a8c8a8);
+      border-radius: var(--radius-xl);
+      height: 360px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: var(--color-primary);
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      position: relative;
+    }
+    .map-placeholder svg { width: 48px; height: 48px; stroke: var(--color-primary); fill: none; opacity: .6; }
+    .map-placeholder-text { font-size: 15px; font-weight: 500; opacity: .7; }
+    /* decorative roads */
+    .map-road {
+      position: absolute;
+      background: rgba(255,255,255,.4);
+    }
+    .map-road.h { height: 3px; left: 0; right: 0; top: 50%; }
+    .map-road.v { width: 3px; top: 0; bottom: 0; left: 40%; }
+    .map-pin {
+      position: absolute;
+      top: 38%;
+      left: 37%;
+      width: 24px;
+      height: 24px;
+      background: var(--color-primary);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      border: 3px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,.25);
+    }
+
+    /* ============================================================
+       CONTACT FORM
+    ============================================================ */
+    #contact {
+      background: linear-gradient(160deg, var(--color-hero-dark) 0%, var(--color-primary) 100%);
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    #contact::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      position: relative;
+      z-index: 1;
+    }
+    @media (min-width: 768px) { .contact-wrap { grid-template-columns: 1fr 1.2fr; align-items: center; } }
+
+    .contact-info .section-title { color: var(--color-white); }
+    .contact-info .section-sub { color: rgba(255,255,255,.7); }
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 28px;
+      color: rgba(255,255,255,.85);
+      font-size: 15px;
+    }
+    .contact-detail svg { width: 22px; height: 22px; stroke: #A8D5BA; fill: none; flex-shrink: 0; }
+
+    .form-card {
+      background: var(--color-white);
+      border-radius: var(--radius-xl);
+      padding: 36px 28px;
+      box-shadow: var(--shadow-lg);
+    }
+    .form-title {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--color-dark);
+      margin-bottom: 24px;
+    }
+    .form-row { display: grid; gap: 16px; }
+    @media (min-width: 480px) { .form-row.two { grid-template-columns: 1fr 1fr; } }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text);
+      letter-spacing: .02em;
+    }
+    .form-label span { color: #e53e3e; margin-left: 3px; }
+    .form-control {
+      font-family: var(--font-body);
+      font-size: 15px;
+      padding: 12px 16px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: var(--color-bg);
+      color: var(--color-text);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      min-height: 48px;
+    }
+    .form-control::placeholder { color: #a0a9a1; }
+    .form-control:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(45,106,79,.12); }
+    .form-control.error { border-color: #e53e3e; }
+    textarea.form-control { resize: vertical; min-height: 88px; }
+    select.form-control { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236B7E6D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; }
+
+    .field-error { font-size: 12px; color: #e53e3e; display: none; }
+    .form-group.has-error .field-error { display: block; }
+    .form-group.has-error .form-control { border-color: #e53e3e; }
+
+    .form-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      color: white;
+      border-radius: var(--radius-md);
+      padding: 15px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      transition: opacity var(--transition), transform var(--transition);
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .form-submit:hover:not(:disabled) { opacity: .88; transform: scale(.99); }
+    .form-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+    .form-submit:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
+
+    .form-spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,.35);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      display: none;
+    }
+    .form-submit.loading .form-spinner { display: block; }
+    .form-submit.loading .btn-label { display: none; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    #form-success, #form-error {
+      display: none;
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 12px;
+      align-items: center;
+      gap: 10px;
+    }
+    #form-success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+    #form-error   { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+    #form-success svg, #form-error svg { width: 18px; height: 18px; flex-shrink: 0; fill: none; stroke: currentColor; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    #footer {
+      background: var(--color-dark);
+      padding: 56px 0 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 28px;
+    }
+    @media (min-width: 768px) { .footer-grid { grid-template-columns: 1.5fr 1fr 1fr; } }
+
+    .footer-brand {}
+    .footer-logo {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-white);
+      letter-spacing: .04em;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-tagline {
+      font-size: 14px;
+      color: rgba(255,255,255,.5);
+      line-height: 1.6;
+      max-width: 260px;
+    }
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      margin-bottom: 16px;
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-link {
+      font-size: 14px;
+      color: rgba(255,255,255,.65);
+      transition: color var(--transition);
+      cursor: pointer;
+    }
+    .footer-link:hover { color: #A8D5BA; }
+
+    .footer-contacts { display: flex; flex-direction: column; gap: 12px; }
+    .footer-contact {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: rgba(255,255,255,.65);
+    }
+    .footer-contact svg { width: 18px; height: 18px; stroke: var(--color-secondary); fill: none; flex-shrink: 0; }
+
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,.35); }
+    .footer-dev { font-size: 13px; color: rgba(255,255,255,.35); }
+    .footer-dev a { color: rgba(183,134,13,.7); transition: color var(--transition); }
+    .footer-dev a:hover { color: var(--color-accent); }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     LANG BAR
+============================================================ -->
+<div id="lang-bar" role="navigation" aria-label="Language selector">
+  <div class="container">
+    <button class="lang-btn" onclick="setLang('uz')" id="lb-uz" aria-label="O'zbek tili">UZ</button>
+    <button class="lang-btn active" onclick="setLang('ru')" id="lb-ru" aria-label="Русский язык">RU</button>
+    <button class="lang-btn" onclick="setLang('en')" id="lb-en" aria-label="English">EN</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     NAV
+============================================================ -->
+<header id="nav" role="banner">
+  <div class="container">
+    <!-- Logo -->
+    <a href="#hero" class="nav-logo" aria-label="GREEN VALLEY — на главную">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <path d="M14 2 C7 8 4 14 6 22 C10 20 12 17 14 22 C16 17 18 20 22 22 C24 14 21 8 14 2Z" fill="#2D6A4F"/>
+        <path d="M14 10 L14 24" stroke="#40916C" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      GREEN VALLEY
+    </a>
+
+    <!-- Desktop nav links -->
+    <nav class="nav-links" aria-label="Основная навигация">
+      <a href="#features" class="nav-link" data-key="nav_about">О посёлке</a>
+      <a href="#houses"   class="nav-link" data-key="nav_houses">Дома</a>
+      <a href="#territory"class="nav-link" data-key="nav_territory">Территория</a>
+      <a href="#contact"  class="nav-link" data-key="nav_price">Цены</a>
+      <a href="#contact"  class="nav-link" data-key="nav_contacts">Контакты</a>
+    </nav>
+
+    <!-- CTA + Burger -->
+    <button class="btn btn-primary nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-key="nav_cta">Забронировать участок</button>
+    <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" role="navigation" aria-label="Мобильная навигация">
+  <a href="#features"  class="mobile-link" onclick="closeMenu()" data-key="nav_about">О посёлке</a>
+  <a href="#houses"    class="mobile-link" onclick="closeMenu()" data-key="nav_houses">Дома</a>
+  <a href="#territory" class="mobile-link" onclick="closeMenu()" data-key="nav_territory">Территория</a>
+  <a href="#contact"   class="mobile-link" onclick="closeMenu()" data-key="nav_price">Цены</a>
+  <a href="#contact"   class="mobile-link" onclick="closeMenu()" data-key="nav_contacts">Контакты</a>
+  <button class="btn btn-primary" style="margin-top:8px;justify-content:center;" onclick="closeMenu();document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-key="nav_cta">Забронировать участок</button>
+</div>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section id="hero" aria-label="Главный экран">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-tag reveal">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+        </svg>
+        <span data-key="hero_tag">Коттеджный посёлок премиум-класса</span>
+      </div>
+
+      <h1 class="hero-title reveal reveal-delay-1">
+        GREEN VALLEY —<br><span data-key="hero_title_accent">Жизнь среди природы</span>
+      </h1>
+
+      <p class="hero-sub reveal reveal-delay-2" data-key="hero_sub">
+        Коттеджный посёлок в 20 минутах от Ташкента. Чистый воздух, зелёные аллеи и всё необходимое для комфортной жизни.
+      </p>
+
+      <div class="hero-btns reveal reveal-delay-3">
+        <button class="btn btn-gold" onclick="document.getElementById('houses').scrollIntoView({behavior:'smooth'})" data-key="hero_btn1">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Смотреть дома
+        </button>
+        <button class="btn btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-key="hero_btn2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Записаться на осмотр
+        </button>
+      </div>
+
+      <!-- Stats -->
+      <div class="hero-stats reveal reveal-delay-4" aria-label="Ключевые показатели">
+        <div class="hero-stat">
+          <div class="hero-stat-val">5 <span data-key="stat_ha_unit">га</span></div>
+          <div class="hero-stat-label" data-key="stat_ha_label">Территория</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">48</div>
+          <div class="hero-stat-label" data-key="stat_homes_label">Домов</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">20 <span data-key="stat_min_unit">мин</span></div>
+          <div class="hero-stat-label" data-key="stat_min_label">До города</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wave -->
+  <svg class="hero-wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z" fill="#FFFFFF"/>
+  </svg>
+</section>
+
+<!-- ============================================================
+     FEATURES
+============================================================ -->
+<section id="features" class="section" aria-labelledby="feat-title">
+  <div class="container">
+    <div class="text-center reveal">
+      <span class="section-label" data-key="feat_label">Преимущества</span>
+      <h2 class="section-title" id="feat-title" data-key="feat_title">Почему выбирают GREEN VALLEY</h2>
+      <p class="section-sub" data-key="feat_sub">Мы создали посёлок, где природа и комфорт живут в идеальном балансе.</p>
+    </div>
+
+    <div class="features-grid">
+      <!-- Feature 1 -->
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 2a9 9 0 0 1 9 9c0 5-4 8-9 11C8 19 3 16 3 11a9 9 0 0 1 9-9z"/><path d="M12 6v6l3 3"/></svg>
+        </div>
+        <h3 class="feature-title" data-key="feat1_title">Чистый воздух</h3>
+        <p class="feature-desc" data-key="feat1_desc">Посёлок окружён садами и лесополосами. PM2.5 в 8 раз ниже городских норм.</p>
+      </div>
+      <!-- Feature 2 -->
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="feature-title" data-key="feat2_title">Охраняемая территория</h3>
+        <p class="feature-desc" data-key="feat2_desc">КПП с охраной 24/7, видеонаблюдение на всей территории, контроль доступа.</p>
+      </div>
+      <!-- Feature 3 -->
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+        </div>
+        <h3 class="feature-title" data-key="feat3_title">Собственная инфраструктура</h3>
+        <p class="feature-desc" data-key="feat3_desc">Детская площадка, бассейн, спортзал, магазин — всё в шаговой доступности.</p>
+      </div>
+      <!-- Feature 4 -->
+      <div class="feature-card reveal reveal-delay-4">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h3 class="feature-title" data-key="feat4_title">Ипотека от 15%</h3>
+        <p class="feature-desc" data-key="feat4_desc">Партнёрство с ведущими банками. Рассрочка без переплаты. Помощь в оформлении.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HOUSES
+============================================================ -->
+<section id="houses" class="section" aria-labelledby="houses-title">
+  <div class="container">
+    <div class="text-center reveal">
+      <span class="section-label" data-key="houses_label">Каталог</span>
+      <h2 class="section-title" id="houses-title" data-key="houses_title">Выберите свой дом</h2>
+      <p class="section-sub" data-key="houses_sub">Три типа домов под любые потребности семьи. Высококачественные материалы, продуманная планировка.</p>
+    </div>
+
+    <div class="houses-grid">
+      <!-- Дом-S -->
+      <article class="house-card reveal reveal-delay-1" aria-label="Дом-S 120м²">
+        <div class="house-visual s" aria-hidden="true">
+          <span class="house-badge" data-key="house_s_badge">Старт</span>
+        </div>
+        <div class="house-body">
+          <h3 class="house-name">Дом-S</h3>
+          <div class="house-specs">
+            <div class="spec-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              <span data-key="hs_area">120 м²</span>
+            </div>
+            <div class="spec-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M3 21h18M3 7v1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7H3l2-4h14l2 4"/></svg>
+              <span data-key="hs_land">4 сотки</span>
+            </div>
+            <div class="spec-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <span data-key="hs_rooms">3 спальни</span>
+            </div>
+            <div class="spec-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span data-key="hs_floors">2 этажа</span>
+            </div>
+          </div>
+          <div class="house-price">
+            <div>
+              <div class="price-from" data-key="price_from">от</div>
+              <div class="price-val">$85 000</div>
+            </div>
+            <button class="btn btn-primary" style="padding:10px 20px;border-radius:10px;font-size:13px;" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+              <span data-key="btn_inquire">Узнать подробнее</span>
+            </button>
+          </div>
+          <button class="house-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-key="btn_book">Забронировать</button>
+        </div>
+      </article>
+
+      <!-- Дом-M -->
+      <article class="house-card reveal reveal-delay-2" aria-label="Дом-M 180м²" style="position:relative">
+        <!-- Popular badge -->
+        <div style="position:absolute;top:16px;right:16px;z-index:2;background:var(--color-accent);color:white;font-size:11px;font-weight:700;padding:4px 10px;border-radius:50px;letter-spacing:.06em" data-key="badge_popular">Популярный</div>
+        <div class="house-visual m" aria-hidden="true">
+          <span class="house-badge" data-key="house_m_badge">Оптимум</span>
+        </div>
+        <div class="house-body">
+          <h3 class="house-name">Дом-M</h3>
+          <div class="house-specs">
+            <div class="spec-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              <span data-key="hm_area">180 м²</span>
+            </div>
+            <div class="spec-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M3 21h18M3 7v1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7H3l2-4h14l2 4"/></svg>
+              <span data-key="hm_land">6 соток</span>
+            </div>
+            <div class="spec-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <span data-key="hm_rooms">4 спальни</span>
+            </div>
+            <div class="spec-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span data-key="hm_floors">2 этажа + гараж</span>
+            </div>
+          </div>
+          <div class="house-price">
+            <div>
+              <div class="price-from" data-key="price_from">от</div>
+              <div class="price-val">$130 000</div>
+            </div>
+            <button class="btn btn-primary" style="padding:10px 20px;border-radius:10px;font-size:13px;" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+              <span data-key="btn_inquire">Узнать подробнее</span>
+            </button>
+          </div>
+          <button class="house-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-key="btn_book">Забронировать</button>
+        </div>
+      </article>
+
+      <!-- Дом-L -->
+      <article class="house-card reveal reveal-delay-3" aria-label="Дом-L 250м²">
+        <div class="house-visual l" aria-hidden="true">
+          <span class="house-badge" data-key="house_l_badge">Премиум</span>
+        </div>
+        <div class="house-body">
+          <h3 class="house-name">Дом-L</h3>
+          <div class="house-specs">
+            <div class="spec-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              <span data-key="hl_area">250 м²</span>
+            </div>
+            <div class="spec-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M3 21h18M3 7v1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7H3l2-4h14l2 4"/></svg>
+              <span data-key="hl_land">10 соток</span>
+            </div>
+            <div class="spec-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <span data-key="hl_rooms">5 спален</span>
+            </div>
+            <div class="spec-item">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span data-key="hl_floors">3 этажа + бассейн</span>
+            </div>
+          </div>
+          <div class="house-price">
+            <div>
+              <div class="price-from" data-key="price_from">от</div>
+              <div class="price-val">$195 000</div>
+            </div>
+            <button class="btn btn-primary" style="padding:10px 20px;border-radius:10px;font-size:13px;" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+              <span data-key="btn_inquire">Узнать подробнее</span>
+            </button>
+          </div>
+          <button class="house-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-key="btn_book">Забронировать</button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TERRITORY
+============================================================ -->
+<section id="territory" class="section" aria-labelledby="terr-title">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label" data-key="terr_label">Инфраструктура</span>
+      <h2 class="section-title" id="terr-title" data-key="terr_title">Территория GREEN VALLEY</h2>
+      <p class="territory-intro" data-key="terr_sub">5 гектаров ухоженного пространства с продуманной инфраструктурой. Здесь есть всё необходимое для полноценной жизни семьи — без необходимости выезжать в город.</p>
+    </div>
+
+    <div class="infra-grid">
+      <div class="infra-item reveal reveal-delay-1">
+        <div class="infra-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="infra-label" data-key="infra1">Детская площадка</div>
+      </div>
+      <div class="infra-item reveal reveal-delay-2">
+        <div class="infra-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M2 12c0 5 4 9 10 9s10-4 10-9"/><path d="M6 12c0 3 2.7 5 6 5s6-2 6-5"/><path d="M2 12C2 7 6 3 12 3s10 4 10 9"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+        </div>
+        <div class="infra-label" data-key="infra2">Бассейн</div>
+      </div>
+      <div class="infra-item reveal reveal-delay-3">
+        <div class="infra-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        </div>
+        <div class="infra-label" data-key="infra3">Спортзал</div>
+      </div>
+      <div class="infra-item reveal reveal-delay-4">
+        <div class="infra-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
+        <div class="infra-label" data-key="infra4">Магазин</div>
+      </div>
+      <div class="infra-item reveal reveal-delay-1">
+        <div class="infra-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h5l3 5v3h-8V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="infra-label" data-key="infra5">Парковка</div>
+      </div>
+      <div class="infra-item reveal reveal-delay-2">
+        <div class="infra-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        </div>
+        <div class="infra-label" data-key="infra6">Видеонаблюдение</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LOCATION
+============================================================ -->
+<section id="location" class="section" aria-labelledby="loc-title" style="background:var(--color-bg)">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label" data-key="loc_label">Расположение</span>
+      <h2 class="section-title" id="loc-title" data-key="loc_title">Удобная локация</h2>
+    </div>
+
+    <div class="location-grid">
+      <!-- Text + Distances -->
+      <div class="location-text reveal reveal-delay-1">
+        <p data-key="loc_p1">GREEN VALLEY расположен в экологически чистом районе Ташкентской области. Окружённый садами и полями, посёлок обеспечивает тишину и чистый воздух, оставаясь в шаговой доступности от городской инфраструктуры.</p>
+        <p data-key="loc_p2">Асфальтированная дорога прямо до ворот посёлка. Рядом — школы, детские сады, рынок и торговые центры.</p>
+
+        <div class="distances" role="list" aria-label="Расстояния">
+          <div class="dist-item" role="listitem">
+            <div class="dist-left">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              <span data-key="dist1_label">Ташкент (центр)</span>
+            </div>
+            <span class="dist-right" data-key="dist1_val">20 мин</span>
+          </div>
+          <div class="dist-item" role="listitem">
+            <div class="dist-left">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+              <span data-key="dist2_label">Аэропорт</span>
+            </div>
+            <span class="dist-right" data-key="dist2_val">35 мин</span>
+          </div>
+          <div class="dist-item" role="listitem">
+            <div class="dist-left">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <span data-key="dist3_label">Школа</span>
+            </div>
+            <span class="dist-right" data-key="dist3_val">5 мин</span>
+          </div>
+          <div class="dist-item" role="listitem">
+            <div class="dist-left">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              <span data-key="dist4_label">ТЦ / Рынок</span>
+            </div>
+            <span class="dist-right" data-key="dist4_val">10 мин</span>
+          </div>
+          <div class="dist-item" role="listitem">
+            <div class="dist-left">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              <span data-key="dist5_label">Больница</span>
+            </div>
+            <span class="dist-right" data-key="dist5_val">8 мин</span>
+          </div>
+          <div class="dist-item" role="listitem">
+            <div class="dist-left">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              <span data-key="dist6_label">Детский сад</span>
+            </div>
+            <span class="dist-right" data-key="dist6_val">3 мин</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map placeholder -->
+      <div class="map-placeholder reveal reveal-delay-2" aria-label="Карта расположения посёлка">
+        <div class="map-road h" aria-hidden="true"></div>
+        <div class="map-road v" aria-hidden="true"></div>
+        <div class="map-pin" aria-hidden="true"></div>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div class="map-placeholder-text" data-key="map_label">GREEN VALLEY — Ташкентская область</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT FORM
+============================================================ -->
+<section id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="contact-wrap">
+      <!-- Info -->
+      <div class="contact-info reveal">
+        <span class="section-label" style="color:#A8D5BA" data-key="contact_label">Запись на осмотр</span>
+        <h2 class="section-title" id="contact-title" data-key="contact_title">Приходите посмотреть лично</h2>
+        <p class="section-sub" data-key="contact_sub">Оставьте заявку — наш менеджер свяжется с вами в течение 30 минут и организует бесплатный осмотр посёлка.</p>
+
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>+998 90 000 00 00</span>
+        </div>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span data-key="contact_address">Ташкентская область, 20 км по Самаркандскому шоссе</span>
+        </div>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span data-key="contact_hours">Пн–Вс: 09:00 – 19:00</span>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="form-card reveal reveal-delay-2">
+        <div class="form-title" data-key="form_title">Записаться на осмотр</div>
+        <form id="contact-form" novalidate>
+          <div class="form-row two" style="margin-bottom:16px">
+            <div class="form-group" id="fg-name">
+              <label class="form-label" for="f-name" data-key="form_name_label">Ваше имя <span aria-hidden="true">*</span></label>
+              <input class="form-control" id="f-name" name="name" type="text" placeholder="Иван" autocomplete="given-name" required>
+              <span class="field-error" id="err-name" role="alert" data-key="err_name">Введите ваше имя</span>
+            </div>
+            <div class="form-group" id="fg-phone">
+              <label class="form-label" for="f-phone" data-key="form_phone_label">Телефон <span aria-hidden="true">*</span></label>
+              <input class="form-control" id="f-phone" name="phone" type="tel" placeholder="+998 90 000 00 00" autocomplete="tel" required>
+              <span class="field-error" id="err-phone" role="alert" data-key="err_phone">Введите телефон</span>
+            </div>
+          </div>
+
+          <div class="form-row two" style="margin-bottom:16px">
+            <div class="form-group">
+              <label class="form-label" for="f-type" data-key="form_type_label">Тип дома</label>
+              <select class="form-control" id="f-type" name="type">
+                <option value="" data-key="opt_choose">Выберите тип</option>
+                <option value="S">Дом-S (120м², от $85 000)</option>
+                <option value="M">Дом-M (180м², от $130 000)</option>
+                <option value="L">Дом-L (250м², от $195 000)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="f-date" data-key="form_date_label">Дата осмотра</label>
+              <input class="form-control" id="f-date" name="date" type="date" style="cursor:pointer">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:20px">
+            <label class="form-label" for="f-comment" data-key="form_comment_label">Комментарий</label>
+            <textarea class="form-control" id="f-comment" name="comment" rows="3" placeholder="Укажите любые пожелания или вопросы…"></textarea>
+          </div>
+
+          <div id="form-success" role="alert">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-key="form_success">Заявка отправлена! Мы свяжемся с вами в течение 30 минут.</span>
+          </div>
+          <div id="form-error" role="alert">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            <span data-key="form_error">Ошибка отправки. Пожалуйста, позвоните нам напрямую.</span>
+          </div>
+
+          <button type="submit" class="form-submit" id="form-submit-btn">
+            <span class="btn-label" data-key="form_submit_btn">Записаться</span>
+            <div class="form-spinner" aria-hidden="true"></div>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer id="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <path d="M14 2 C7 8 4 14 6 22 C10 20 12 17 14 22 C16 17 18 20 22 22 C24 14 21 8 14 2Z" fill="#40916C"/>
+            <path d="M14 10 L14 24" stroke="#74C69D" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          GREEN VALLEY
+        </div>
+        <p class="footer-tagline" data-key="footer_tagline">Коттеджный посёлок премиум-класса в Ташкентской области. Жизнь среди природы.</p>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <div class="footer-col-title" data-key="footer_nav_title">Навигация</div>
+        <div class="footer-links">
+          <a href="#features"  class="footer-link" data-key="nav_about">О посёлке</a>
+          <a href="#houses"    class="footer-link" data-key="nav_houses">Дома</a>
+          <a href="#territory" class="footer-link" data-key="nav_territory">Территория</a>
+          <a href="#location"  class="footer-link" data-key="nav_price">Расположение</a>
+          <a href="#contact"   class="footer-link" data-key="nav_contacts">Контакты</a>
+        </div>
+      </div>
+
+      <!-- Contacts -->
+      <div>
+        <div class="footer-col-title" data-key="footer_contacts_title">Контакты</div>
+        <div class="footer-contacts">
+          <div class="footer-contact">
+            <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+998 90 000 00 00</span>
+          </div>
+          <div class="footer-contact">
+            <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>info@greenvalley.uz</span>
+          </div>
+          <div class="footer-contact">
+            <svg viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span data-key="footer_address">Ташкентская область</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 GREEN VALLEY. <span data-key="footer_rights">Все права защищены.</span></p>
+      <p class="footer-dev"><span data-key="footer_dev">Сайт разработан</span> <a href="https://strova.uz" target="_blank" rel="noopener">Strova Agency</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
+<script>
+/* ============================================================
+   TRANSLATIONS
+============================================================ */
+const T = {
+  uz: {
+    nav_about:       "Posyolok haqida",
+    nav_houses:      "Uylar",
+    nav_territory:   "Hudud",
+    nav_price:       "Narxlar",
+    nav_contacts:    "Kontaktlar",
+    nav_cta:         "Uchastka bron qilish",
+    hero_tag:        "Premium dacha posyolkasi",
+    hero_title_accent:"Tabiat bag'rida hayot",
+    hero_sub:        "Toshkentdan 20 daqiqa uzoqlikda joylashgan dacha posyolkasi. Toza havo, yashil xiyobonlar va qulay hayot uchun hamma narsa.",
+    hero_btn1:       "Uylarni ko'rish",
+    hero_btn2:       "Ko'rikka yozilish",
+    stat_ha_unit:    "ga",
+    stat_ha_label:   "Hudud",
+    stat_homes_label:"Uy",
+    stat_min_unit:   "daq",
+    stat_min_label:  "Shahargacha",
+    feat_label:      "Afzalliklar",
+    feat_title:      "Nega GREEN VALLEY tanlaydilar",
+    feat_sub:        "Tabiat va qulaylik mukammal muvozanatda yashaydigan posyolok yaratdik.",
+    feat1_title:     "Toza havo",
+    feat1_desc:      "Posyolok bog' va o'rmon poloslari bilan o'ralgan. PM2.5 shahar me'yoridan 8 baravar past.",
+    feat2_title:     "Qo'riqlanadigan hudud",
+    feat2_desc:      "24/7 qorovullik, butun hududda videokuzatuv, kirish nazorati.",
+    feat3_title:     "O'z infratuzilmasi",
+    feat3_desc:      "Bolalar maydoni, basseyn, sport zal, do'kon — hammasi yaqin joyda.",
+    feat4_title:     "15% dan ipoteka",
+    feat4_desc:      "Yetakchi banklar bilan hamkorlik. Qo'shimcha to'lovsiz bo'lib to'lash.",
+    houses_label:    "Katalog",
+    houses_title:    "O'z uyingizni tanlang",
+    houses_sub:      "Har qanday oila ehtiyoji uchun uch turdagi uylar.",
+    house_s_badge:   "Start",
+    house_m_badge:   "Optimal",
+    house_l_badge:   "Premium",
+    hs_area:         "120 m²",
+    hs_land:         "4 sotix",
+    hs_rooms:        "3 yotoqxona",
+    hs_floors:       "2 qavat",
+    hm_area:         "180 m²",
+    hm_land:         "6 sotix",
+    hm_rooms:        "4 yotoqxona",
+    hm_floors:       "2 qavat + garaj",
+    hl_area:         "250 m²",
+    hl_land:         "10 sotix",
+    hl_rooms:        "5 yotoqxona",
+    hl_floors:       "3 qavat + basseyn",
+    price_from:      "dan",
+    btn_inquire:     "Batafsil",
+    btn_book:        "Bron qilish",
+    badge_popular:   "Mashhur",
+    terr_label:      "Infratuzilma",
+    terr_title:      "GREEN VALLEY hududi",
+    terr_sub:        "Puxta o'ylangan infratuzilmaga ega 5 gektar makon.",
+    infra1:          "Bolalar maydoni",
+    infra2:          "Basseyn",
+    infra3:          "Sport zali",
+    infra4:          "Do'kon",
+    infra5:          "Avtoturargoh",
+    infra6:          "Videokuzatuv",
+    loc_label:       "Joylashuv",
+    loc_title:       "Qulay manzil",
+    loc_p1:          "GREEN VALLEY Toshkent viloyatining ekologik toza hududida joylashgan.",
+    loc_p2:          "Posyolok darvozasigacha asfalt yo'l. Yaqin atrofda maktablar, bozorlar va savdo markazlari.",
+    dist1_label:     "Toshkent (markaz)",
+    dist1_val:       "20 daq",
+    dist2_label:     "Aeroport",
+    dist2_val:       "35 daq",
+    dist3_label:     "Maktab",
+    dist3_val:       "5 daq",
+    dist4_label:     "Savdo markazi",
+    dist4_val:       "10 daq",
+    dist5_label:     "Kasalxona",
+    dist5_val:       "8 daq",
+    dist6_label:     "Bog'cha",
+    dist6_val:       "3 daq",
+    map_label:       "GREEN VALLEY — Toshkent viloyati",
+    contact_label:   "Ko'rikka yozilish",
+    contact_title:   "Shaxsan kelib ko'ring",
+    contact_sub:     "Ariza qoldiring — menejerimiz 30 daqiqa ichida siz bilan bog'lanadi.",
+    contact_address: "Toshkent viloyati, Samarqand shossesi bo'ylab 20 km",
+    contact_hours:   "Du–Ya: 09:00 – 19:00",
+    form_title:      "Ko'rikka yozilish",
+    form_name_label: "Ismingiz",
+    form_phone_label:"Telefon",
+    form_type_label: "Uy turi",
+    form_date_label: "Ko'rik sanasi",
+    form_comment_label:"Izoh",
+    opt_choose:      "Turni tanlang",
+    form_submit_btn: "Yozilish",
+    form_success:    "Ariza yuborildi! 30 daqiqa ichida siz bilan bog'lanamiz.",
+    form_error:      "Yuborishda xatolik. Iltimos, bevosita qo'ng'iroq qiling.",
+    err_name:        "Ismingizni kiriting",
+    err_phone:       "Telefonni kiriting",
+    footer_tagline:  "Toshkent viloyatida premium dacha posyolkasi.",
+    footer_nav_title:"Navigatsiya",
+    footer_contacts_title:"Kontaktlar",
+    footer_address:  "Toshkent viloyati",
+    footer_rights:   "Barcha huquqlar himoyalangan.",
+    footer_dev:      "Sayt ishlab chiquvchi",
+  },
+  ru: {
+    nav_about:       "О посёлке",
+    nav_houses:      "Дома",
+    nav_territory:   "Территория",
+    nav_price:       "Цены",
+    nav_contacts:    "Контакты",
+    nav_cta:         "Забронировать участок",
+    hero_tag:        "Коттеджный посёлок премиум-класса",
+    hero_title_accent:"Жизнь среди природы",
+    hero_sub:        "Коттеджный посёлок в 20 минутах от Ташкента. Чистый воздух, зелёные аллеи и всё необходимое для комфортной жизни.",
+    hero_btn1:       "Смотреть дома",
+    hero_btn2:       "Записаться на осмотр",
+    stat_ha_unit:    "га",
+    stat_ha_label:   "Территория",
+    stat_homes_label:"Домов",
+    stat_min_unit:   "мин",
+    stat_min_label:  "До города",
+    feat_label:      "Преимущества",
+    feat_title:      "Почему выбирают GREEN VALLEY",
+    feat_sub:        "Мы создали посёлок, где природа и комфорт живут в идеальном балансе.",
+    feat1_title:     "Чистый воздух",
+    feat1_desc:      "Посёлок окружён садами и лесополосами. PM2.5 в 8 раз ниже городских норм.",
+    feat2_title:     "Охраняемая территория",
+    feat2_desc:      "КПП с охраной 24/7, видеонаблюдение на всей территории, контроль доступа.",
+    feat3_title:     "Собственная инфраструктура",
+    feat3_desc:      "Детская площадка, бассейн, спортзал, магазин — всё в шаговой доступности.",
+    feat4_title:     "Ипотека от 15%",
+    feat4_desc:      "Партнёрство с ведущими банками. Рассрочка без переплаты. Помощь в оформлении.",
+    houses_label:    "Каталог",
+    houses_title:    "Выберите свой дом",
+    houses_sub:      "Три типа домов под любые потребности семьи. Высококачественные материалы, продуманная планировка.",
+    house_s_badge:   "Старт",
+    house_m_badge:   "Оптимум",
+    house_l_badge:   "Премиум",
+    hs_area:         "120 м²",
+    hs_land:         "4 сотки",
+    hs_rooms:        "3 спальни",
+    hs_floors:       "2 этажа",
+    hm_area:         "180 м²",
+    hm_land:         "6 соток",
+    hm_rooms:        "4 спальни",
+    hm_floors:       "2 этажа + гараж",
+    hl_area:         "250 м²",
+    hl_land:         "10 соток",
+    hl_rooms:        "5 спален",
+    hl_floors:       "3 этажа + бассейн",
+    price_from:      "от",
+    btn_inquire:     "Узнать подробнее",
+    btn_book:        "Забронировать",
+    badge_popular:   "Популярный",
+    terr_label:      "Инфраструктура",
+    terr_title:      "Территория GREEN VALLEY",
+    terr_sub:        "5 гектаров ухоженного пространства с продуманной инфраструктурой. Здесь есть всё необходимое для полноценной жизни семьи.",
+    infra1:          "Детская площадка",
+    infra2:          "Бассейн",
+    infra3:          "Спортзал",
+    infra4:          "Магазин",
+    infra5:          "Парковка",
+    infra6:          "Видеонаблюдение",
+    loc_label:       "Расположение",
+    loc_title:       "Удобная локация",
+    loc_p1:          "GREEN VALLEY расположен в экологически чистом районе Ташкентской области. Окружённый садами и полями, посёлок обеспечивает тишину и чистый воздух, оставаясь в шаговой доступности от городской инфраструктуры.",
+    loc_p2:          "Асфальтированная дорога прямо до ворот посёлка. Рядом — школы, детские сады, рынок и торговые центры.",
+    dist1_label:     "Ташкент (центр)",
+    dist1_val:       "20 мин",
+    dist2_label:     "Аэропорт",
+    dist2_val:       "35 мин",
+    dist3_label:     "Школа",
+    dist3_val:       "5 мин",
+    dist4_label:     "ТЦ / Рынок",
+    dist4_val:       "10 мин",
+    dist5_label:     "Больница",
+    dist5_val:       "8 мин",
+    dist6_label:     "Детский сад",
+    dist6_val:       "3 мин",
+    map_label:       "GREEN VALLEY — Ташкентская область",
+    contact_label:   "Запись на осмотр",
+    contact_title:   "Приходите посмотреть лично",
+    contact_sub:     "Оставьте заявку — наш менеджер свяжется с вами в течение 30 минут и организует бесплатный осмотр посёлка.",
+    contact_address: "Ташкентская область, 20 км по Самаркандскому шоссе",
+    contact_hours:   "Пн–Вс: 09:00 – 19:00",
+    form_title:      "Записаться на осмотр",
+    form_name_label: "Ваше имя",
+    form_phone_label:"Телефон",
+    form_type_label: "Тип дома",
+    form_date_label: "Дата осмотра",
+    form_comment_label:"Комментарий",
+    opt_choose:      "Выберите тип",
+    form_submit_btn: "Записаться",
+    form_success:    "Заявка отправлена! Мы свяжемся с вами в течение 30 минут.",
+    form_error:      "Ошибка отправки. Пожалуйста, позвоните нам напрямую.",
+    err_name:        "Введите ваше имя",
+    err_phone:       "Введите телефон",
+    footer_tagline:  "Коттеджный посёлок премиум-класса в Ташкентской области. Жизнь среди природы.",
+    footer_nav_title:"Навигация",
+    footer_contacts_title:"Контакты",
+    footer_address:  "Ташкентская область",
+    footer_rights:   "Все права защищены.",
+    footer_dev:      "Сайт разработан",
+  },
+  en: {
+    nav_about:       "About",
+    nav_houses:      "Houses",
+    nav_territory:   "Territory",
+    nav_price:       "Prices",
+    nav_contacts:    "Contact",
+    nav_cta:         "Reserve a Plot",
+    hero_tag:        "Premium Cottage Village",
+    hero_title_accent:"Life Surrounded by Nature",
+    hero_sub:        "A cottage village 20 minutes from Tashkent. Fresh air, green avenues and everything needed for comfortable living.",
+    hero_btn1:       "View Houses",
+    hero_btn2:       "Schedule a Visit",
+    stat_ha_unit:    "ha",
+    stat_ha_label:   "Territory",
+    stat_homes_label:"Homes",
+    stat_min_unit:   "min",
+    stat_min_label:  "From city",
+    feat_label:      "Advantages",
+    feat_title:      "Why Choose GREEN VALLEY",
+    feat_sub:        "We built a village where nature and comfort exist in perfect balance.",
+    feat1_title:     "Clean Air",
+    feat1_desc:      "The village is surrounded by orchards and forest belts. PM2.5 is 8× below city standards.",
+    feat2_title:     "Secured Territory",
+    feat2_desc:      "24/7 guarded gate, CCTV coverage across the entire territory, access control.",
+    feat3_title:     "Own Infrastructure",
+    feat3_desc:      "Playground, swimming pool, gym, grocery store — all within walking distance.",
+    feat4_title:     "Mortgage from 15%",
+    feat4_desc:      "Partnerships with leading banks. Instalment plans without overpayment. Full support.",
+    houses_label:    "Catalogue",
+    houses_title:    "Choose Your Home",
+    houses_sub:      "Three house types for any family need. Quality materials, thoughtful layouts.",
+    house_s_badge:   "Start",
+    house_m_badge:   "Optimal",
+    house_l_badge:   "Premium",
+    hs_area:         "120 m²",
+    hs_land:         "4 acres",
+    hs_rooms:        "3 bedrooms",
+    hs_floors:       "2 floors",
+    hm_area:         "180 m²",
+    hm_land:         "6 acres",
+    hm_rooms:        "4 bedrooms",
+    hm_floors:       "2 floors + garage",
+    hl_area:         "250 m²",
+    hl_land:         "10 acres",
+    hl_rooms:        "5 bedrooms",
+    hl_floors:       "3 floors + pool",
+    price_from:      "from",
+    btn_inquire:     "Learn More",
+    btn_book:        "Reserve",
+    badge_popular:   "Popular",
+    terr_label:      "Infrastructure",
+    terr_title:      "GREEN VALLEY Territory",
+    terr_sub:        "5 hectares of well-maintained space with thoughtful infrastructure. Everything a family needs.",
+    infra1:          "Playground",
+    infra2:          "Swimming Pool",
+    infra3:          "Gym",
+    infra4:          "Grocery Store",
+    infra5:          "Parking",
+    infra6:          "CCTV",
+    loc_label:       "Location",
+    loc_title:       "Convenient Location",
+    loc_p1:          "GREEN VALLEY is located in an ecologically clean district of the Tashkent region. Surrounded by orchards and fields, the village offers peace and clean air.",
+    loc_p2:          "A paved road leads directly to the village gates. Nearby schools, kindergartens, market and shopping centres.",
+    dist1_label:     "Tashkent (center)",
+    dist1_val:       "20 min",
+    dist2_label:     "Airport",
+    dist2_val:       "35 min",
+    dist3_label:     "School",
+    dist3_val:       "5 min",
+    dist4_label:     "Mall / Market",
+    dist4_val:       "10 min",
+    dist5_label:     "Hospital",
+    dist5_val:       "8 min",
+    dist6_label:     "Kindergarten",
+    dist6_val:       "3 min",
+    map_label:       "GREEN VALLEY — Tashkent Region",
+    contact_label:   "Schedule a Visit",
+    contact_title:   "Come See in Person",
+    contact_sub:     "Leave a request — our manager will contact you within 30 minutes and arrange a free tour.",
+    contact_address: "Tashkent Region, 20 km along Samarkand Highway",
+    contact_hours:   "Mon–Sun: 09:00 – 19:00",
+    form_title:      "Schedule a Visit",
+    form_name_label: "Your Name",
+    form_phone_label:"Phone",
+    form_type_label: "House Type",
+    form_date_label: "Visit Date",
+    form_comment_label:"Comment",
+    opt_choose:      "Select type",
+    form_submit_btn: "Submit",
+    form_success:    "Request sent! We will contact you within 30 minutes.",
+    form_error:      "Send error. Please call us directly.",
+    err_name:        "Please enter your name",
+    err_phone:       "Please enter your phone",
+    footer_tagline:  "Premium cottage village in the Tashkent Region. Life surrounded by nature.",
+    footer_nav_title:"Navigation",
+    footer_contacts_title:"Contacts",
+    footer_address:  "Tashkent Region",
+    footer_rights:   "All rights reserved.",
+    footer_dev:      "Website developed by",
+  }
+};
+
+let currentLang = 'ru';
+
+function setLang(lang) {
+  currentLang = lang;
+  const dict = T[lang];
+  // Update all data-key elements
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.dataset.key;
+    if (dict[key] !== undefined) el.textContent = dict[key];
+  });
+  // Update html lang
+  document.documentElement.lang = lang;
+  // Update active button
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  const activeBtn = document.getElementById('lb-' + lang);
+  if (activeBtn) activeBtn.classList.add('active');
+}
+
+/* ============================================================
+   MOBILE MENU
+============================================================ */
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobile-menu');
+
+burger.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  burger.classList.toggle('open', isOpen);
+  burger.setAttribute('aria-expanded', String(isOpen));
+});
+
+function closeMenu() {
+  mobileMenu.classList.remove('open');
+  burger.classList.remove('open');
+  burger.setAttribute('aria-expanded', 'false');
+}
+
+// Close on outside click
+document.addEventListener('click', e => {
+  if (!burger.contains(e.target) && !mobileMenu.contains(e.target)) closeMenu();
+});
+
+/* ============================================================
+   SCROLL REVEAL
+============================================================ */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ============================================================
+   CONTACT FORM — Telegram
+============================================================ */
+const TG_TOKEN   = '8294315634:AAHYHAikSetei6pwW-8XmupO7D_AGFPm5Fg';
+const TG_CHAT_ID = '7118891995';
+
+function buildTelegramMessage(data) {
+  const houseMap = { S: 'Дом-S (120м², от $85 000)', M: 'Дом-M (180м², от $130 000)', L: 'Дом-L (250м², от $195 000)', '': 'Не указан' };
+  return [
+    '🏡 *GREEN VALLEY — Новая заявка*',
+    '',
+    `👤 *Имя:* ${data.name}`,
+    `📞 *Телефон:* ${data.phone}`,
+    `🏠 *Тип дома:* ${houseMap[data.type] || data.type || 'Не указан'}`,
+    `📅 *Дата осмотра:* ${data.date || 'Не указана'}`,
+    data.comment ? `💬 *Комментарий:* ${data.comment}` : '',
+    '',
+    `🌐 Язык: ${currentLang.toUpperCase()}`,
+  ].filter(Boolean).join('\n');
+}
+
+async function sendToTelegram(text) {
+  const url = `https://api.telegram.org/bot${TG_TOKEN}/sendMessage`;
+  const resp = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: TG_CHAT_ID, text, parse_mode: 'Markdown' })
+  });
+  if (!resp.ok) throw new Error('Telegram API error');
+  return resp.json();
+}
+
+function setFeedback(type) {
+  const sEl = document.getElementById('form-success');
+  const eEl = document.getElementById('form-error');
+  sEl.style.display = 'none';
+  eEl.style.display = 'none';
+  if (type === 'success') { sEl.style.display = 'flex'; }
+  if (type === 'error')   { eEl.style.display = 'flex'; }
+}
+
+function validateForm() {
+  let valid = true;
+  const name  = document.getElementById('f-name');
+  const phone = document.getElementById('f-phone');
+  const fgName  = document.getElementById('fg-name');
+  const fgPhone = document.getElementById('fg-phone');
+
+  fgName.classList.remove('has-error');
+  fgPhone.classList.remove('has-error');
+
+  if (!name.value.trim()) { fgName.classList.add('has-error'); valid = false; }
+  if (!phone.value.trim()) { fgPhone.classList.add('has-error'); valid = false; }
+
+  if (!valid) {
+    // Focus first invalid field
+    if (!name.value.trim()) name.focus();
+    else phone.focus();
+  }
+  return valid;
+}
+
+document.getElementById('contact-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  setFeedback(null);
+
+  if (!validateForm()) return;
+
+  const btn = document.getElementById('form-submit-btn');
+  btn.disabled = true;
+  btn.classList.add('loading');
+
+  const data = {
+    name:    document.getElementById('f-name').value.trim(),
+    phone:   document.getElementById('f-phone').value.trim(),
+    type:    document.getElementById('f-type').value,
+    date:    document.getElementById('f-date').value,
+    comment: document.getElementById('f-comment').value.trim(),
+  };
+
+  try {
+    await sendToTelegram(buildTelegramMessage(data));
+    setFeedback('success');
+    this.reset();
+  } catch (err) {
+    setFeedback('error');
+    console.error('Telegram send error:', err);
+  } finally {
+    btn.disabled = false;
+    btn.classList.remove('loading');
+  }
+});
+
+// Remove error on input
+['f-name','f-phone'].forEach(id => {
+  document.getElementById(id).addEventListener('input', function() {
+    this.closest('.form-group').classList.remove('has-error');
+  });
+});
+
+// Set min date for date picker to today
+(function() {
+  const dateInput = document.getElementById('f-date');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+})();
+</script>
+</body>
+</html>

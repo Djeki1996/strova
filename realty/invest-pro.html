@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INVEST PRO — Коммерческая недвижимость Узбекистана</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1B2A;
+    --navy-light: #112236;
+    --navy-mid: #0f2035;
+    --blue: #1A6BAD;
+    --blue-light: #2280cc;
+    --gold: #D4A017;
+    --gold-light: #e8b420;
+    --white: #FFFFFF;
+    --white-muted: rgba(255,255,255,0.7);
+    --white-dim: rgba(255,255,255,0.12);
+    --border-gold: rgba(212,160,23,0.35);
+    --border-blue: rgba(26,107,173,0.35);
+    --font-head: 'Raleway', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --transition: 0.25s ease;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ── LANG BAR ── */
+  #lang-bar {
+    background: #091420;
+    border-bottom: 1px solid var(--border-gold);
+    padding: 8px 0;
+  }
+  .lang-bar-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .lang-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--white-muted);
+  }
+  .lang-bar-left svg { flex-shrink: 0; }
+  .lang-btns {
+    display: flex;
+    gap: 4px;
+  }
+  .lang-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--white-muted);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+  .lang-btn:hover { color: var(--gold); border-color: var(--border-gold); }
+  .lang-btn.active { color: var(--gold); border-color: var(--gold); background: rgba(212,160,23,0.1); }
+
+  /* ── NAV ── */
+  #nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13,27,42,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-blue);
+    transition: box-shadow var(--transition);
+  }
+  #nav.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.4); }
+  .nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: 24px;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--gold);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-text {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.06em;
+    color: var(--white);
+  }
+  .logo-text span { color: var(--gold); }
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+  }
+  .nav-menu a {
+    color: var(--white-muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all var(--transition);
+    white-space: nowrap;
+  }
+  .nav-menu a:hover { color: var(--white); background: var(--white-dim); }
+  .btn-consult {
+    background: var(--gold);
+    color: var(--navy) !important;
+    font-weight: 700 !important;
+    padding: 10px 22px !important;
+    border-radius: 6px !important;
+  }
+  .btn-consult:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+  .nav-burger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: var(--white);
+  }
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--navy);
+    z-index: 200;
+    flex-direction: column;
+    padding: 80px 32px 32px;
+    gap: 8px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: none;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    padding: 8px;
+  }
+  .mobile-menu a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 22px;
+    font-family: var(--font-head);
+    font-weight: 600;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--white-dim);
+  }
+  .mobile-menu .btn-mob-consult {
+    margin-top: 16px;
+    background: var(--gold);
+    color: var(--navy);
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    font-weight: 700;
+    border: none;
+  }
+
+  @media (max-width: 1024px) {
+    .nav-menu { display: none; }
+    .nav-burger { display: flex; }
+  }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 100px 0 80px;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .hero-bg svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(26,107,173,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 10% 80%, rgba(212,160,23,0.06) 0%, transparent 50%);
+  }
+  .hero-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(212,160,23,0.12);
+    border: 1px solid var(--border-gold);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-title {
+    font-family: var(--font-head);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .hero-title span { color: var(--gold); }
+  .hero-sub {
+    font-size: 17px;
+    color: var(--white-muted);
+    line-height: 1.7;
+    margin-bottom: 36px;
+    max-width: 520px;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 56px;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 32px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all var(--transition);
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,160,23,0.3); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 14px 32px;
+    border-radius: 6px;
+    border: 1px solid var(--border-blue);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all var(--transition);
+  }
+  .btn-secondary:hover { border-color: var(--blue); background: rgba(26,107,173,0.12); }
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {}
+  .hero-stat-num {
+    font-family: var(--font-head);
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hero-stat-label {
+    font-size: 13px;
+    color: var(--white-muted);
+    font-weight: 500;
+  }
+  .hero-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .hero-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-blue);
+    border-radius: 12px;
+    padding: 24px;
+    backdrop-filter: blur(8px);
+  }
+  .hero-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .hero-card-title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--white);
+  }
+  .hero-card-badge {
+    background: rgba(212,160,23,0.15);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--border-gold);
+  }
+  .hero-card-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--white-muted);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--white-dim);
+  }
+  .hero-card-row:last-child { border-bottom: none; }
+  .hero-card-row strong { color: var(--white); font-weight: 600; }
+
+  @media (max-width: 1024px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    .hero-visual { display: none; }
+    #hero { min-height: auto; padding: 80px 0 60px; }
+  }
+
+  /* ── SECTIONS COMMON ── */
+  section { padding: 88px 0; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 16px;
+    color: var(--white-muted);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 56px;
+  }
+
+  /* scroll-reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ── SERVICES ── */
+  #services { background: var(--navy-light); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .service-card {
+    background: var(--navy);
+    border: 1px solid var(--border-gold);
+    border-radius: 12px;
+    padding: 32px 28px;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  .service-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3), 0 0 0 1px rgba(212,160,23,0.2);
+  }
+  .service-icon {
+    width: 52px;
+    height: 52px;
+    background: rgba(212,160,23,0.1);
+    border: 1px solid var(--border-gold);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: var(--gold);
+  }
+  .service-title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 17px;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+  .service-desc {
+    font-size: 14px;
+    color: var(--white-muted);
+    line-height: 1.65;
+  }
+  @media (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } }
+
+  /* ── OBJECTS ── */
+  #objects {}
+  .objects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .object-card {
+    background: var(--navy-light);
+    border: 1px solid var(--border-blue);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .object-card:hover {
+    border-color: var(--blue);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  }
+  .object-img {
+    height: 200px;
+    background: linear-gradient(135deg, rgba(26,107,173,0.3) 0%, rgba(13,27,42,0.8) 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .object-img svg { opacity: 0.4; }
+  .object-type-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .object-body { padding: 24px; }
+  .object-name {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+  .object-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .object-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--white-muted);
+  }
+  .object-meta-item svg { color: var(--blue); flex-shrink: 0; }
+  .object-price {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .object-price span {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--white-muted);
+  }
+  .btn-object {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--border-blue);
+    color: var(--white);
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-object:hover { background: var(--blue); border-color: var(--blue); }
+  @media (max-width: 1024px) { .objects-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .objects-grid { grid-template-columns: 1fr; } }
+
+  /* ── ANALYTICS ── */
+  #analytics { background: var(--navy-light); }
+  .analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-bottom: 0;
+  }
+  .analytics-card {
+    background: var(--navy);
+    border: 1px solid var(--border-blue);
+    border-radius: 14px;
+    padding: 36px 32px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  .analytics-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 0 40px rgba(212,160,23,0.08);
+  }
+  .analytics-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    background: rgba(26,107,173,0.12);
+    border: 1px solid var(--border-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--blue);
+  }
+  .analytics-value {
+    font-family: var(--font-head);
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .analytics-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .analytics-desc {
+    font-size: 13px;
+    color: var(--white-muted);
+    line-height: 1.6;
+  }
+  @media (max-width: 768px) { .analytics-grid { grid-template-columns: 1fr; } }
+
+  /* ── WHY US ── */
+  #why-us {}
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .why-card {
+    display: flex;
+    gap: 20px;
+    background: var(--navy-light);
+    border: 1px solid var(--border-blue);
+    border-radius: 12px;
+    padding: 28px;
+    transition: all 0.3s ease;
+    align-items: flex-start;
+  }
+  .why-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  }
+  .why-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: rgba(212,160,23,0.1);
+    border: 1px solid var(--border-gold);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+  }
+  .why-body {}
+  .why-title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 17px;
+    margin-bottom: 8px;
+    color: var(--white);
+  }
+  .why-desc {
+    font-size: 14px;
+    color: var(--white-muted);
+    line-height: 1.65;
+  }
+  @media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; } }
+
+  /* ── CONTACT FORM ── */
+  #contact { background: var(--navy-light); }
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .contact-info {}
+  .contact-info-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 800;
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+  .contact-info-sub {
+    font-size: 15px;
+    color: var(--white-muted);
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    color: var(--white-muted);
+  }
+  .contact-detail svg { color: var(--gold); flex-shrink: 0; }
+  .contact-detail strong { color: var(--white); }
+  .form-box {
+    background: var(--navy);
+    border: 1px solid var(--border-blue);
+    border-radius: 16px;
+    padding: 40px;
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-field.full { grid-column: 1 / -1; }
+  .form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white-muted);
+    letter-spacing: 0.04em;
+  }
+  .form-label .req { color: var(--gold); }
+  .form-input,
+  .form-select,
+  .form-textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border-blue);
+    border-radius: 8px;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 15px;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color var(--transition), background var(--transition);
+    width: 100%;
+    min-height: 48px;
+  }
+  .form-input::placeholder { color: rgba(255,255,255,0.3); }
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    border-color: var(--blue);
+    background: rgba(26,107,173,0.08);
+  }
+  .form-select { cursor: pointer; }
+  .form-select option { background: var(--navy-mid); color: var(--white); }
+  .form-textarea { resize: vertical; min-height: 100px; }
+  .form-submit {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+  }
+  .btn-submit {
+    width: 100%;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all var(--transition);
+  }
+  .btn-submit:hover:not(:disabled) { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,160,23,0.3); }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .form-msg {
+    grid-column: 1 / -1;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    display: none;
+  }
+  .form-msg.success { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); color: #4ade80; display: block; }
+  .form-msg.error { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); color: #f87171; display: block; }
+  @media (max-width: 1024px) { .contact-layout { grid-template-columns: 1fr; gap: 40px; } }
+  @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } .form-box { padding: 28px 20px; } }
+
+  /* ── FOOTER ── */
+  #footer {
+    background: #091420;
+    border-top: 1px solid var(--border-blue);
+    padding: 64px 0 0;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border-blue);
+    margin-bottom: 32px;
+  }
+  .footer-brand {}
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    text-decoration: none;
+  }
+  .footer-logo-text {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--white);
+  }
+  .footer-logo-text span { color: var(--gold); }
+  .footer-tagline {
+    font-size: 14px;
+    color: var(--white-muted);
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+  .footer-socials {
+    display: flex;
+    gap: 10px;
+  }
+  .footer-social {
+    width: 36px;
+    height: 36px;
+    background: var(--white-dim);
+    border: 1px solid var(--border-blue);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white-muted);
+    text-decoration: none;
+    transition: all var(--transition);
+  }
+  .footer-social:hover { background: var(--blue); border-color: var(--blue); color: var(--white); }
+  .footer-col-title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--white);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-links a {
+    color: var(--white-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color var(--transition);
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-copy {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+  .footer-dev {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+  .footer-dev a {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .footer-dev a:hover { color: var(--gold-light); }
+  @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; gap: 32px; } .footer-bottom { flex-direction: column; text-align: center; } }
+</style>
+</head>
+<body>
+
+<!-- LANG BAR -->
+<div id="lang-bar">
+  <div class="lang-bar-inner">
+    <div class="lang-bar-left">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span data-key="lang_tagline">Коммерческая недвижимость Узбекистана</span>
+    </div>
+    <div class="lang-btns">
+      <button class="lang-btn" onclick="setLang('uz')">UZ</button>
+      <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="logo-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0D1B2A" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      </div>
+      <span class="logo-text">INVEST<span> PRO</span></span>
+    </a>
+    <ul class="nav-menu">
+      <li><a href="#services" data-key="nav_services">Услуги</a></li>
+      <li><a href="#objects" data-key="nav_objects">Объекты</a></li>
+      <li><a href="#analytics" data-key="nav_analytics">Аналитика</a></li>
+      <li><a href="#why-us" data-key="nav_about">О нас</a></li>
+      <li><a href="#contact" data-key="nav_contact">Контакты</a></li>
+      <li><a href="#contact" class="btn-consult" data-key="nav_cta">Консультация</a></li>
+    </ul>
+    <button class="nav-burger" onclick="openMenu()" aria-label="Меню">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-close" onclick="closeMenu()" aria-label="Закрыть">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="#services" onclick="closeMenu()" data-key="nav_services">Услуги</a>
+  <a href="#objects" onclick="closeMenu()" data-key="nav_objects">Объекты</a>
+  <a href="#analytics" onclick="closeMenu()" data-key="nav_analytics">Аналитика</a>
+  <a href="#why-us" onclick="closeMenu()" data-key="nav_about">О нас</a>
+  <a href="#contact" onclick="closeMenu()" data-key="nav_contact">Контакты</a>
+  <a href="#contact" onclick="closeMenu()" class="btn-mob-consult" data-key="nav_cta">Консультация</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="goldLine" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#D4A017" stop-opacity="0"/>
+          <stop offset="50%" stop-color="#D4A017" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#D4A017" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="blueLine" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#1A6BAD" stop-opacity="0"/>
+          <stop offset="50%" stop-color="#1A6BAD" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#1A6BAD" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <!-- diagonal gold lines -->
+      <line x1="-100" y1="600" x2="800" y2="-100" stroke="url(#goldLine)" stroke-width="1.5"/>
+      <line x1="0" y1="800" x2="1000" y2="-100" stroke="url(#goldLine)" stroke-width="0.8"/>
+      <line x1="200" y1="900" x2="1200" y2="-100" stroke="url(#goldLine)" stroke-width="1.2"/>
+      <line x1="500" y1="900" x2="1500" y2="-100" stroke="url(#goldLine)" stroke-width="0.6"/>
+      <line x1="700" y1="900" x2="1600" y2="-100" stroke="url(#blueLine)" stroke-width="1"/>
+      <!-- grid dots -->
+      <pattern id="dots" x="0" y="0" width="48" height="48" patternUnits="userSpaceOnUse">
+        <circle cx="24" cy="24" r="1" fill="#1A6BAD" fill-opacity="0.15"/>
+      </pattern>
+      <rect width="100%" height="100%" fill="url(#dots)"/>
+    </svg>
+    <div class="hero-overlay"></div>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge reveal">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span data-key="hero_badge">Лидер рынка · Узбекистан</span>
+      </div>
+      <h1 class="hero-title reveal reveal-delay-1">
+        <span data-key="hero_title_1">INVEST PRO —</span><br>
+        <span style="color:var(--gold)" data-key="hero_title_2">Коммерческая</span><br>
+        <span data-key="hero_title_3">недвижимость</span>
+      </h1>
+      <p class="hero-sub reveal reveal-delay-2" data-key="hero_sub">Офисы, торговые площади, склады. Покупка, аренда, управление активами.</p>
+      <div class="hero-btns reveal reveal-delay-3">
+        <a href="#contact" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span data-key="hero_btn1">Получить консультацию</span>
+        </a>
+        <a href="#objects" class="btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span data-key="hero_btn2">Все объекты</span>
+        </a>
+      </div>
+      <div class="hero-stats reveal reveal-delay-4">
+        <div class="hero-stat">
+          <div class="hero-stat-num">$50M+</div>
+          <div class="hero-stat-label" data-key="stat1">сделок</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">200+</div>
+          <div class="hero-stat-label" data-key="stat2">объектов</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">10</div>
+          <div class="hero-stat-label" data-key="stat3">лет опыта</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal reveal-delay-2">
+      <div class="hero-card">
+        <div class="hero-card-head">
+          <span class="hero-card-title" data-key="hcard1_title">Офис · Центр Ташкента</span>
+          <span class="hero-card-badge" data-key="hcard1_badge">Аренда</span>
+        </div>
+        <div class="hero-card-row"><span data-key="hcard_area">Площадь</span><strong>450 м²</strong></div>
+        <div class="hero-card-row"><span data-key="hcard_floor">Этаж</span><strong>7/14</strong></div>
+        <div class="hero-card-row"><span data-key="hcard_price">Цена/мес</span><strong style="color:var(--gold)">$850</strong></div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-head">
+          <span class="hero-card-title" data-key="hcard2_title">Склад · Юнусабадский р-н</span>
+          <span class="hero-card-badge" style="background:var(--blue);color:var(--white)" data-key="hcard2_badge">Продажа</span>
+        </div>
+        <div class="hero-card-row"><span data-key="hcard_area">Площадь</span><strong>1 200 м²</strong></div>
+        <div class="hero-card-row"><span data-key="hcard_class">Класс</span><strong>B+</strong></div>
+        <div class="hero-card-row"><span data-key="hcard_price2">Цена</span><strong style="color:var(--gold)">$480 000</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label" data-key="services_label">Что мы делаем</div>
+      <h2 class="section-title" data-key="services_title">Наши услуги</h2>
+      <p class="section-sub" data-key="services_sub">Полный спектр услуг в сфере коммерческой и инвестиционной недвижимости Узбекистана</p>
+    </div>
+    <div class="services-grid">
+      <!-- Card 1 -->
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="service-title" data-key="s1_title">Купля-продажа</div>
+        <div class="service-desc" data-key="s1_desc">Подбор объектов, юридическое сопровождение, переговоры и закрытие сделки под ключ</div>
+      </div>
+      <!-- Card 2 -->
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="service-title" data-key="s2_title">Аренда</div>
+        <div class="service-desc" data-key="s2_desc">Поиск арендаторов, составление договоров, мониторинг и сопровождение арендных отношений</div>
+      </div>
+      <!-- Card 3 -->
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <div class="service-title" data-key="s3_title">Управление активами</div>
+        <div class="service-desc" data-key="s3_desc">Доверительное управление портфелем объектов, оптимизация доходности и отчётность</div>
+      </div>
+      <!-- Card 4 -->
+      <div class="service-card reveal reveal-delay-4">
+        <div class="service-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="service-title" data-key="s4_title">Инвестиционный консалтинг</div>
+        <div class="service-desc" data-key="s4_desc">Анализ рынка, due diligence, оценка объектов и разработка инвестиционных стратегий</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTS -->
+<section id="objects">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label" data-key="objects_label">Актуальные предложения</div>
+      <h2 class="section-title" data-key="objects_title">Актуальные объекты</h2>
+      <p class="section-sub" data-key="objects_sub">Эксклюзивная база коммерческой недвижимости в ключевых районах Ташкента и регионах</p>
+    </div>
+    <div class="objects-grid">
+
+      <!-- Object 1 -->
+      <div class="object-card reveal reveal-delay-1">
+        <div class="object-img">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="2" y="7" width="20" height="14"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+          <span class="object-type-badge" data-key="obj1_type">Офис</span>
+        </div>
+        <div class="object-body">
+          <div class="object-name" data-key="obj1_name">Офис в центре Ташкента</div>
+          <div class="object-meta">
+            <div class="object-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              <span>450 м²</span>
+            </div>
+            <div class="object-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span data-key="obj1_loc">Мирзо-Улугбекский р-н</span>
+            </div>
+            <div class="object-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>
+              <span data-key="obj_class_a">Класс A</span>
+            </div>
+          </div>
+          <div class="object-price">$850 <span data-key="per_month">/мес</span></div>
+          <button class="btn-object" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span data-key="obj_btn">Узнать подробности</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Object 2 -->
+      <div class="object-card reveal reveal-delay-2">
+        <div class="object-img" style="background:linear-gradient(135deg,rgba(212,160,23,0.2) 0%,rgba(13,27,42,0.85) 100%)">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="object-type-badge" style="background:var(--blue)" data-key="obj2_type">Торговая площадь</span>
+        </div>
+        <div class="object-body">
+          <div class="object-name" data-key="obj2_name">Торговая площадь — ТЦ</div>
+          <div class="object-meta">
+            <div class="object-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              <span>200 м²</span>
+            </div>
+            <div class="object-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span data-key="obj2_loc">Чиланзарский р-н</span>
+            </div>
+            <div class="object-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>
+              <span data-key="high_traffic">Высокий трафик</span>
+            </div>
+          </div>
+          <div class="object-price">$1 200 <span data-key="per_month">/мес</span></div>
+          <button class="btn-object" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span data-key="obj_btn">Узнать подробности</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Object 3 -->
+      <div class="object-card reveal reveal-delay-3">
+        <div class="object-img" style="background:linear-gradient(135deg,rgba(26,107,173,0.15) 0%,rgba(13,27,42,0.9) 100%)">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><rect x="8" y="12" width="8" height="9"/></svg>
+          <span class="object-type-badge" style="background:rgba(212,160,23,0.9)" data-key="obj3_type">Склад</span>
+        </div>
+        <div class="object-body">
+          <div class="object-name" data-key="obj3_name">Склад логистический</div>
+          <div class="object-meta">
+            <div class="object-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              <span>1 200 м²</span>
+            </div>
+            <div class="object-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span data-key="obj3_loc">Юнусабадский р-н</span>
+            </div>
+            <div class="object-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/></svg>
+              <span data-key="loading_dock">Погрузочный двор</span>
+            </div>
+          </div>
+          <div class="object-price">$600 <span data-key="per_month">/мес</span></div>
+          <button class="btn-object" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span data-key="obj_btn">Узнать подробности</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ANALYTICS -->
+<section id="analytics">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label" data-key="analytics_label">Данные и тренды</div>
+      <h2 class="section-title" data-key="analytics_title">Рынок недвижимости Узбекистана</h2>
+      <p class="section-sub" data-key="analytics_sub">Актуальные данные и аналитика рынка коммерческой недвижимости — основа взвешенных инвестиционных решений</p>
+    </div>
+    <div class="analytics-grid">
+      <div class="analytics-card reveal reveal-delay-1">
+        <div class="analytics-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </div>
+        <div class="analytics-value">+12%</div>
+        <div class="analytics-label" data-key="an1_title">Рост цен 2024</div>
+        <div class="analytics-desc" data-key="an1_desc">Средний рост стоимости коммерческой недвижимости в Ташкенте за 2024 год</div>
+      </div>
+      <div class="analytics-card reveal reveal-delay-2">
+        <div class="analytics-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="analytics-value">$2.5B</div>
+        <div class="analytics-label" data-key="an2_title">Объём рынка</div>
+        <div class="analytics-desc" data-key="an2_desc">Совокупный объём рынка коммерческой недвижимости Узбекистана по итогам 2024 года</div>
+      </div>
+      <div class="analytics-card reveal reveal-delay-3">
+        <div class="analytics-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div class="analytics-value">+35%</div>
+        <div class="analytics-label" data-key="an3_title">Иностранные инвестиции</div>
+        <div class="analytics-desc" data-key="an3_desc">Прирост иностранных инвестиций в коммерческую недвижимость Узбекистана год к году</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why-us">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label" data-key="why_label">Наши преимущества</div>
+      <h2 class="section-title" data-key="why_title">Почему выбирают нас</h2>
+      <p class="section-sub" data-key="why_sub">10 лет на рынке коммерческой недвижимости Узбекистана — это опыт, который работает на ваш результат</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="why-body">
+          <div class="why-title" data-key="why1_title">Аккредитованные брокеры</div>
+          <div class="why-desc" data-key="why1_desc">Все брокеры компании имеют государственную аккредитацию и международные сертификаты CCIM/MRICS</div>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div class="why-body">
+          <div class="why-title" data-key="why2_title">Юридическое сопровождение</div>
+          <div class="why-desc" data-key="why2_desc">Штатные юристы сопровождают каждую сделку от due diligence до регистрации права собственности</div>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-3">
+        <div class="why-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <div class="why-body">
+          <div class="why-title" data-key="why3_title">Эксклюзивная база</div>
+          <div class="why-desc" data-key="why3_desc">200+ объектов в эксклюзивном листинге, включая закрытые предложения от прямых собственников</div>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-4">
+        <div class="why-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <div class="why-body">
+          <div class="why-title" data-key="why4_title">Отчётность и аналитика</div>
+          <div class="why-desc" data-key="why4_desc">Регулярные аналитические отчёты, мониторинг рынка и персональные инвестиционные рекомендации</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-layout">
+      <div class="reveal">
+        <div class="section-label" data-key="contact_label">Связаться с нами</div>
+        <h2 class="contact-info-title" data-key="contact_title">Получите предложение под ваш запрос</h2>
+        <p class="contact-info-sub" data-key="contact_sub">Оставьте заявку — наш специалист свяжется с вами в течение 1 рабочего часа</p>
+        <div class="contact-details">
+          <div class="contact-detail">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span><strong>+998 71 200 00 00</strong></span>
+          </div>
+          <div class="contact-detail">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span><strong>info@investpro.uz</strong></span>
+          </div>
+          <div class="contact-detail">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span data-key="contact_address"><strong>Ташкент, Мирзо-Улугбекский р-н, ул. Амира Темура, 107</strong></span>
+          </div>
+          <div class="contact-detail">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span data-key="contact_hours">Пн–Пт 9:00–18:00, Сб 10:00–15:00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-box reveal reveal-delay-1">
+        <form id="invest-form" autocomplete="on">
+          <div class="form-grid">
+            <div class="form-field">
+              <label class="form-label" for="f-company" data-key="f_company">Компания <span class="req">*</span></label>
+              <input id="f-company" class="form-input" type="text" name="company" autocomplete="organization" required placeholder="ООО «Ваша компания»">
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="f-name" data-key="f_name">Имя <span class="req">*</span></label>
+              <input id="f-name" class="form-input" type="text" name="name" autocomplete="name" required placeholder="Имя Фамилия">
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="f-phone" data-key="f_phone">Телефон <span class="req">*</span></label>
+              <input id="f-phone" class="form-input" type="tel" name="phone" autocomplete="tel" required placeholder="+998 __  ___ __ __">
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="f-email" data-key="f_email">Email</label>
+              <input id="f-email" class="form-input" type="email" name="email" autocomplete="email" placeholder="email@company.uz">
+            </div>
+            <div class="form-field full">
+              <label class="form-label" for="f-type" data-key="f_type">Тип запроса <span class="req">*</span></label>
+              <select id="f-type" class="form-select" name="request_type" required>
+                <option value="" disabled selected data-key="f_type_ph">Выберите тип</option>
+                <option value="buy" data-key="f_type_buy">Купить</option>
+                <option value="rent" data-key="f_type_rent">Арендовать</option>
+                <option value="sell" data-key="f_type_sell">Продать</option>
+                <option value="consult" data-key="f_type_consult">Инвестиционный консалтинг</option>
+              </select>
+            </div>
+            <div class="form-field full">
+              <label class="form-label" for="f-budget" data-key="f_budget">Бюджет</label>
+              <input id="f-budget" class="form-input" type="text" name="budget" placeholder="Например: $500 000 — $1 000 000">
+            </div>
+            <div class="form-field full">
+              <label class="form-label" for="f-desc" data-key="f_desc">Описание запроса</label>
+              <textarea id="f-desc" class="form-textarea" name="description" rows="3" placeholder="Опишите ваши требования к объекту, желаемый район, площадь и другие детали..."></textarea>
+            </div>
+            <div id="form-msg" class="form-msg" role="alert" aria-live="polite"></div>
+            <div class="form-submit">
+              <button type="submit" class="btn-submit" id="btn-submit">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <span data-key="form_submit">Получить предложение</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="footer-logo">
+          <div class="logo-mark">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D1B2A" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <span class="footer-logo-text">INVEST<span> PRO</span></span>
+        </a>
+        <p class="footer-tagline" data-key="footer_tagline">Коммерческая и инвестиционная недвижимость Узбекистана. Покупка, аренда, управление активами.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social" aria-label="Telegram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+          <a href="#" class="footer-social" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="footer-social" aria-label="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title" data-key="footer_services">Услуги</div>
+        <ul class="footer-links">
+          <li><a href="#services" data-key="s1_title">Купля-продажа</a></li>
+          <li><a href="#services" data-key="s2_title">Аренда</a></li>
+          <li><a href="#services" data-key="s3_title">Управление активами</a></li>
+          <li><a href="#services" data-key="s4_title">Инвестиционный консалтинг</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title" data-key="footer_objects">Объекты</div>
+        <ul class="footer-links">
+          <li><a href="#objects" data-key="obj1_type">Офисы</a></li>
+          <li><a href="#objects" data-key="obj2_type">Торговые площади</a></li>
+          <li><a href="#objects" data-key="obj3_type">Склады</a></li>
+          <li><a href="#analytics" data-key="nav_analytics">Аналитика</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title" data-key="footer_contacts">Контакты</div>
+        <ul class="footer-links">
+          <li><a href="tel:+998712000000">+998 71 200 00 00</a></li>
+          <li><a href="mailto:info@investpro.uz">info@investpro.uz</a></li>
+          <li><a href="#contact" data-key="footer_form">Форма заявки</a></li>
+          <li><a href="#" data-key="footer_policy">Политика конфиденциальности</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy" data-key="footer_copy">© 2024 INVEST PRO. Все права защищены.</div>
+      <div class="footer-dev">
+        <span data-key="footer_dev_by">Сайт разработан </span>
+        <a href="https://strova.agency" target="_blank">Strova Agency</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── TRANSLATIONS ──
+const T = {
+  uz: {
+    lang_tagline: "O'zbekiston tijorat ko'chmas mulki",
+    nav_services: "Xizmatlar",
+    nav_objects: "Ob'ektlar",
+    nav_analytics: "Tahlil",
+    nav_about: "Biz haqimizda",
+    nav_contact: "Aloqa",
+    nav_cta: "Konsultatsiya",
+    hero_badge: "Bozor yetakchisi · O'zbekiston",
+    hero_title_1: "INVEST PRO —",
+    hero_title_2: "Tijorat",
+    hero_title_3: "ko'chmas mulki",
+    hero_sub: "Ofislar, savdo maydonlari, omborlar. Sotib olish, ijaraga berish, aktivlarni boshqarish.",
+    hero_btn1: "Konsultatsiya olish",
+    hero_btn2: "Barcha ob'ektlar",
+    stat1: "bitimlar",
+    stat2: "ob'ektlar",
+    stat3: "yil tajriba",
+    hcard1_title: "Ofis · Toshkent markazi",
+    hcard1_badge: "Ijara",
+    hcard_area: "Maydon",
+    hcard_floor: "Qavat",
+    hcard_price: "Narx/oy",
+    hcard2_title: "Ombor · Yunusobod",
+    hcard2_badge: "Sotish",
+    hcard_class: "Sinf",
+    hcard_price2: "Narx",
+    services_label: "Nima qilamiz",
+    services_title: "Bizning xizmatlar",
+    services_sub: "O'zbekistonda tijorat va investitsion ko'chmas mulk sohasida to'liq xizmatlar",
+    s1_title: "Sotib olish-sotish",
+    s1_desc: "Ob'ektlarni tanlash, huquqiy hamrohlik, muzokaralar va bitimni kalitdan kalit boshqarish",
+    s2_title: "Ijara",
+    s2_desc: "Ijarachilarni topish, shartnomalar tuzish, ijara munosabatlarini kuzatib borish",
+    s3_title: "Aktivlarni boshqarish",
+    s3_desc: "Ob'ektlar portfelini ishonchli boshqarish, daromadlilikni optimallashtirish va hisobot",
+    s4_title: "Investitsion konsalting",
+    s4_desc: "Bozor tahlili, due diligence, ob'ektlarni baholash va investitsion strategiyalar",
+    objects_label: "Joriy takliflar",
+    objects_title: "Joriy ob'ektlar",
+    objects_sub: "Toshkentning asosiy tumanlarida va viloyatlarda tijorat ko'chmas mulkining eksklyuziv bazasi",
+    obj1_type: "Ofis",
+    obj1_name: "Toshkent markazida ofis",
+    obj1_loc: "Mirzo-Ulug'bek tumani",
+    obj_class_a: "A sinf",
+    obj2_type: "Savdo maydoni",
+    obj2_name: "Savdo maydoni — TM",
+    obj2_loc: "Chilonzor tumani",
+    high_traffic: "Yuqori trafik",
+    obj3_type: "Ombor",
+    obj3_name: "Logistika ombori",
+    obj3_loc: "Yunusobod tumani",
+    loading_dock: "Yuklash hovlisi",
+    per_month: "/oy",
+    obj_btn: "Batafsil ma'lumot",
+    analytics_label: "Ma'lumotlar va trendlar",
+    analytics_title: "O'zbekiston ko'chmas mulk bozori",
+    analytics_sub: "Tijorat ko'chmas mulki bozorining dolzarb ma'lumotlari va tahlili",
+    an1_title: "2024 yil narx o'sishi",
+    an1_desc: "2024 yil davomida Toshkentda tijorat ko'chmas mulki qiymatining o'rtacha o'sishi",
+    an2_title: "Bozor hajmi",
+    an2_desc: "2024 yil yakunlari bo'yicha O'zbekiston tijorat ko'chmas mulki bozorining umumiy hajmi",
+    an3_title: "Xorijiy investitsiyalar",
+    an3_desc: "O'zbekiston tijorat ko'chmas mulkiga xorijiy investitsiyalarning yillik o'sishi",
+    why_label: "Bizning afzalliklarimiz",
+    why_title: "Nima uchun bizni tanlashadi",
+    why_sub: "O'zbekiston tijorat ko'chmas mulki bozorida 10 yillik tajriba",
+    why1_title: "Akkreditatsiyalangan brokerlar",
+    why1_desc: "Barcha brokerlar davlat akkreditatsiyasiga va CCIM/MRICS xalqaro sertifikatlariga ega",
+    why2_title: "Huquqiy hamrohlik",
+    why2_desc: "Shtatdagi huquqshunoslar har bir bitimni due diligence'dan mulkchilik huquqini ro'yxatdan o'tkazishgacha kuzatib boradi",
+    why3_title: "Eksklyuziv baza",
+    why3_desc: "To'g'ridan-to'g'ri egalikdan yopiq takliflar bilan 200+ ob'ekt eksklyuziv listingda",
+    why4_title: "Hisobot va tahlil",
+    why4_desc: "Muntazam tahliliy hisobotlar, bozorni monitoring qilish va shaxsiy investitsion tavsiyalar",
+    contact_label: "Biz bilan bog'laning",
+    contact_title: "So'rovingiz uchun taklif oling",
+    contact_sub: "Ariza qoldiring — mutaxassisimiz 1 ish soati ichida siz bilan bog'lanadi",
+    contact_address: "Toshkent, Mirzo-Ulug'bek tumani, Amir Temur ko'chasi, 107",
+    contact_hours: "Du–Ju 9:00–18:00, Sha 10:00–15:00",
+    f_company: "Kompaniya *",
+    f_name: "Ism *",
+    f_phone: "Telefon *",
+    f_email: "Email",
+    f_type: "So'rov turi *",
+    f_type_ph: "Turni tanlang",
+    f_type_buy: "Sotib olish",
+    f_type_rent: "Ijaraga olish",
+    f_type_sell: "Sotish",
+    f_type_consult: "Investitsion konsalting",
+    f_budget: "Byudjet",
+    f_desc: "So'rov tavsifi",
+    form_submit: "Taklif olish",
+    form_success: "✓ Arizangiz yuborildi! Tez orada siz bilan bog'lanamiz.",
+    form_error: "Yuborishda xato. Iltimos, qayta urinib ko'ring.",
+    footer_tagline: "O'zbekiston tijorat va investitsion ko'chmas mulki. Sotib olish, ijara, aktivlarni boshqarish.",
+    footer_services: "Xizmatlar",
+    footer_objects: "Ob'ektlar",
+    footer_contacts: "Aloqa",
+    footer_form: "Ariza shakli",
+    footer_policy: "Maxfiylik siyosati",
+    footer_copy: "© 2024 INVEST PRO. Barcha huquqlar himoyalangan.",
+    footer_dev_by: "Sayt ishlab chiqildi ",
+  },
+  ru: {
+    lang_tagline: "Коммерческая недвижимость Узбекистана",
+    nav_services: "Услуги",
+    nav_objects: "Объекты",
+    nav_analytics: "Аналитика",
+    nav_about: "О нас",
+    nav_contact: "Контакты",
+    nav_cta: "Консультация",
+    hero_badge: "Лидер рынка · Узбекистан",
+    hero_title_1: "INVEST PRO —",
+    hero_title_2: "Коммерческая",
+    hero_title_3: "недвижимость",
+    hero_sub: "Офисы, торговые площади, склады. Покупка, аренда, управление активами.",
+    hero_btn1: "Получить консультацию",
+    hero_btn2: "Все объекты",
+    stat1: "сделок",
+    stat2: "объектов",
+    stat3: "лет опыта",
+    hcard1_title: "Офис · Центр Ташкента",
+    hcard1_badge: "Аренда",
+    hcard_area: "Площадь",
+    hcard_floor: "Этаж",
+    hcard_price: "Цена/мес",
+    hcard2_title: "Склад · Юнусабадский р-н",
+    hcard2_badge: "Продажа",
+    hcard_class: "Класс",
+    hcard_price2: "Цена",
+    services_label: "Что мы делаем",
+    services_title: "Наши услуги",
+    services_sub: "Полный спектр услуг в сфере коммерческой и инвестиционной недвижимости Узбекистана",
+    s1_title: "Купля-продажа",
+    s1_desc: "Подбор объектов, юридическое сопровождение, переговоры и закрытие сделки под ключ",
+    s2_title: "Аренда",
+    s2_desc: "Поиск арендаторов, составление договоров, мониторинг и сопровождение арендных отношений",
+    s3_title: "Управление активами",
+    s3_desc: "Доверительное управление портфелем объектов, оптимизация доходности и отчётность",
+    s4_title: "Инвестиционный консалтинг",
+    s4_desc: "Анализ рынка, due diligence, оценка объектов и разработка инвестиционных стратегий",
+    objects_label: "Актуальные предложения",
+    objects_title: "Актуальные объекты",
+    objects_sub: "Эксклюзивная база коммерческой недвижимости в ключевых районах Ташкента и регионах",
+    obj1_type: "Офис",
+    obj1_name: "Офис в центре Ташкента",
+    obj1_loc: "Мирзо-Улугбекский р-н",
+    obj_class_a: "Класс A",
+    obj2_type: "Торговая площадь",
+    obj2_name: "Торговая площадь — ТЦ",
+    obj2_loc: "Чиланзарский р-н",
+    high_traffic: "Высокий трафик",
+    obj3_type: "Склад",
+    obj3_name: "Склад логистический",
+    obj3_loc: "Юнусабадский р-н",
+    loading_dock: "Погрузочный двор",
+    per_month: "/мес",
+    obj_btn: "Узнать подробности",
+    analytics_label: "Данные и тренды",
+    analytics_title: "Рынок недвижимости Узбекистана",
+    analytics_sub: "Актуальные данные и аналитика рынка коммерческой недвижимости — основа взвешенных инвестиционных решений",
+    an1_title: "Рост цен 2024",
+    an1_desc: "Средний рост стоимости коммерческой недвижимости в Ташкенте за 2024 год",
+    an2_title: "Объём рынка",
+    an2_desc: "Совокупный объём рынка коммерческой недвижимости Узбекистана по итогам 2024 года",
+    an3_title: "Иностранные инвестиции",
+    an3_desc: "Прирост иностранных инвестиций в коммерческую недвижимость Узбекистана год к году",
+    why_label: "Наши преимущества",
+    why_title: "Почему выбирают нас",
+    why_sub: "10 лет на рынке коммерческой недвижимости Узбекистана — это опыт, который работает на ваш результат",
+    why1_title: "Аккредитованные брокеры",
+    why1_desc: "Все брокеры компании имеют государственную аккредитацию и международные сертификаты CCIM/MRICS",
+    why2_title: "Юридическое сопровождение",
+    why2_desc: "Штатные юристы сопровождают каждую сделку от due diligence до регистрации права собственности",
+    why3_title: "Эксклюзивная база",
+    why3_desc: "200+ объектов в эксклюзивном листинге, включая закрытые предложения от прямых собственников",
+    why4_title: "Отчётность и аналитика",
+    why4_desc: "Регулярные аналитические отчёты, мониторинг рынка и персональные инвестиционные рекомендации",
+    contact_label: "Связаться с нами",
+    contact_title: "Получите предложение под ваш запрос",
+    contact_sub: "Оставьте заявку — наш специалист свяжется с вами в течение 1 рабочего часа",
+    contact_address: "Ташкент, Мирзо-Улугбекский р-н, ул. Амира Темура, 107",
+    contact_hours: "Пн–Пт 9:00–18:00, Сб 10:00–15:00",
+    f_company: "Компания *",
+    f_name: "Имя *",
+    f_phone: "Телефон *",
+    f_email: "Email",
+    f_type: "Тип запроса *",
+    f_type_ph: "Выберите тип",
+    f_type_buy: "Купить",
+    f_type_rent: "Арендовать",
+    f_type_sell: "Продать",
+    f_type_consult: "Инвестиционный консалтинг",
+    f_budget: "Бюджет",
+    f_desc: "Описание запроса",
+    form_submit: "Получить предложение",
+    form_success: "✓ Заявка отправлена! Мы свяжемся с вами в ближайшее время.",
+    form_error: "Ошибка отправки. Пожалуйста, попробуйте ещё раз.",
+    footer_tagline: "Коммерческая и инвестиционная недвижимость Узбекистана. Покупка, аренда, управление активами.",
+    footer_services: "Услуги",
+    footer_objects: "Объекты",
+    footer_contacts: "Контакты",
+    footer_form: "Форма заявки",
+    footer_policy: "Политика конфиденциальности",
+    footer_copy: "© 2024 INVEST PRO. Все права защищены.",
+    footer_dev_by: "Сайт разработан ",
+  },
+  en: {
+    lang_tagline: "Commercial Real Estate in Uzbekistan",
+    nav_services: "Services",
+    nav_objects: "Properties",
+    nav_analytics: "Analytics",
+    nav_about: "About",
+    nav_contact: "Contact",
+    nav_cta: "Consultation",
+    hero_badge: "Market Leader · Uzbekistan",
+    hero_title_1: "INVEST PRO —",
+    hero_title_2: "Commercial",
+    hero_title_3: "Real Estate",
+    hero_sub: "Offices, retail spaces, warehouses. Purchase, lease, asset management.",
+    hero_btn1: "Get Consultation",
+    hero_btn2: "All Properties",
+    stat1: "in deals",
+    stat2: "properties",
+    stat3: "years experience",
+    hcard1_title: "Office · Tashkent Center",
+    hcard1_badge: "For Lease",
+    hcard_area: "Area",
+    hcard_floor: "Floor",
+    hcard_price: "Price/mo",
+    hcard2_title: "Warehouse · Yunusabad",
+    hcard2_badge: "For Sale",
+    hcard_class: "Class",
+    hcard_price2: "Price",
+    services_label: "What We Do",
+    services_title: "Our Services",
+    services_sub: "Full range of commercial and investment real estate services in Uzbekistan",
+    s1_title: "Buy & Sell",
+    s1_desc: "Property search, legal support, negotiations and turnkey deal closing",
+    s2_title: "Lease",
+    s2_desc: "Tenant search, contract drafting, monitoring and lease relationship management",
+    s3_title: "Asset Management",
+    s3_desc: "Trust management of property portfolios, yield optimization and reporting",
+    s4_title: "Investment Consulting",
+    s4_desc: "Market analysis, due diligence, property valuation and investment strategy development",
+    objects_label: "Current Listings",
+    objects_title: "Available Properties",
+    objects_sub: "Exclusive commercial real estate database in key districts of Tashkent and regions",
+    obj1_type: "Office",
+    obj1_name: "Office in Tashkent Center",
+    obj1_loc: "Mirzo-Ulugbek District",
+    obj_class_a: "Class A",
+    obj2_type: "Retail Space",
+    obj2_name: "Retail Space — Shopping Center",
+    obj2_loc: "Chilanzar District",
+    high_traffic: "High Traffic",
+    obj3_type: "Warehouse",
+    obj3_name: "Logistics Warehouse",
+    obj3_loc: "Yunusabad District",
+    loading_dock: "Loading Yard",
+    per_month: "/mo",
+    obj_btn: "View Details",
+    analytics_label: "Data & Trends",
+    analytics_title: "Uzbekistan Real Estate Market",
+    analytics_sub: "Current data and analytics of the commercial real estate market — the foundation for sound investment decisions",
+    an1_title: "Price Growth 2024",
+    an1_desc: "Average growth in commercial real estate value in Tashkent throughout 2024",
+    an2_title: "Market Volume",
+    an2_desc: "Total volume of the Uzbekistan commercial real estate market as of end 2024",
+    an3_title: "Foreign Investment",
+    an3_desc: "Year-over-year growth in foreign investment in Uzbekistan commercial real estate",
+    why_label: "Our Advantages",
+    why_title: "Why Choose Us",
+    why_sub: "10 years in the Uzbekistan commercial real estate market — experience that delivers results",
+    why1_title: "Accredited Brokers",
+    why1_desc: "All company brokers hold state accreditation and international CCIM/MRICS certifications",
+    why2_title: "Legal Support",
+    why2_desc: "In-house lawyers accompany every deal from due diligence to ownership registration",
+    why3_title: "Exclusive Database",
+    why3_desc: "200+ properties in exclusive listings, including closed offers from direct owners",
+    why4_title: "Reporting & Analytics",
+    why4_desc: "Regular analytical reports, market monitoring and personal investment recommendations",
+    contact_label: "Get In Touch",
+    contact_title: "Get a Tailored Offer",
+    contact_sub: "Submit a request — our specialist will contact you within 1 business hour",
+    contact_address: "Tashkent, Mirzo-Ulugbek District, Amir Temur St., 107",
+    contact_hours: "Mon–Fri 9:00–18:00, Sat 10:00–15:00",
+    f_company: "Company *",
+    f_name: "Name *",
+    f_phone: "Phone *",
+    f_email: "Email",
+    f_type: "Request Type *",
+    f_type_ph: "Select type",
+    f_type_buy: "Buy",
+    f_type_rent: "Lease",
+    f_type_sell: "Sell",
+    f_type_consult: "Investment Consulting",
+    f_budget: "Budget",
+    f_desc: "Request Description",
+    form_submit: "Get Offer",
+    form_success: "✓ Request sent! We will contact you shortly.",
+    form_error: "Submission error. Please try again.",
+    footer_tagline: "Commercial and investment real estate in Uzbekistan. Purchase, lease, asset management.",
+    footer_services: "Services",
+    footer_objects: "Properties",
+    footer_contacts: "Contacts",
+    footer_form: "Request Form",
+    footer_policy: "Privacy Policy",
+    footer_copy: "© 2024 INVEST PRO. All rights reserved.",
+    footer_dev_by: "Website developed by ",
+  }
+};
+
+let currentLang = 'ru';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent === lang.toUpperCase()));
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.dataset.key;
+    if (T[lang] && T[lang][key] !== undefined) {
+      // Handle label elements that contain a <span class="req">
+      if (el.tagName === 'LABEL' && el.querySelector('.req')) {
+        const req = el.querySelector('.req').outerHTML;
+        el.innerHTML = T[lang][key].replace(' *', '') + ' ' + req;
+      } else {
+        el.textContent = T[lang][key];
+      }
+    }
+  });
+  document.documentElement.lang = lang;
+}
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// ── MOBILE MENU ──
+function openMenu() { document.getElementById('mobile-menu').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeMenu() { document.getElementById('mobile-menu').classList.remove('open'); document.body.style.overflow = ''; }
+document.getElementById('mobile-menu').addEventListener('click', e => { if (e.target === e.currentTarget) closeMenu(); });
+
+// ── SCROLL REVEAL ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+
+// ── TELEGRAM FORM ──
+const TG_TOKEN = '8294315634:AAHYHAikSetei6pwW-8XmupO7D_AGFPm5Fg';
+const TG_CHAT = '7118891995';
+
+document.getElementById('invest-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btn-submit');
+  const msgEl = document.getElementById('form-msg');
+  const lang = currentLang;
+
+  btn.disabled = true;
+  btn.querySelector('span').textContent = '...';
+  msgEl.className = 'form-msg';
+  msgEl.style.display = 'none';
+
+  const fd = new FormData(this);
+  const typeMap = { buy: T[lang].f_type_buy, rent: T[lang].f_type_rent, sell: T[lang].f_type_sell, consult: T[lang].f_type_consult };
+  const reqType = typeMap[fd.get('request_type')] || fd.get('request_type') || '—';
+
+  const text = [
+    '🏢 <b>INVEST PRO — Новая заявка</b>',
+    '',
+    `👤 <b>Имя:</b> ${fd.get('name') || '—'}`,
+    `🏗 <b>Компания:</b> ${fd.get('company') || '—'}`,
+    `📞 <b>Телефон:</b> ${fd.get('phone') || '—'}`,
+    `📧 <b>Email:</b> ${fd.get('email') || '—'}`,
+    `📋 <b>Тип запроса:</b> ${reqType}`,
+    `💰 <b>Бюджет:</b> ${fd.get('budget') || '—'}`,
+    `📝 <b>Описание:</b> ${fd.get('description') || '—'}`,
+    '',
+    `🌐 <b>Язык:</b> ${lang.toUpperCase()}`
+  ].join('\n');
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TG_CHAT, text, parse_mode: 'HTML' })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      msgEl.textContent = T[lang].form_success || '✓ Заявка отправлена!';
+      msgEl.className = 'form-msg success';
+      msgEl.style.display = 'block';
+      this.reset();
+    } else {
+      throw new Error(data.description);
+    }
+  } catch (err) {
+    msgEl.textContent = T[lang].form_error || 'Ошибка. Попробуйте ещё раз.';
+    msgEl.className = 'form-msg error';
+    msgEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.querySelector('span').textContent = T[lang].form_submit || 'Получить предложение';
+  }
+});
+</script>
+</body>
+</html>

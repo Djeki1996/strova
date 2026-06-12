@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HAZE Lounge — Where night comes alive · Ташкент</title>
+  <meta name="description" content="Премиум лаунж-бар в Ташкенте. Авторские коктейли, живая музыка, незабываемая атмосфера." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --bg:      #0D0B14;
+      --bg2:     #12101C;
+      --bg3:     #1A1726;
+      --violet:  #7C3AED;
+      --violet2: #A78BFA;
+      --pink:    #EC4899;
+      --gold:    #C9942A;
+      --white:   #FFFFFF;
+      --gray:    #8B7FA8;
+      --glass:   rgba(26,23,38,0.72);
+      --glass-border: rgba(167,139,250,0.18);
+      --radius:  16px;
+      --ease:    cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ─── RESET ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+    input, select, textarea { font-family: inherit; }
+
+    /* ─── PRELOADER ───────────────────────────────────────── */
+    #preloader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 24px;
+      transition: opacity 0.6s var(--ease), visibility 0.6s;
+    }
+    #preloader.hidden { opacity: 0; visibility: hidden; }
+    .pre-logo {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: clamp(56px, 12vw, 96px);
+      letter-spacing: 0.12em;
+      background: linear-gradient(135deg, var(--violet2), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: preGlow 1.5s ease-in-out infinite alternate;
+    }
+    @keyframes preGlow {
+      from { filter: drop-shadow(0 0 12px rgba(167,139,250,0.4)); }
+      to   { filter: drop-shadow(0 0 32px rgba(236,72,153,0.6)); }
+    }
+    .pre-bar {
+      width: 120px; height: 2px;
+      background: var(--bg3);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .pre-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--violet), var(--pink));
+      border-radius: 99px;
+      animation: preLoad 1.8s var(--ease) forwards;
+    }
+    @keyframes preLoad {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 24px;
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(13,11,20,0.7);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border-bottom: 1px solid var(--glass-border);
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: 28px;
+      letter-spacing: 0.16em;
+      background: linear-gradient(135deg, var(--violet2), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links {
+      display: none;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray);
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      display: none;
+      padding: 10px 22px;
+      border-radius: 99px;
+      background: linear-gradient(135deg, var(--violet), var(--pink));
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+    .nav-burger {
+      width: 40px; height: 40px;
+      display: flex; flex-direction: column;
+      justify-content: center; gap: 6px;
+      cursor: pointer;
+      background: none;
+      padding: 4px;
+    }
+    .nav-burger span {
+      display: block; height: 2px; border-radius: 2px;
+      background: var(--white);
+      transition: transform 0.3s var(--ease), opacity 0.3s;
+    }
+    .nav-burger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      position: fixed; top: 68px; left: 0; right: 0; z-index: 999;
+      background: rgba(13,11,20,0.96);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 0 24px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s var(--ease), padding 0.4s;
+    }
+    .mobile-menu.open { max-height: 400px; padding: 20px 24px; }
+    .mobile-menu a {
+      display: block;
+      padding: 14px 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--gray);
+      border-bottom: 1px solid rgba(167,139,250,0.08);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--white); }
+    .mobile-menu .m-cta {
+      display: block;
+      margin-top: 16px;
+      padding: 14px;
+      text-align: center;
+      border-radius: 99px;
+      background: linear-gradient(135deg, var(--violet), var(--pink));
+      color: var(--white);
+      font-weight: 600;
+      border-bottom: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-links { display: flex; }
+      .nav-cta { display: block; }
+      .nav-burger { display: none; }
+    }
+
+    /* ─── HERO ────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100dvh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      padding: 100px 24px 60px;
+    }
+
+    /* Blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(80px);
+    }
+    .blob-1 {
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(124,58,237,0.28), transparent 70%);
+      top: -120px; left: -160px;
+      animation: floatBlob1 14s ease-in-out infinite;
+    }
+    .blob-2 {
+      width: 440px; height: 440px;
+      background: radial-gradient(circle, rgba(236,72,153,0.22), transparent 70%);
+      bottom: -80px; right: -100px;
+      animation: floatBlob2 18s ease-in-out infinite;
+    }
+    .blob-3 {
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(59,42,120,0.30), transparent 70%);
+      top: 40%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: floatBlob3 22s ease-in-out infinite;
+    }
+    .blob-4 {
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(201,148,42,0.15), transparent 70%);
+      top: 20%; right: 10%;
+      animation: floatBlob4 16s ease-in-out infinite;
+    }
+
+    @keyframes floatBlob1 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%      { transform: translate(60px,40px) scale(1.08); }
+      66%      { transform: translate(-30px,60px) scale(0.94); }
+    }
+    @keyframes floatBlob2 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      40%      { transform: translate(-50px,-40px) scale(1.1); }
+      70%      { transform: translate(30px,50px) scale(0.92); }
+    }
+    @keyframes floatBlob3 {
+      0%,100% { transform: translate(-50%,-50%) scale(1); }
+      50%      { transform: translate(-46%,-54%) scale(1.15); }
+    }
+    @keyframes floatBlob4 {
+      0%,100% { transform: translate(0,0); }
+      50%      { transform: translate(-20px,30px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .blob { animation: none !important; }
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      max-width: 820px;
+      text-align: center;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 20px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 18px;
+      border-radius: 99px;
+      background: rgba(124,58,237,0.18);
+      border: 1px solid rgba(167,139,250,0.3);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--violet2);
+      letter-spacing: 0.03em;
+    }
+    .hero-title {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: clamp(80px, 18vw, 144px);
+      line-height: 0.92;
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--violet2) 0%, var(--pink) 55%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 40px rgba(167,139,250,0.3));
+    }
+    .hero-sub {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: clamp(15px, 3vw, 20px);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .hero-desc {
+      font-size: clamp(15px, 2.5vw, 18px);
+      color: rgba(255,255,255,0.72);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+    .hero-btns {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .btn-primary {
+      padding: 14px 32px;
+      border-radius: 99px;
+      background: linear-gradient(135deg, var(--violet), var(--pink));
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s;
+      box-shadow: 0 0 32px rgba(124,58,237,0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(124,58,237,0.5);
+    }
+    .btn-secondary {
+      padding: 14px 32px;
+      border-radius: 99px;
+      background: transparent;
+      border: 1px solid var(--glass-border);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 500;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover {
+      border-color: rgba(167,139,250,0.5);
+      background: rgba(124,58,237,0.12);
+      transform: translateY(-2px);
+    }
+    .hero-price-card {
+      margin-top: 12px;
+      padding: 12px 24px;
+      border-radius: 99px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-size: 14px;
+      color: var(--gray);
+    }
+    .hero-price-card span { color: var(--gold); font-weight: 600; }
+
+    /* ─── SECTIONS SHARED ─────────────────────────────────── */
+    section { padding: 80px 24px; }
+    .section-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--violet2);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900;
+      font-size: clamp(28px, 5vw, 44px);
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 16px;
+      color: var(--gray);
+      max-width: 520px;
+    }
+    .section-header { margin-bottom: 48px; }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ─── COCKTAILS ──────────────────────────────────────── */
+    #cocktails { background: var(--bg2); }
+    .cocktails-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (min-width: 600px) { .cocktails-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .cocktails-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .cocktail-card {
+      background: var(--bg3);
+      border: 1px solid rgba(167,139,250,0.10);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+      cursor: default;
+    }
+    .cocktail-card:hover {
+      border-color: rgba(167,139,250,0.42);
+      box-shadow: 0 8px 40px rgba(124,58,237,0.18);
+      transform: translateY(-4px);
+    }
+    .cocktail-thumb {
+      height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cocktail-thumb::before {
+      content: '';
+      position: absolute; inset: 0;
+    }
+    .ct-1 { background: linear-gradient(135deg, #3B0764 0%, #7C3AED 50%, #EC4899 100%); }
+    .ct-2 { background: linear-gradient(135deg, #4C1D95 0%, #7C3AED 40%, #F59E0B 100%); }
+    .ct-3 { background: linear-gradient(135deg, #064E3B 0%, #059669 50%, #A78BFA 100%); }
+    .ct-4 { background: linear-gradient(135deg, #1E1B4B 0%, #7C3AED 40%, #C026D3 100%); }
+    .ct-5 { background: linear-gradient(135deg, #7F1D1D 0%, #EC4899 50%, #F97316 100%); }
+    .ct-6 { background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #7C3AED 100%); }
+    .cocktail-icon {
+      font-size: 48px;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+      position: relative; z-index: 1;
+    }
+    .cocktail-body { padding: 20px; }
+    .cocktail-name {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .cocktail-desc { font-size: 13px; color: var(--gray); line-height: 1.5; }
+    .cocktail-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 14px;
+    }
+    .cocktail-price {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--gold);
+    }
+    .cocktail-tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: rgba(124,58,237,0.2);
+      color: var(--violet2);
+      font-weight: 500;
+    }
+
+    /* ─── KITCHEN ────────────────────────────────────────── */
+    #kitchen { background: var(--bg); }
+    .kitchen-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (min-width: 600px) { .kitchen-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .kitchen-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .kitchen-card {
+      background: var(--bg3);
+      border: 1px solid rgba(167,139,250,0.08);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .kitchen-card:hover {
+      border-color: rgba(167,139,250,0.3);
+      transform: translateY(-3px);
+    }
+    .kitchen-emoji { font-size: 32px; }
+    .kitchen-cat {
+      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--pink); font-weight: 600;
+    }
+    .kitchen-name {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700; font-size: 16px;
+    }
+    .kitchen-desc { font-size: 13px; color: var(--gray); line-height: 1.5; }
+    .kitchen-price { font-weight: 700; color: var(--gold); font-size: 16px; margin-top: auto; }
+
+    /* ─── EVENTS ─────────────────────────────────────────── */
+    #events { background: var(--bg2); }
+    .events-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (min-width: 768px) { .events-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .event-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(167,139,250,0.12);
+      background: var(--bg3);
+      transition: transform 0.25s, box-shadow 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .event-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 48px rgba(124,58,237,0.2);
+    }
+    .event-head {
+      padding: 28px 24px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .event-head::before {
+      content: '';
+      position: absolute; inset: 0;
+      opacity: 0.18;
+    }
+    .eh-fri::before { background: linear-gradient(135deg, var(--violet), var(--pink)); }
+    .eh-sat::before { background: linear-gradient(135deg, #0EA5E9, var(--violet)); }
+    .eh-thu::before { background: linear-gradient(135deg, var(--pink), var(--gold)); }
+    .event-day {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--violet2);
+      margin-bottom: 8px; position: relative; z-index: 1;
+    }
+    .event-title {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900; font-size: 22px;
+      position: relative; z-index: 1;
+    }
+    .event-body { padding: 20px 24px 24px; flex: 1; }
+    .event-desc { font-size: 14px; color: var(--gray); line-height: 1.6; margin-bottom: 16px; }
+    .event-time {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--gray);
+    }
+    .event-time svg { flex-shrink: 0; }
+    .event-badge {
+      display: inline-flex; align-items: center;
+      padding: 5px 12px;
+      border-radius: 99px;
+      font-size: 12px; font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .eb-violet { background: rgba(124,58,237,0.2); color: var(--violet2); }
+    .eb-blue   { background: rgba(14,165,233,0.2); color: #7DD3FC; }
+    .eb-pink   { background: rgba(236,72,153,0.2); color: #F9A8D4; }
+
+    /* ─── GALLERY ────────────────────────────────────────── */
+    #gallery { background: var(--bg); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (min-width: 768px)  { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1024px) {
+      .gallery-grid {
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: auto auto;
+      }
+      .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+      .gallery-item:nth-child(4) { grid-column: span 2; }
+    }
+
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.25s;
+    }
+    .gallery-item:hover { transform: scale(1.03); }
+    .gallery-item::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.2);
+      transition: background 0.25s;
+    }
+    .gallery-item:hover::after { background: rgba(0,0,0,0.05); }
+    .gi-1 { background: linear-gradient(135deg, #3B0764, #7C3AED, #EC4899); }
+    .gi-2 { background: linear-gradient(135deg, #0F172A, #7C3AED 60%, #A78BFA); }
+    .gi-3 { background: linear-gradient(135deg, #1C0533, #C026D3, #EC4899 80%); }
+    .gi-4 { background: linear-gradient(135deg, #0C1445, #1D4ED8, #7C3AED); }
+    .gi-5 { background: linear-gradient(135deg, #1A0A2E, #6D28D9, #C9942A); }
+    .gi-6 { background: linear-gradient(135deg, #12101C, #EC4899, #F97316 90%); }
+    .gallery-label {
+      position: absolute; bottom: 12px; left: 12px;
+      z-index: 2;
+      font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.8);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    }
+
+    /* ─── BOOKING ────────────────────────────────────────── */
+    #booking {
+      background: var(--bg2);
+    }
+    .booking-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    @media (min-width: 900px) { .booking-wrap { grid-template-columns: 1fr 1fr; align-items: start; } }
+
+    .booking-form-box {
+      background: var(--bg3);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 480px) { .form-row { grid-template-columns: 1fr 1fr; } }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label {
+      font-size: 13px; font-weight: 500; color: var(--gray);
+      letter-spacing: 0.03em;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(167,139,250,0.16);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: var(--white);
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+      min-height: 44px;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--violet2);
+      box-shadow: 0 0 0 3px rgba(167,139,250,0.15);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--gray); }
+    .form-group select { appearance: none; -webkit-appearance: none; cursor: pointer; }
+    .form-group select option { background: var(--bg3); color: var(--white); }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      border-radius: 99px;
+      background: linear-gradient(135deg, var(--violet), var(--pink));
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(124,58,237,0.3);
+      margin-top: 8px;
+    }
+    .submit-btn:hover:not(:disabled) {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(124,58,237,0.5);
+    }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .form-msg {
+      margin-top: 12px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      display: none;
+    }
+    .form-msg.success { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); color: #6EE7B7; display: block; }
+    .form-msg.error   { background: rgba(239,68,68,0.15);  border: 1px solid rgba(239,68,68,0.3);  color: #FCA5A5; display: block; }
+
+    /* Dresscode block */
+    .dresscode-box {
+      background: var(--bg3);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .dc-title {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900; font-size: 22px;
+    }
+    .dc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .dc-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(167,139,250,0.1);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .dc-icon { font-size: 24px; }
+    .dc-label { font-size: 13px; font-weight: 600; color: var(--white); }
+    .dc-sub { font-size: 12px; color: var(--gray); }
+    .dc-no {
+      display: flex; align-items: center; gap: 8px;
+      padding: 14px 16px;
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 12px;
+      font-size: 14px;
+      color: #FCA5A5;
+    }
+    .dc-hours {
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .dc-hours-title { font-size: 13px; font-weight: 600; color: var(--gray); letter-spacing: 0.08em; text-transform: uppercase; }
+    .dc-hours-row { display: flex; justify-content: space-between; font-size: 14px; }
+    .dc-hours-row .day { color: var(--gray); }
+    .dc-hours-row .time { color: var(--white); font-weight: 500; }
+
+    /* ─── CONTACTS ───────────────────────────────────────── */
+    #contacts { background: var(--bg); }
+    .contacts-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media (min-width: 600px) { .contacts-wrap { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 900px) { .contacts-wrap { grid-template-columns: repeat(3, 1fr); } }
+
+    .contact-card {
+      background: var(--bg3);
+      border: 1px solid rgba(167,139,250,0.1);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-card:hover {
+      border-color: rgba(167,139,250,0.35);
+      transform: translateY(-2px);
+    }
+    .contact-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ci-v { background: rgba(124,58,237,0.2); }
+    .ci-p { background: rgba(236,72,153,0.2); }
+    .ci-g { background: rgba(201,148,42,0.2); }
+    .contact-label { font-size: 12px; color: var(--gray); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+    .contact-val { font-size: 16px; font-weight: 500; }
+    .contact-sub { font-size: 13px; color: var(--gray); }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid rgba(167,139,250,0.08);
+      padding: 48px 24px 32px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex; flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 900; font-size: 36px;
+      letter-spacing: 0.16em;
+      background: linear-gradient(135deg, var(--violet2), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 20px 32px; justify-content: center; }
+    .footer-links a { font-size: 14px; color: var(--gray); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-socials { display: flex; gap: 16px; }
+    .footer-social {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--bg3);
+      border: 1px solid rgba(167,139,250,0.12);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gray);
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .footer-social:hover { border-color: var(--violet2); color: var(--violet2); transform: translateY(-2px); }
+    .footer-copy { font-size: 13px; color: rgba(139,127,168,0.6); }
+
+    /* ─── FLOAT BUTTONS ─────────────────────────────────── */
+    .float-btns {
+      position: fixed;
+      bottom: 24px; right: 20px;
+      z-index: 800;
+      display: flex; flex-direction: column; gap: 12px;
+      align-items: flex-end;
+    }
+    .float-btn {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 18px;
+      border-radius: 99px;
+      font-size: 14px; font-weight: 600;
+      color: var(--white);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      text-decoration: none;
+    }
+    .float-btn:hover { transform: translateY(-2px) scale(1.03); }
+    .fb-wa { background: #25D366; box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
+    .fb-wa:hover { box-shadow: 0 8px 32px rgba(37,211,102,0.55); }
+    .fb-ig { background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCAF45); box-shadow: 0 4px 20px rgba(253,29,29,0.35); }
+    .fb-ig:hover { box-shadow: 0 8px 32px rgba(253,29,29,0.5); }
+    .float-label { display: none; }
+    @media (min-width: 480px) { .float-label { display: block; } }
+
+    /* ─── DIVIDER ──────────────────────────────────────────── */
+    .divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--violet), var(--pink));
+      border-radius: 99px;
+      margin-top: 12px;
+    }
+
+    /* ─── UTILITY ─────────────────────────────────────────── */
+    .container { max-width: 1100px; margin: 0 auto; }
+    .mt-32 { margin-top: 32px; }
+    .text-gold { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+<!-- ═══ PRELOADER ════════════════════════════════════════════ -->
+<div id="preloader" role="status" aria-label="Загрузка HAZE Lounge">
+  <div class="pre-logo">HAZE</div>
+  <div class="pre-bar"><div class="pre-fill"></div></div>
+</div>
+
+<!-- ═══ NAV ═════════════════════════════════════════════════ -->
+<nav role="navigation" aria-label="Главная навигация">
+  <a href="#hero" class="nav-logo" aria-label="HAZE Lounge — главная">HAZE</a>
+  <ul class="nav-links" role="list">
+    <li><a href="#cocktails">Коктейли</a></li>
+    <li><a href="#kitchen">Кухня</a></li>
+    <li><a href="#events">События</a></li>
+    <li><a href="#booking">Резервирование</a></li>
+  </ul>
+  <a href="#booking" class="nav-cta" role="button">Стол на вечер</a>
+  <button class="nav-burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu" role="menu">
+  <a href="#cocktails" role="menuitem">Коктейли</a>
+  <a href="#kitchen" role="menuitem">Кухня</a>
+  <a href="#events" role="menuitem">События</a>
+  <a href="#gallery" role="menuitem">Галерея</a>
+  <a href="#contacts" role="menuitem">Контакты</a>
+  <a href="#booking" class="m-cta" role="menuitem">Забронировать стол</a>
+</div>
+
+<!-- ═══ HERO ═════════════════════════════════════════════════ -->
+<section id="hero" aria-label="Добро пожаловать в HAZE Lounge">
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
+  <div class="blob blob-3" aria-hidden="true"></div>
+  <div class="blob blob-4" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <div class="hero-badge" role="note">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="#EC4899"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2" stroke="#EC4899" stroke-width="2" stroke-linecap="round"/></svg>
+      Пятница · Живая музыка · с 20:00
+    </div>
+    <h1 class="hero-title">HAZE</h1>
+    <p class="hero-sub">Where night comes alive</p>
+    <p class="hero-desc">Авторские коктейли, живая музыка и атмосфера, которую не забыть.</p>
+    <div class="hero-btns">
+      <a href="#booking" class="btn-primary">Забронировать стол</a>
+      <a href="#cocktails" class="btn-secondary">Смотреть меню</a>
+    </div>
+    <div class="hero-price-card">
+      <span>Коктейль от $8</span> · Кухня до 02:00
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COCKTAILS ════════════════════════════════════════════ -->
+<section id="cocktails">
+  <div class="container">
+    <header class="section-header reveal">
+      <span class="section-label">Авторское меню</span>
+      <h2 class="section-title">Сигнатурные коктейли</h2>
+      <div class="divider"></div>
+      <p class="section-desc mt-32">Каждый коктейль — история в стакане. Создано специально для HAZE.</p>
+    </header>
+    <div class="cocktails-grid">
+
+      <article class="cocktail-card reveal" style="transition-delay:.05s">
+        <div class="cocktail-thumb ct-1">
+          <span class="cocktail-icon" role="img" aria-label="коктейль">🍹</span>
+        </div>
+        <div class="cocktail-body">
+          <h3 class="cocktail-name">Tashkent Sunset</h3>
+          <p class="cocktail-desc">Гранатовый ликёр, апельсиновый биттер, роза, пенка из кардамона</p>
+          <div class="cocktail-footer">
+            <span class="cocktail-price">$12</span>
+            <span class="cocktail-tag">Сигнатура</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="cocktail-card reveal" style="transition-delay:.10s">
+        <div class="cocktail-thumb ct-2">
+          <span class="cocktail-icon" role="img" aria-label="коктейль">🥃</span>
+        </div>
+        <div class="cocktail-body">
+          <h3 class="cocktail-name">Pomegranate Sour</h3>
+          <p class="cocktail-desc">Бурбон, свежий гранат, лимон, яичный белок, щепотка корицы</p>
+          <div class="cocktail-footer">
+            <span class="cocktail-price">$10</span>
+            <span class="cocktail-tag">Классика</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="cocktail-card reveal" style="transition-delay:.15s">
+        <div class="cocktail-thumb ct-3">
+          <span class="cocktail-icon" role="img" aria-label="коктейль">🍸</span>
+        </div>
+        <div class="cocktail-body">
+          <h3 class="cocktail-name">Silk Road Mule</h3>
+          <p class="cocktail-desc">Имбирный ром, лайм, мятное масло, газированный апайч</p>
+          <div class="cocktail-footer">
+            <span class="cocktail-price">$11</span>
+            <span class="cocktail-tag">Фреш</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="cocktail-card reveal" style="transition-delay:.20s">
+        <div class="cocktail-thumb ct-4">
+          <span class="cocktail-icon" role="img" aria-label="коктейль">🍷</span>
+        </div>
+        <div class="cocktail-body">
+          <h3 class="cocktail-name">Violet Haze</h3>
+          <p class="cocktail-desc">Вишнёвый джин, крем де виолетт, сироп лаванды, тоник, виолетт</p>
+          <div class="cocktail-footer">
+            <span class="cocktail-price">$14</span>
+            <span class="cocktail-tag">Хит</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="cocktail-card reveal" style="transition-delay:.25s">
+        <div class="cocktail-thumb ct-5">
+          <span class="cocktail-icon" role="img" aria-label="коктейль">🌹</span>
+        </div>
+        <div class="cocktail-body">
+          <h3 class="cocktail-name">Desert Rose</h3>
+          <p class="cocktail-desc">Текила, клубника, агава, роза, морская соль, грейпфрут</p>
+          <div class="cocktail-footer">
+            <span class="cocktail-price">$9</span>
+            <span class="cocktail-tag">Лёгкий</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="cocktail-card reveal" style="transition-delay:.30s">
+        <div class="cocktail-thumb ct-6">
+          <span class="cocktail-icon" role="img" aria-label="коктейль">🖤</span>
+        </div>
+        <div class="cocktail-body">
+          <h3 class="cocktail-name">Black Pearl</h3>
+          <p class="cocktail-desc">Чёрный ром, активированный уголь, ваниль, кокос, цитрус, дым</p>
+          <div class="cocktail-footer">
+            <span class="cocktail-price">$15</span>
+            <span class="cocktail-tag">Эксклюзив</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ KITCHEN ═══════════════════════════════════════════════ -->
+<section id="kitchen">
+  <div class="container">
+    <header class="section-header reveal">
+      <span class="section-label">Гастро</span>
+      <h2 class="section-title">Кухня</h2>
+      <div class="divider"></div>
+      <p class="section-desc mt-32">Авторские закуски и горячее — до 02:00 ночи.</p>
+    </header>
+    <div class="kitchen-grid">
+
+      <article class="kitchen-card reveal" style="transition-delay:.05s">
+        <span class="kitchen-emoji" role="img" aria-label="закуска">🥗</span>
+        <span class="kitchen-cat">Закуски</span>
+        <h3 class="kitchen-name">Тартар из лосося</h3>
+        <p class="kitchen-desc">Свежий лосось, авокадо, каперсы, соус понзу, кунжутное масло</p>
+        <span class="kitchen-price">$14</span>
+      </article>
+
+      <article class="kitchen-card reveal" style="transition-delay:.10s">
+        <span class="kitchen-emoji" role="img" aria-label="сыры">🧀</span>
+        <span class="kitchen-cat">Закуски</span>
+        <h3 class="kitchen-name">Сырная доска</h3>
+        <p class="kitchen-desc">Камамбер, бри, горгонзола, мёд, орехи, виноград, крекеры</p>
+        <span class="kitchen-price">$18</span>
+      </article>
+
+      <article class="kitchen-card reveal" style="transition-delay:.15s">
+        <span class="kitchen-emoji" role="img" aria-label="бургер">🍔</span>
+        <span class="kitchen-cat">Основное</span>
+        <h3 class="kitchen-name">HAZE Smash Burger</h3>
+        <p class="kitchen-desc">Двойная смэш-котлета, трюфельный айоли, карамельный лук, бриошь</p>
+        <span class="kitchen-price">$22</span>
+      </article>
+
+      <article class="kitchen-card reveal" style="transition-delay:.20s">
+        <span class="kitchen-emoji" role="img" aria-label="паста">🍝</span>
+        <span class="kitchen-cat">Основное</span>
+        <h3 class="kitchen-name">Лобстер-паста</h3>
+        <p class="kitchen-desc">Фетуччини, лобстер, крем-соус из морепродуктов, пармезан, базилик</p>
+        <span class="kitchen-price">$28</span>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EVENTS ════════════════════════════════════════════════ -->
+<section id="events">
+  <div class="container">
+    <header class="section-header reveal">
+      <span class="section-label">Расписание</span>
+      <h2 class="section-title">События</h2>
+      <div class="divider"></div>
+      <p class="section-desc mt-32">Каждую неделю — новая атмосфера. Пропустить невозможно.</p>
+    </header>
+    <div class="events-grid">
+
+      <article class="event-card reveal" style="transition-delay:.05s">
+        <div class="event-head eh-fri">
+          <div class="event-day">Каждую пятницу</div>
+          <span class="event-badge eb-violet">Live DJ</span>
+          <h3 class="event-title">DJ Night</h3>
+        </div>
+        <div class="event-body">
+          <p class="event-desc">Лучшие резиденты города. Deep house, techno, afro beats — четыре часа непрерывного звука.</p>
+          <div class="event-time">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#8B7FA8" stroke-width="2"/><path d="M12 7v5l3 3" stroke="#8B7FA8" stroke-width="2" stroke-linecap="round"/></svg>
+            20:00 — 03:00
+          </div>
+        </div>
+      </article>
+
+      <article class="event-card reveal" style="transition-delay:.10s">
+        <div class="event-head eh-sat">
+          <div class="event-day">Каждую субботу</div>
+          <span class="event-badge eb-blue">Live Band</span>
+          <h3 class="event-title">Jazz Evening</h3>
+        </div>
+        <div class="event-body">
+          <p class="event-desc">Живой джаз-бенд. Nu-jazz, soul, R&B — музыка, которая проникает под кожу.</p>
+          <div class="event-time">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#8B7FA8" stroke-width="2"/><path d="M12 7v5l3 3" stroke="#8B7FA8" stroke-width="2" stroke-linecap="round"/></svg>
+            21:00 — 02:00
+          </div>
+        </div>
+      </article>
+
+      <article class="event-card reveal" style="transition-delay:.15s">
+        <div class="event-head eh-thu">
+          <div class="event-day">Каждый четверг</div>
+          <span class="event-badge eb-pink">Ladies Night</span>
+          <h3 class="event-title">Ladies Night</h3>
+        </div>
+        <div class="event-body">
+          <p class="event-desc">Специальные коктейли для дам. Три коктейля в подарок, живая акустика, особая атмосфера.</p>
+          <div class="event-time">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#8B7FA8" stroke-width="2"/><path d="M12 7v5l3 3" stroke="#8B7FA8" stroke-width="2" stroke-linecap="round"/></svg>
+            20:00 — 02:00
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALLERY ═══════════════════════════════════════════════ -->
+<section id="gallery">
+  <div class="container">
+    <header class="section-header reveal">
+      <span class="section-label">Атмосфера</span>
+      <h2 class="section-title">Галерея</h2>
+      <div class="divider"></div>
+    </header>
+    <div class="gallery-grid">
+      <div class="gallery-item gi-1 reveal"><div class="gallery-label">Интерьер</div></div>
+      <div class="gallery-item gi-2 reveal" style="transition-delay:.05s"><div class="gallery-label">Бар</div></div>
+      <div class="gallery-item gi-3 reveal" style="transition-delay:.10s"><div class="gallery-label">DJ Set</div></div>
+      <div class="gallery-item gi-4 reveal" style="transition-delay:.15s"><div class="gallery-label">Вечер</div></div>
+      <div class="gallery-item gi-5 reveal" style="transition-delay:.20s"><div class="gallery-label">Коктейли</div></div>
+      <div class="gallery-item gi-6 reveal" style="transition-delay:.25s"><div class="gallery-label">Лаунж</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BOOKING ═══════════════════════════════════════════════ -->
+<section id="booking">
+  <div class="container">
+    <header class="section-header reveal">
+      <span class="section-label">Резервирование</span>
+      <h2 class="section-title">Забронировать стол</h2>
+      <div class="divider"></div>
+      <p class="section-desc mt-32">Заполните форму — мы свяжемся для подтверждения.</p>
+    </header>
+    <div class="booking-wrap">
+
+      <!-- Форма -->
+      <div class="booking-form-box reveal">
+        <form id="bookingForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">Имя <span style="color:var(--pink)">*</span></label>
+              <input type="text" id="fname" name="fname" placeholder="Ваше имя" required autocomplete="given-name" />
+            </div>
+            <div class="form-group">
+              <label for="fphone">Телефон <span style="color:var(--pink)">*</span></label>
+              <input type="tel" id="fphone" name="fphone" placeholder="+998 __ ___ ____" required autocomplete="tel" />
+            </div>
+          </div>
+          <div class="form-row" style="margin-top:16px">
+            <div class="form-group">
+              <label for="fdate">Дата <span style="color:var(--pink)">*</span></label>
+              <input type="date" id="fdate" name="fdate" required />
+            </div>
+            <div class="form-group">
+              <label for="ftime">Время <span style="color:var(--pink)">*</span></label>
+              <select id="ftime" name="ftime" required>
+                <option value="" disabled selected>Выберите время</option>
+                <option value="20:00">20:00</option>
+                <option value="20:30">20:30</option>
+                <option value="21:00">21:00</option>
+                <option value="21:30">21:30</option>
+                <option value="22:00">22:00</option>
+                <option value="22:30">22:30</option>
+                <option value="23:00">23:00</option>
+                <option value="23:30">23:30</option>
+                <option value="00:00">00:00</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:16px">
+            <label for="fguests">Количество гостей <span style="color:var(--pink)">*</span></label>
+            <select id="fguests" name="fguests" required>
+              <option value="" disabled selected>Выберите</option>
+              <option value="1">1 гость</option>
+              <option value="2">2 гостя</option>
+              <option value="3">3 гостя</option>
+              <option value="4">4 гостя</option>
+              <option value="5">5 гостей</option>
+              <option value="6">6 гостей</option>
+              <option value="7-10">7–10 гостей</option>
+              <option value="10+">10+ гостей (банкет)</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-top:16px">
+            <label for="fnote">Пожелания</label>
+            <textarea id="fnote" name="fnote" placeholder="VIP зона, день рождения, особые пожелания..." rows="3" style="resize:vertical"></textarea>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">Забронировать стол</button>
+          <div id="formMsg" class="form-msg" role="alert" aria-live="polite"></div>
+        </form>
+      </div>
+
+      <!-- Дресс-код + часы -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <div class="dresscode-box reveal" style="transition-delay:.1s">
+          <h3 class="dc-title">Дресс-код</h3>
+          <div class="dc-grid">
+            <div class="dc-item">
+              <span class="dc-icon" role="img" aria-label="смарт кэжуал">👔</span>
+              <span class="dc-label">Smart Casual</span>
+              <span class="dc-sub">Рубашки, брюки, платья</span>
+            </div>
+            <div class="dc-item">
+              <span class="dc-icon" role="img" aria-label="вечерний стиль">👗</span>
+              <span class="dc-label">Evening Style</span>
+              <span class="dc-sub">Коктейльные наряды</span>
+            </div>
+          </div>
+          <div class="dc-no" role="note">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#FCA5A5" stroke-width="2"/><path d="M15 9l-6 6M9 9l6 6" stroke="#FCA5A5" stroke-width="2" stroke-linecap="round"/></svg>
+            Спортивная одежда и кроссовки — запрещены
+          </div>
+        </div>
+
+        <div class="dresscode-box reveal" style="transition-delay:.2s">
+          <h3 class="dc-title">Режим работы</h3>
+          <div class="dc-hours">
+            <div class="dc-hours-title">Расписание</div>
+            <div class="dc-hours-row"><span class="day">Понедельник — Вторник</span><span class="time" style="color:var(--gray)">Закрыто</span></div>
+            <div class="dc-hours-row"><span class="day">Среда — Четверг</span><span class="time">20:00 — 02:00</span></div>
+            <div class="dc-hours-row"><span class="day">Пятница</span><span class="time">20:00 — 03:00</span></div>
+            <div class="dc-hours-row"><span class="day">Суббота</span><span class="time">20:00 — 03:00</span></div>
+            <div class="dc-hours-row"><span class="day">Воскресенье</span><span class="time">20:00 — 02:00</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACTS ══════════════════════════════════════════════ -->
+<section id="contacts">
+  <div class="container">
+    <header class="section-header reveal">
+      <span class="section-label">Где найти</span>
+      <h2 class="section-title">Контакты</h2>
+      <div class="divider"></div>
+    </header>
+    <div class="contacts-wrap">
+
+      <div class="contact-card reveal">
+        <div class="contact-icon ci-v">
+          <svg width="20" height="20" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#A78BFA" stroke-width="2" fill="none"/>
+            <circle cx="12" cy="9" r="2.5" stroke="#A78BFA" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="contact-label">Адрес</div>
+        <div class="contact-val">ул. Амира Темура, 15</div>
+        <div class="contact-sub">Ташкент, Узбекистан</div>
+      </div>
+
+      <div class="contact-card reveal" style="transition-delay:.08s">
+        <div class="contact-icon ci-p">
+          <svg width="20" height="20" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.63a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.91a16 16 0 006.08 6.08l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#EC4899" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="contact-label">Телефон</div>
+        <div class="contact-val"><a href="tel:+998901234567" style="color:inherit">+998 90 123-45-67</a></div>
+        <div class="contact-sub">WhatsApp · Telegram</div>
+      </div>
+
+      <div class="contact-card reveal" style="transition-delay:.16s">
+        <div class="contact-icon ci-g">
+          <svg width="20" height="20" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke="#C9942A" stroke-width="2"/>
+            <path d="M12 7v5l3 3" stroke="#C9942A" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="contact-label">Часы работы</div>
+        <div class="contact-val">Ср–Вс: 20:00–03:00</div>
+        <div class="contact-sub">Пн–Вт закрыто</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">HAZE</div>
+    <nav aria-label="Нижняя навигация">
+      <ul class="footer-links" role="list">
+        <li><a href="#cocktails">Коктейли</a></li>
+        <li><a href="#kitchen">Кухня</a></li>
+        <li><a href="#events">События</a></li>
+        <li><a href="#gallery">Галерея</a></li>
+        <li><a href="#booking">Бронирование</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+      </ul>
+    </nav>
+    <div class="footer-socials">
+      <a href="https://instagram.com/haze.lounge.tashkent" class="footer-social" aria-label="Instagram HAZE Lounge" target="_blank" rel="noopener">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+      </a>
+      <a href="https://t.me/hazelounge" class="footer-social" aria-label="Telegram HAZE Lounge" target="_blank" rel="noopener">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="https://wa.me/998901234567" class="footer-social" aria-label="WhatsApp HAZE Lounge" target="_blank" rel="noopener">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <p class="footer-copy">© 2024 HAZE Lounge · Ташкент · Where night comes alive</p>
+  </div>
+</footer>
+
+<!-- ═══ FLOATING BUTTONS ═══════════════════════════════════════ -->
+<div class="float-btns" role="complementary" aria-label="Быстрая связь">
+  <a href="https://wa.me/998901234567" class="float-btn fb-wa" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
+    <svg width="18" height="18" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="float-label">WhatsApp</span>
+  </a>
+  <a href="https://instagram.com/haze.lounge.tashkent" class="float-btn fb-ig" target="_blank" rel="noopener" aria-label="Перейти в Instagram">
+    <svg width="18" height="18" fill="none" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg>
+    <span class="float-label">Instagram</span>
+  </a>
+</div>
+
+<!-- ═══ SCRIPTS ════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Preloader ── */
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      var pre = document.getElementById('preloader');
+      if (pre) pre.classList.add('hidden');
+    }, 1800);
+  });
+
+  /* ── Burger menu ── */
+  var burger = document.getElementById('burger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  if (burger && mobileMenu) {
+    burger.addEventListener('click', function () {
+      var isOpen = mobileMenu.classList.toggle('open');
+      burger.classList.toggle('open', isOpen);
+      burger.setAttribute('aria-expanded', isOpen);
+    });
+    mobileMenu.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        mobileMenu.classList.remove('open');
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  /* ── Set min date for booking ── */
+  var dateInput = document.getElementById('fdate');
+  if (dateInput) {
+    var today = new Date();
+    var yyyy = today.getFullYear();
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var dd = String(today.getDate()).padStart(2, '0');
+    dateInput.min = yyyy + '-' + mm + '-' + dd;
+  }
+
+  /* ── Scroll Reveal ── */
+  if (typeof IntersectionObserver !== 'undefined') {
+    var revealItems = document.querySelectorAll('.reveal');
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealItems.forEach(function (el) { observer.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      el.classList.add('visible');
+    });
+  }
+
+  /* ── Telegram Booking Form ── */
+  var form = document.getElementById('bookingForm');
+  var submitBtn = document.getElementById('submitBtn');
+  var formMsg = document.getElementById('formMsg');
+  var BOT_TOKEN = '8294315634:AAHYHAikSetei6pwW-8XmupO7D_AGFPm5Fg';
+  var CHAT_ID = '7118891995';
+
+  function showMsg(type, text) {
+    formMsg.className = 'form-msg ' + type;
+    formMsg.textContent = text;
+    formMsg.style.display = 'block';
+  }
+
+  function validate() {
+    var name  = document.getElementById('fname').value.trim();
+    var phone = document.getElementById('fphone').value.trim();
+    var date  = document.getElementById('fdate').value;
+    var time  = document.getElementById('ftime').value;
+    var guests = document.getElementById('fguests').value;
+    if (!name)   { showMsg('error', 'Пожалуйста, введите ваше имя.'); return null; }
+    if (!phone)  { showMsg('error', 'Пожалуйста, введите номер телефона.'); return null; }
+    if (!date)   { showMsg('error', 'Выберите дату визита.'); return null; }
+    if (!time)   { showMsg('error', 'Выберите время визита.'); return null; }
+    if (!guests) { showMsg('error', 'Укажите количество гостей.'); return null; }
+    return { name: name, phone: phone, date: date, time: time, guests: guests,
+             note: document.getElementById('fnote').value.trim() };
+  }
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      formMsg.style.display = 'none';
+      var data = validate();
+      if (!data) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Отправляем...';
+
+      var dateFormatted = data.date.split('-').reverse().join('.');
+      var text =
+        '🍸 <b>Новое бронирование — HAZE Lounge</b>\n\n' +
+        '👤 Имя: ' + data.name + '\n' +
+        '📞 Телефон: ' + data.phone + '\n' +
+        '📅 Дата: ' + dateFormatted + '\n' +
+        '⏰ Время: ' + data.time + '\n' +
+        '👥 Гостей: ' + data.guests +
+        (data.note ? '\n\n💬 Пожелания: ' + data.note : '') +
+        '\n\n#бронирование #hazelounge';
+
+      var url = 'https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage';
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'HTML' })
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res.ok) {
+          showMsg('success', '✓ Бронирование отправлено! Мы свяжемся с вами для подтверждения.');
+          form.reset();
+        } else {
+          showMsg('error', 'Ошибка отправки. Позвоните нам напрямую: +998 90 123-45-67');
+        }
+      })
+      .catch(function () {
+        showMsg('error', 'Ошибка соединения. Напишите нам в WhatsApp или Telegram.');
+      })
+      .finally(function () {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Забронировать стол';
+      });
+    });
+  }
+
+  /* ── Nav scroll opacity ── */
+  var navEl = document.querySelector('nav');
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 80) {
+      navEl.style.background = 'rgba(13,11,20,0.95)';
+    } else {
+      navEl.style.background = 'rgba(13,11,20,0.7)';
+    }
+  }, { passive: true });
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAMARQAND — Узбекский ресторан</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FDF6EC;
+  --bg2: #F5EAD8;
+  --terra: #C2440C;
+  --terra-dark: #A33A0A;
+  --gold: #B45309;
+  --gold-light: #D97706;
+  --text: #2C1A0E;
+  --text2: #6B4226;
+  --white: #FFFDF9;
+  --border: #E8D5B7;
+  --shadow: 0 4px 24px rgba(44,26,14,0.10);
+  --r: 8px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+
+/* LANG BAR */
+.lang-bar{background:var(--terra);padding:8px 0;text-align:right}
+.lang-bar .container{display:flex;justify-content:flex-end;align-items:center;gap:8px}
+.lang-btn{background:none;border:1px solid rgba(255,255,255,0.4);color:#fff;padding:3px 12px;border-radius:20px;cursor:pointer;font-size:12px;font-family:'Inter',sans-serif;transition:all .2s}
+.lang-btn.active,.lang-btn:hover{background:#fff;color:var(--terra)}
+
+/* NAV */
+nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(44,26,14,0.08)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:70px;max-width:1200px;margin:0 auto}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--terra);letter-spacing:2px;text-decoration:none}
+.nav-logo span{color:var(--gold);font-style:italic}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--text2);font-size:14px;font-weight:500;transition:color .2s;letter-spacing:.5px}
+.nav-links a:hover{color:var(--terra)}
+.nav-cta{background:var(--terra);color:#fff;padding:10px 24px;border-radius:6px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s;letter-spacing:.5px}
+.nav-cta:hover{background:var(--terra-dark)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.burger span{width:24px;height:2px;background:var(--terra);border-radius:2px;display:block}
+
+/* HERO */
+.hero{min-height:92vh;background:linear-gradient(160deg,#2C1A0E 0%,#5C2E0A 50%,#8B3A12 100%);display:flex;align-items:center;position:relative;overflow:hidden}
+.hero-ornament{position:absolute;top:0;right:0;width:50%;height:100%;opacity:.08;pointer-events:none}
+.hero-ornament svg{width:100%;height:100%}
+.hero-content{max-width:1200px;margin:0 auto;padding:80px 24px;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(180,83,9,.3);border:1px solid var(--gold-light);color:var(--gold-light);padding:6px 18px;border-radius:20px;font-size:13px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:24px}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,8vw,96px);font-weight:700;color:#FFF8F0;line-height:1.05;margin-bottom:20px;letter-spacing:2px}
+.hero h1 em{color:var(--gold-light);font-style:italic;display:block}
+.hero-sub{font-size:18px;color:rgba(255,248,240,.7);max-width:520px;margin-bottom:40px;line-height:1.7}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{background:var(--terra);color:#fff;padding:16px 36px;border-radius:6px;font-size:15px;font-weight:600;text-decoration:none;transition:all .2s;letter-spacing:.5px;border:none;cursor:pointer;font-family:'Inter',sans-serif}
+.btn-primary:hover{background:var(--terra-dark);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:#FFF8F0;padding:16px 36px;border-radius:6px;font-size:15px;font-weight:600;text-decoration:none;border:1px solid rgba(255,248,240,.4);transition:all .2s;letter-spacing:.5px}
+.btn-outline:hover{background:rgba(255,248,240,.1);border-color:rgba(255,248,240,.7)}
+.hero-stats{display:flex;gap:48px;margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,248,240,.15)}
+.hero-stat-num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold-light);display:block;line-height:1}
+.hero-stat-label{font-size:13px;color:rgba(255,248,240,.6);margin-top:4px;letter-spacing:.5px}
+
+/* CONTAINER */
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.section{padding:96px 0}
+.section-alt{background:var(--bg2)}
+.section-tag{font-size:12px;font-weight:600;color:var(--terra);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:700;color:var(--text);line-height:1.15;margin-bottom:16px}
+.section-sub{color:var(--text2);font-size:16px;max-width:560px;line-height:1.7}
+.section-head{margin-bottom:56px}
+
+/* FEATURES */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px}
+.feature-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:32px 24px;text-align:center;transition:box-shadow .2s,transform .2s}
+.feature-card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
+.feature-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--terra),var(--gold));border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.feature-icon svg{width:28px;height:28px;fill:none;stroke:#fff;stroke-width:1.8}
+.feature-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--text);margin-bottom:8px}
+.feature-text{font-size:14px;color:var(--text2);line-height:1.6}
+
+/* MENU */
+.menu-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px}
+.menu-tab{background:var(--bg2);border:1px solid var(--border);color:var(--text2);padding:10px 22px;border-radius:24px;cursor:pointer;font-size:14px;font-weight:500;transition:all .2s;font-family:'Inter',sans-serif}
+.menu-tab.active,.menu-tab:hover{background:var(--terra);border-color:var(--terra);color:#fff}
+.menu-category{display:none;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
+.menu-category.active{display:grid}
+.menu-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:box-shadow .2s}
+.menu-item:hover{box-shadow:var(--shadow)}
+.menu-img{width:100%;height:180px;background:linear-gradient(135deg,var(--bg2),var(--border));display:flex;align-items:center;justify-content:center;font-size:48px}
+.menu-body{padding:20px}
+.menu-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--text);margin-bottom:6px}
+.menu-desc{font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:14px}
+.menu-footer{display:flex;justify-content:space-between;align-items:center}
+.menu-price{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--terra)}
+.menu-badge{font-size:11px;background:var(--bg2);color:var(--text2);padding:3px 10px;border-radius:12px;letter-spacing:.5px}
+
+/* HALLS */
+.halls-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:32px}
+.hall-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.hall-img{height:220px;display:flex;align-items:center;justify-content:center;font-size:72px;position:relative}
+.hall-img.summer{background:linear-gradient(135deg,#7C3D12,#C2440C)}
+.hall-img.banquet{background:linear-gradient(135deg,#1C3A5C,#2E5F8A)}
+.hall-body{padding:28px}
+.hall-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:8px}
+.hall-desc{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:20px}
+.hall-specs{display:flex;gap:20px}
+.hall-spec{text-align:center}
+.hall-spec-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--terra);display:block;line-height:1}
+.hall-spec-label{font-size:12px;color:var(--text2);margin-top:2px;letter-spacing:.5px}
+
+/* GALLERY */
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto;gap:16px}
+.gallery-item{border-radius:var(--r);overflow:hidden;background:linear-gradient(135deg,var(--bg2),var(--border));display:flex;align-items:center;justify-content:center;font-size:48px;transition:transform .3s}
+.gallery-item:hover{transform:scale(1.02)}
+.gallery-item:nth-child(1){grid-column:span 2;height:320px}
+.gallery-item:nth-child(2){height:320px}
+.gallery-item:nth-child(3),.gallery-item:nth-child(4),.gallery-item:nth-child(5){height:200px}
+
+/* REVIEWS */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+.review-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:28px}
+.review-stars{display:flex;gap:4px;margin-bottom:16px}
+.review-stars svg{width:18px;height:18px;fill:var(--gold);stroke:none}
+.review-text{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--text);line-height:1.6;margin-bottom:20px}
+.review-author{display:flex;align-items:center;gap:12px}
+.review-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--terra),var(--gold));display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;font-weight:600;font-family:'Cormorant Garamond',serif}
+.review-name{font-weight:600;font-size:14px;color:var(--text)}
+.review-date{font-size:12px;color:var(--text2)}
+
+/* BOOKING */
+.booking-wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.booking-info h2{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--text);margin-bottom:16px;line-height:1.2}
+.booking-info p{color:var(--text2);font-size:16px;line-height:1.7;margin-bottom:32px}
+.contact-items{display:flex;flex-direction:column;gap:20px}
+.contact-item{display:flex;align-items:center;gap:16px}
+.contact-icon{width:44px;height:44px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-icon svg{width:20px;height:20px;fill:none;stroke:var(--terra);stroke-width:1.8}
+.contact-label{font-size:12px;color:var(--text2);letter-spacing:.5px;text-transform:uppercase}
+.contact-val{font-size:15px;color:var(--text);font-weight:500}
+.booking-form{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:40px}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--text);margin-bottom:28px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:13px;font-weight:500;color:var(--text2);margin-bottom:6px;letter-spacing:.3px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);transition:border .2s;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--terra)}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-submit{width:100%;background:var(--terra);color:#fff;padding:14px;border-radius:6px;font-size:15px;font-weight:600;font-family:'Inter',sans-serif;border:none;cursor:pointer;transition:background .2s;letter-spacing:.5px}
+.form-submit:hover{background:var(--terra-dark)}
+.form-note{font-size:12px;color:var(--text2);text-align:center;margin-top:12px}
+.form-msg{display:none;text-align:center;padding:16px;border-radius:6px;font-weight:600;margin-top:16px}
+.form-msg.success{background:#D1FAE5;color:#065F46;display:block}
+.form-msg.error{background:#FEE2E2;color:#991B1B;display:block}
+
+/* FOOTER */
+footer{background:#1C0D05;color:rgba(255,248,240,.7);padding:56px 0 32px}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand-name{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#FFF8F0;letter-spacing:2px;margin-bottom:8px}
+.footer-brand-sub{font-size:13px;line-height:1.6;margin-bottom:20px}
+.footer-socials{display:flex;gap:12px}
+.footer-social{width:40px;height:40px;border-radius:8px;background:rgba(255,248,240,.08);border:1px solid rgba(255,248,240,.12);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background .2s}
+.footer-social:hover{background:var(--terra)}
+.footer-social svg{width:18px;height:18px;fill:none;stroke:rgba(255,248,240,.7);stroke-width:1.8}
+.footer-heading{font-size:13px;font-weight:600;color:#FFF8F0;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{color:rgba(255,248,240,.6);text-decoration:none;font-size:14px;transition:color .2s}
+.footer-links a:hover{color:var(--gold-light)}
+.footer-bottom{border-top:1px solid rgba(255,248,240,.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap}
+.footer-copy{font-size:13px}
+.footer-dev a{color:rgba(255,248,240,.4);font-size:12px;text-decoration:none}
+.footer-dev a:hover{color:var(--gold-light)}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* MOBILE */
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}
+  .burger{display:flex}
+  .nav-links.open{display:flex;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:var(--white);border-bottom:1px solid var(--border);padding:20px 24px;gap:16px}
+  .nav-cta.open{display:block;margin:0 24px 20px;text-align:center}
+  .hero-stats{flex-wrap:wrap;gap:28px}
+  .booking-wrap{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr}
+  .gallery-item:nth-child(1){grid-column:span 2;height:200px}
+  .gallery-item:nth-child(2){height:200px}
+  .gallery-item:nth-child(3),.gallery-item:nth-child(4),.gallery-item:nth-child(5){height:160px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <div class="container">
+    <button class="lang-btn" onclick="setLang('uz')">UZ</button>
+    <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">SAMAR<span>QAND</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#menu" data-key="nav_menu">Меню</a></li>
+      <li><a href="#halls" data-key="nav_halls">Залы</a></li>
+      <li><a href="#gallery" data-key="nav_gallery">Галерея</a></li>
+      <li><a href="#booking" data-key="nav_booking">Бронь</a></li>
+    </ul>
+    <a href="#booking" class="nav-cta" id="navCta" data-key="nav_cta">Забронировать</a>
+    <button class="burger" id="burger" aria-label="Меню" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-ornament">
+    <svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="300" cy="400" r="280" fill="none" stroke="white" stroke-width="1"/>
+      <circle cx="300" cy="400" r="220" fill="none" stroke="white" stroke-width="1"/>
+      <circle cx="300" cy="400" r="160" fill="none" stroke="white" stroke-width="1"/>
+      <line x1="20" y1="400" x2="580" y2="400" stroke="white" stroke-width="1"/>
+      <line x1="300" y1="120" x2="300" y2="680" stroke="white" stroke-width="1"/>
+      <line x1="102" y1="202" x2="498" y2="598" stroke="white" stroke-width="1"/>
+      <line x1="498" y1="202" x2="102" y2="598" stroke="white" stroke-width="1"/>
+      <polygon points="300,120 580,400 300,680 20,400" fill="none" stroke="white" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag" data-key="hero_tag">Традиционная кухня Самарканда</div>
+    <h1>SAMAR<em data-key="hero_h1_em">QAND</em></h1>
+    <p class="hero-sub" data-key="hero_sub">Ресторан узбекской кухни в сердце города. Плов, шашлык, самса — по рецептам, которым более 300 лет.</p>
+    <div class="hero-btns">
+      <a href="#booking" class="btn-primary" data-key="hero_btn1">Забронировать стол</a>
+      <a href="#menu" class="btn-outline" data-key="hero_btn2">Посмотреть меню</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="hero-stat-num">300+</span><span class="hero-stat-label" data-key="stat1">лет рецептам</span></div>
+      <div><span class="hero-stat-num">80</span><span class="hero-stat-label" data-key="stat2">мест в зале</span></div>
+      <div><span class="hero-stat-num">50+</span><span class="hero-stat-label" data-key="stat3">блюд в меню</span></div>
+      <div><span class="hero-stat-num">10</span><span class="hero-stat-label" data-key="stat4">лет открыты</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag" data-key="feat_tag">Наши преимущества</div>
+      <h2 class="section-title" data-key="feat_title">Почему выбирают нас</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="feature-title" data-key="feat1_title">Аутентичные рецепты</div>
+        <div class="feature-text" data-key="feat1_text">Готовим по традиционным самаркандским рецептам, передававшимся из поколения в поколение</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="feature-title" data-key="feat2_title">Свежие продукты</div>
+        <div class="feature-text" data-key="feat2_text">Ежедневная доставка свежих продуктов с рынков Самарканда и Ташкента</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="feature-title" data-key="feat3_title">Быстрое обслуживание</div>
+        <div class="feature-text" data-key="feat3_text">Плов и основные блюда подаются в течение 20-30 минут после заказа</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="feature-title" data-key="feat4_title">Семейная атмосфера</div>
+        <div class="feature-text" data-key="feat4_text">Уютный интерьер с элементами узбекского декора. Идеально для семейных встреч</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="section section-alt" id="menu">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag" data-key="menu_tag">Наше меню</div>
+      <h2 class="section-title" data-key="menu_title">Традиционные блюда</h2>
+      <p class="section-sub" data-key="menu_sub">Каждое блюдо — это история и традиция узбекской кулинарии</p>
+    </div>
+    <div class="menu-tabs">
+      <button class="menu-tab active" onclick="showMenu('soups',this)" data-key="tab_soups">Супы</button>
+      <button class="menu-tab" onclick="showMenu('plov',this)" data-key="tab_plov">Плов и рис</button>
+      <button class="menu-tab" onclick="showMenu('grill',this)" data-key="tab_grill">Шашлык и гриль</button>
+      <button class="menu-tab" onclick="showMenu('bread',this)" data-key="tab_bread">Самса и лепёшки</button>
+    </div>
+
+    <div class="menu-category active" id="menu-soups">
+      <div class="menu-item reveal"><div class="menu-img">🍲</div><div class="menu-body"><div class="menu-name" data-key="soup1">Шурпа классическая</div><div class="menu-desc" data-key="soup1d">Наваристый бульон с бараниной, овощами и зеленью по самаркандскому рецепту</div><div class="menu-footer"><span class="menu-price">35 000 сум</span><span class="menu-badge" data-key="badge_hit">Хит</span></div></div></div>
+      <div class="menu-item reveal"><div class="menu-img">🥘</div><div class="menu-body"><div class="menu-name" data-key="soup2">Мастава</div><div class="menu-desc" data-key="soup2d">Рисовый суп с говядиной и свежими томатами, заправленный каймаком</div><div class="menu-footer"><span class="menu-price">28 000 сум</span><span class="menu-badge" data-key="badge_trad">Традиционный</span></div></div></div>
+      <div class="menu-item reveal"><div class="menu-img">🍜</div><div class="menu-body"><div class="menu-name" data-key="soup3">Лагман</div><div class="menu-desc" data-key="soup3d">Тянутая лапша ручной работы в густом мясном соусе с овощами</div><div class="menu-footer"><span class="menu-price">32 000 сум</span><span class="menu-badge" data-key="badge_pop">Популярное</span></div></div></div>
+    </div>
+
+    <div class="menu-category" id="menu-plov">
+      <div class="menu-item reveal"><div class="menu-img">🍚</div><div class="menu-body"><div class="menu-name" data-key="plov1">Самаркандский плов</div><div class="menu-desc" data-key="plov1d">Плов по самаркандскому рецепту с бараниной, морковью и нутом. Готовится в казане на открытом огне</div><div class="menu-footer"><span class="menu-price">45 000 сум</span><span class="menu-badge" data-key="badge_sign">Фирменный</span></div></div></div>
+      <div class="menu-item reveal"><div class="menu-img">🥗</div><div class="menu-body"><div class="menu-name" data-key="plov2">Плов с перепёлкой</div><div class="menu-desc" data-key="plov2d">Особый плов с целой перепёлкой — деликатесный вариант традиционного блюда</div><div class="menu-footer"><span class="menu-price">65 000 сум</span><span class="menu-badge" data-key="badge_prem">Премиум</span></div></div></div>
+      <div class="menu-item reveal"><div class="menu-img">🫕</div><div class="menu-body"><div class="menu-name" data-key="plov3">Дамлама</div><div class="menu-desc" data-key="plov3d">Мясо с овощами, томлёное в казане — сочное и ароматное блюдо</div><div class="menu-footer"><span class="menu-price">40 000 сум</span><span class="menu-badge" data-key="badge_trad">Традиционный</span></div></div></div>
+    </div>
+
+    <div class="menu-category" id="menu-grill">
+      <div class="menu-item reveal"><div class="menu-img">🥩</div><div class="menu-body"><div class="menu-name" data-key="grill1">Шашлык из баранины</div><div class="menu-desc" data-key="grill1d">Маринованная баранина на углях, подаётся с луком и зеленью (6 шт)</div><div class="menu-footer"><span class="menu-price">52 000 сум</span><span class="menu-badge" data-key="badge_hit">Хит</span></div></div></div>
+      <div class="menu-item reveal"><div class="menu-img">🍗</div><div class="menu-body"><div class="menu-name" data-key="grill2">Тандыр-товук</div><div class="menu-desc" data-key="grill2d">Целая курица в тандыре с пряными травами — хрустящая корочка, сочное мясо</div><div class="menu-footer"><span class="menu-price">78 000 сум</span><span class="menu-badge" data-key="badge_pop">Популярное</span></div></div></div>
+      <div class="menu-item reveal"><div class="menu-img">🫀</div><div class="menu-body"><div class="menu-name" data-key="grill3">Кабоб мix</div><div class="menu-desc" data-key="grill3d">Ассорти шашлыков: баранина, говядина, курица, люля-кебаб (8 шт)</div><div class="menu-footer"><span class="menu-price">95 000 сум</span><span class="menu-badge" data-key="badge_sign">Фирменный</span></div></div></div>
+    </div>
+
+    <div class="menu-category" id="menu-bread">
+      <div class="menu-item reveal"><div class="menu-img">🥟</div><div class="menu-body"><div class="menu-name" data-key="bread1">Самса с бараниной</div><div class="menu-desc" data-key="bread1d">Слоёное тесто ручной работы с сочной начинкой из баранины и лука (3 шт)</div><div class="menu-footer"><span class="menu-price">22 000 сум</span><span class="menu-badge" data-key="badge_hit">Хит</span></div></div></div>
+      <div class="menu-item reveal"><div class="menu-img">🫓</div><div class="menu-body"><div class="menu-name" data-key="bread2">Лепёшка самаркандская</div><div class="menu-desc" data-key="bread2d">Традиционная лепёшка из тандыра с кунжутом, подаётся горячей</div><div class="menu-footer"><span class="menu-price">8 000 сум</span><span class="menu-badge" data-key="badge_trad">Традиционный</span></div></div></div>
+      <div class="menu-item reveal"><div class="menu-img">🥐</div><div class="menu-body"><div class="menu-name" data-key="bread3">Патир</div><div class="menu-desc" data-key="bread3d">Круглая лепёшка с луком и бараньим жиром — сытная выпечка к плову</div><div class="menu-footer"><span class="menu-price">12 000 сум</span><span class="menu-badge" data-key="badge_pop">Популярное</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HALLS -->
+<section class="section" id="halls">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag" data-key="halls_tag">Залы ресторана</div>
+      <h2 class="section-title" data-key="halls_title">Выберите свой зал</h2>
+      <p class="section-sub" data-key="halls_sub">Комфортные пространства для любого мероприятия — от семейного обеда до корпоратива</p>
+    </div>
+    <div class="halls-grid">
+      <div class="hall-card reveal">
+        <div class="hall-img summer"><span>☀️</span></div>
+        <div class="hall-body">
+          <div class="hall-name" data-key="hall1_name">Летняя терраса</div>
+          <div class="hall-desc" data-key="hall1_desc">Просторная открытая терраса с видом на сад. Узбекские айваны, живые растения, фонтан. Идеально для вечерних посиделок и семейных торжеств.</div>
+          <div class="hall-specs">
+            <div class="hall-spec"><span class="hall-spec-val">80</span><span class="hall-spec-label" data-key="spec_seats">мест</span></div>
+            <div class="hall-spec"><span class="hall-spec-val">Apr–Oct</span><span class="hall-spec-label" data-key="spec_season">сезон</span></div>
+            <div class="hall-spec"><span class="hall-spec-val">Wi-Fi</span><span class="hall-spec-label" data-key="spec_wifi">бесплатно</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="hall-card reveal">
+        <div class="hall-img banquet"><span>🏛️</span></div>
+        <div class="hall-body">
+          <div class="hall-name" data-key="hall2_name">Банкетный зал</div>
+          <div class="hall-desc" data-key="hall2_desc">Закрытый зал для торжеств с традиционным узбекским декором. Индивидуальное меню, живая музыка, проектор. Свадьбы, юбилеи, корпоративы.</div>
+          <div class="hall-specs">
+            <div class="hall-spec"><span class="hall-spec-val">50</span><span class="hall-spec-label" data-key="spec_seats">мест</span></div>
+            <div class="hall-spec"><span class="hall-spec-val">12ч</span><span class="hall-spec-label" data-key="spec_hours">в день</span></div>
+            <div class="hall-spec"><span class="hall-spec-val">AV</span><span class="hall-spec-label" data-key="spec_av">система</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section section-alt" id="gallery">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag" data-key="gal_tag">Фотогалерея</div>
+      <h2 class="section-title" data-key="gal_title">Наша атмосфера</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">🏺</div>
+      <div class="gallery-item reveal">🍽️</div>
+      <div class="gallery-item reveal">🍚</div>
+      <div class="gallery-item reveal">🕌</div>
+      <div class="gallery-item reveal">🌿</div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag" data-key="rev_tag">Отзывы</div>
+      <h2 class="section-title" data-key="rev_title">Что говорят гости</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-stars"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="review-text" data-key="rev1_text">"Лучший самаркандский плов в городе! Приходим каждую пятницу всей семьёй. Порции большие, цены адекватные."</div>
+        <div class="review-author"><div class="review-avatar">А</div><div><div class="review-name" data-key="rev1_name">Акрамжон Т.</div><div class="review-date">Google Reviews · 2 недели назад</div></div></div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="review-text" data-key="rev2_text">"Банкетный зал оформили шикарно для свадьбы. Персонал внимательный, меню согласовали заранее. Всё прошло идеально!"</div>
+        <div class="review-author"><div class="review-avatar">М</div><div><div class="review-name" data-key="rev2_name">Мадина К.</div><div class="review-date">2GIS · месяц назад</div></div></div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="review-text" data-key="rev3_text">"Приехал из Москвы специально попробовать настоящий узбекский плов. SAMARQAND не разочаровал — это лучшее, что я ел!"</div>
+        <div class="review-author"><div class="review-avatar">С</div><div><div class="review-name" data-key="rev3_name">Сергей В.</div><div class="review-date">TripAdvisor · 3 недели назад</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="section section-alt" id="booking">
+  <div class="container">
+    <div class="booking-wrap">
+      <div class="booking-info reveal">
+        <div class="section-tag" data-key="book_tag">Бронирование</div>
+        <h2 data-key="book_title">Забронируйте стол заранее</h2>
+        <p data-key="book_sub">Гарантируем лучший стол в вашем любимом зале. Подтверждение брони в течение 15 минут.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div><div class="contact-label" data-key="phone_label">Телефон</div><div class="contact-val">+998 91 234-56-78</div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="contact-label" data-key="addr_label">Адрес</div><div class="contact-val" data-key="addr_val">ул. Регистанская, 12, Самарканд</div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="contact-label" data-key="hours_label">Часы работы</div><div class="contact-val" data-key="hours_val">10:00 — 23:00, ежедневно</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="booking-form reveal">
+        <div class="form-title" data-key="form_title">Бронирование стола</div>
+        <form id="bookForm">
+          <div class="form-row">
+            <div class="form-group"><label data-key="form_name">Ваше имя *</label><input type="text" id="fName" required placeholder="Акрамжон"></div>
+            <div class="form-group"><label data-key="form_phone">Телефон *</label><input type="tel" id="fPhone" required placeholder="+998 90 ..."></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label data-key="form_date">Дата *</label><input type="date" id="fDate" required></div>
+            <div class="form-group"><label data-key="form_time">Время *</label><input type="time" id="fTime" required value="19:00"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label data-key="form_guests">Гостей *</label><select id="fGuests" required><option value="1">1 гость</option><option value="2">2 гостя</option><option value="3-4">3-4 гостя</option><option value="5-8">5-8 гостей</option><option value="9+">9+ гостей</option></select></div>
+            <div class="form-group"><label data-key="form_hall">Зал</label><select id="fHall"><option value="any" data-key="opt_any">Любой</option><option value="summer" data-key="opt_summer">Летняя терраса</option><option value="banquet" data-key="opt_banquet">Банкетный зал</option></select></div>
+          </div>
+          <div class="form-group"><label data-key="form_comment">Комментарий</label><textarea id="fComment" placeholder="Особые пожелания, аллергии, повод..."></textarea></div>
+          <button type="submit" class="form-submit" data-key="form_btn">Забронировать стол</button>
+          <div class="form-note" data-key="form_note">Подтверждение придёт в течение 15 минут</div>
+        </form>
+        <div id="formMsg" class="form-msg"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-name">SAMARQAND</div>
+        <div class="footer-brand-sub" data-key="footer_brand">Ресторан узбекской кухни. Традиции, вкус и гостеприимство с 2014 года.</div>
+        <div class="footer-socials">
+          <a href="#" class="footer-social" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" class="footer-social" aria-label="Telegram"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading" data-key="footer_nav">Навигация</div>
+        <ul class="footer-links">
+          <li><a href="#menu" data-key="nav_menu">Меню</a></li>
+          <li><a href="#halls" data-key="nav_halls">Залы</a></li>
+          <li><a href="#gallery" data-key="nav_gallery">Галерея</a></li>
+          <li><a href="#booking" data-key="nav_booking">Бронирование</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading" data-key="footer_cont">Контакты</div>
+        <ul class="footer-links">
+          <li><a href="tel:+998912345678">+998 91 234-56-78</a></li>
+          <li><a href="#" data-key="footer_addr">ул. Регистанская, 12</a></li>
+          <li><a href="#" data-key="footer_city">Самарканд, Узбекистан</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading" data-key="footer_hours_label">Часы работы</div>
+        <ul class="footer-links">
+          <li><span data-key="footer_daily">Ежедневно</span></li>
+          <li><span>10:00 — 23:00</span></li>
+          <li><span data-key="footer_order">Заказы до 22:30</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy" data-key="footer_copy">© 2024 SAMARQAND. Все права защищены.</span>
+      <div class="footer-dev"><a href="https://strova-studio.netlify.app" target="_blank">Сайт разработан Strova Agency</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// TRANSLATIONS
+const T = {
+  ru: {
+    nav_menu:"Меню",nav_halls:"Залы",nav_gallery:"Галерея",nav_booking:"Бронь",nav_cta:"Забронировать",
+    hero_tag:"Традиционная кухня Самарканда",hero_h1_em:"QAND",hero_sub:"Ресторан узбекской кухни в сердце города. Плов, шашлык, самса — по рецептам, которым более 300 лет.",
+    hero_btn1:"Забронировать стол",hero_btn2:"Посмотреть меню",
+    stat1:"лет рецептам",stat2:"мест в зале",stat3:"блюд в меню",stat4:"лет открыты",
+    feat_tag:"Наши преимущества",feat_title:"Почему выбирают нас",
+    feat1_title:"Аутентичные рецепты",feat1_text:"Готовим по традиционным самаркандским рецептам, передававшимся из поколения в поколение",
+    feat2_title:"Свежие продукты",feat2_text:"Ежедневная доставка свежих продуктов с рынков Самарканда и Ташкента",
+    feat3_title:"Быстрое обслуживание",feat3_text:"Плов и основные блюда подаются в течение 20-30 минут после заказа",
+    feat4_title:"Семейная атмосфера",feat4_text:"Уютный интерьер с элементами узбекского декора. Идеально для семейных встреч",
+    menu_tag:"Наше меню",menu_title:"Традиционные блюда",menu_sub:"Каждое блюдо — это история и традиция узбекской кулинарии",
+    tab_soups:"Супы",tab_plov:"Плов и рис",tab_grill:"Шашлык и гриль",tab_bread:"Самса и лепёшки",
+    badge_hit:"Хит",badge_trad:"Традиционный",badge_pop:"Популярное",badge_sign:"Фирменный",badge_prem:"Премиум",
+    halls_tag:"Залы ресторана",halls_title:"Выберите свой зал",halls_sub:"Комфортные пространства для любого мероприятия",
+    hall1_name:"Летняя терраса",hall1_desc:"Просторная открытая терраса с видом на сад. Узбекские айваны, живые растения, фонтан.",
+    hall2_name:"Банкетный зал",hall2_desc:"Закрытый зал для торжеств с традиционным узбекским декором. Индивидуальное меню, живая музыка.",
+    spec_seats:"мест",spec_season:"сезон",spec_wifi:"бесплатно",spec_hours:"в день",spec_av:"система",
+    gal_tag:"Фотогалерея",gal_title:"Наша атмосфера",
+    rev_tag:"Отзывы",rev_title:"Что говорят гости",
+    book_tag:"Бронирование",book_title:"Забронируйте стол заранее",book_sub:"Гарантируем лучший стол. Подтверждение в течение 15 минут.",
+    phone_label:"ТЕЛЕФОН",addr_label:"АДРЕС",hours_label:"ЧАСЫ РАБОТЫ",addr_val:"ул. Регистанская, 12, Самарканд",hours_val:"10:00 — 23:00, ежедневно",
+    form_title:"Бронирование стола",form_name:"Ваше имя *",form_phone:"Телефон *",form_date:"Дата *",form_time:"Время *",form_guests:"Гостей *",form_hall:"Зал",form_comment:"Комментарий",form_btn:"Забронировать стол",form_note:"Подтверждение придёт в течение 15 минут",
+    opt_any:"Любой",opt_summer:"Летняя терраса",opt_banquet:"Банкетный зал",
+    footer_brand:"Ресторан узбекской кухни. Традиции, вкус и гостеприимство с 2014 года.",footer_nav:"Навигация",footer_cont:"Контакты",footer_hours_label:"Часы работы",footer_daily:"Ежедневно",footer_order:"Заказы до 22:30",footer_addr:"ул. Регистанская, 12",footer_city:"Самарканд, Узбекистан",footer_copy:"© 2024 SAMARQAND. Все права защищены.",
+    rev1_text:"\"Лучший самаркандский плов в городе! Приходим каждую пятницу всей семьёй.\"",rev1_name:"Акрамжон Т.",
+    rev2_text:"\"Банкетный зал оформили шикарно для свадьбы. Всё прошло идеально!\"",rev2_name:"Мадина К.",
+    rev3_text:"\"Приехал из Москвы попробовать настоящий плов. SAMARQAND не разочаровал!\"",rev3_name:"Сергей В.",
+    soup1:"Шурпа классическая",soup1d:"Наваристый бульон с бараниной, овощами и зеленью",soup2:"Мастава",soup2d:"Рисовый суп с говядиной и свежими томатами",soup3:"Лагман",soup3d:"Тянутая лапша ручной работы в густом мясном соусе",
+    plov1:"Самаркандский плов",plov1d:"Плов с бараниной, морковью и нутом в казане на огне",plov2:"Плов с перепёлкой",plov2d:"Особый плов с целой перепёлкой — деликатес",plov3:"Дамлама",plov3d:"Мясо с овощами, томлёное в казане",
+    grill1:"Шашлык из баранины",grill1d:"Маринованная баранина на углях с луком и зеленью (6 шт)",grill2:"Тандыр-товук",grill2d:"Целая курица в тандыре с пряными травами",grill3:"Кабоб mix",grill3d:"Ассорти шашлыков: баранина, говядина, курица, люля (8 шт)",
+    bread1:"Самса с бараниной",bread1d:"Слоёное тесто ручной работы с сочной начинкой (3 шт)",bread2:"Лепёшка самаркандская",bread2d:"Традиционная лепёшка из тандыра с кунжутом",bread3:"Патир",bread3d:"Круглая лепёшка с луком и бараньим жиром"
+  },
+  uz: {
+    nav_menu:"Menyu",nav_halls:"Zallar",nav_gallery:"Galereya",nav_booking:"Bron",nav_cta:"Bron qilish",
+    hero_tag:"Samarqand an'anaviy taomlari",hero_h1_em:"QAND",hero_sub:"Shahar markazidagi o'zbek oshxonasi. Palov, kabob, samsa — 300 yillik retseptlar bo'yicha.",
+    hero_btn1:"Stol bron qilish",hero_btn2:"Menyuni ko'rish",
+    stat1:"yillik retseptlar",stat2:"o'rinli zal",stat3:"taom turlari",stat4:"yil davomida",
+    feat_tag:"Bizning afzalliklarimiz",feat_title:"Nima uchun bizni tanlashadi",
+    feat1_title:"Asl retseptlar",feat1_text:"Avloddan avlodga o'tib kelgan an'anaviy Samarqand retseptlari bo'yicha tayyorlaymiz",
+    feat2_title:"Yangi mahsulotlar",feat2_text:"Har kuni Samarqand va Toshkent bozorlaridan yangi mahsulotlar yetkaziladi",
+    feat3_title:"Tez xizmat",feat3_text:"Palov va asosiy taomlar buyurtmadan 20-30 daqiqa ichida beriladi",
+    feat4_title:"Oilaviy muhit",feat4_text:"O'zbek bezaklari bilan qulay interer. Oilaviy uchrashuvlar uchun ideal",
+    menu_tag:"Bizning menyumiz",menu_title:"An'anaviy taomlar",menu_sub:"Har bir taom — o'zbek oshxonasining tarixi va an'anasi",
+    tab_soups:"Sho'rvalar",tab_plov:"Palov va guruch",tab_grill:"Kabob va grill",tab_bread:"Samsa va non",
+    badge_hit:"Hit",badge_trad:"An'anaviy",badge_pop:"Mashhur",badge_sign:"Firma",badge_prem:"Premium",
+    halls_tag:"Restoran zallari",halls_title:"O'z zalini tanlang",halls_sub:"Har qanday tadbirlar uchun qulay joylar",
+    hall1_name:"Yozgi ayvon",hall1_desc:"Bog'ga qaragan keng ochiq ayvon. O'zbek ayvanlar, tirik o'simliklar, favvora.",
+    hall2_name:"Banket zali",hall2_desc:"An'anaviy o'zbek bezaklari bilan yopiq zal. Individual menyu, jonli musiqa.",
+    spec_seats:"o'rin",spec_season:"mavsum",spec_wifi:"bepul",spec_hours:"kun ichida",spec_av:"tizim",
+    gal_tag:"Fotogalereya",gal_title:"Bizning muhit",
+    rev_tag:"Sharhlar",rev_title:"Mehmonlar nima deydi",
+    book_tag:"Bron qilish",book_title:"Stolni oldindan bron qiling",book_sub:"Eng yaxshi stolni kafolatlaymiz. 15 daqiqa ichida tasdiqlash.",
+    phone_label:"TELEFON",addr_label:"MANZIL",hours_label:"ISH VAQTI",addr_val:"Registonskaya ko'chasi, 12, Samarqand",hours_val:"10:00 — 23:00, har kuni",
+    form_title:"Stol bron qilish",form_name:"Ismingiz *",form_phone:"Telefon *",form_date:"Sana *",form_time:"Vaqt *",form_guests:"Mehmonlar *",form_hall:"Zal",form_comment:"Izoh",form_btn:"Stol bron qilish",form_note:"Tasdiqlash 15 daqiqa ichida keladi",
+    opt_any:"Istalgan",opt_summer:"Yozgi ayvon",opt_banquet:"Banket zali",
+    footer_brand:"O'zbek oshxonasi. 2014 yildan beri an'ana, ta'm va mehmondo'stlik.",footer_nav:"Navigatsiya",footer_cont:"Kontaktlar",footer_hours_label:"Ish vaqti",footer_daily:"Har kuni",footer_order:"Buyurtmalar 22:30 gacha",footer_addr:"Registonskaya ko'chasi, 12",footer_city:"Samarqand, O'zbekiston",footer_copy:"© 2024 SAMARQAND. Barcha huquqlar himoyalangan.",
+    rev1_text:"\"Shahardagi eng yaxshi Samarqand palovi! Har juma oilam bilan kelamiz.\"",rev1_name:"Akramjon T.",
+    rev2_text:"\"To'y uchun banket zalini ajoyib bezatishdi. Hamma narsa mukammal o'tdi!\"",rev2_name:"Madina K.",
+    rev3_text:"\"Moskvadan haqiqiy palov tatib ko'rish uchun keldim. SAMARQAND hayal qildirmadi!\"",rev3_name:"Sergey V.",
+    soup1:"Klassik sho'rva",soup1d:"Qo'y go'shti, sabzavot va ko'katlar bilan mazali bulyon",soup2:"Mastava",soup2d:"Mol go'shti va yangi pomidor bilan guruch sho'rvasi",soup3:"Lag'mon",soup3d:"Qo'lda cho'zilgan makaron qalin go'shtli sous bilan",
+    plov1:"Samarqand palovi",plov1d:"Qo'y go'shti, sabzi va no'xat bilan o't ustida qozonda",plov2:"Bedana bilan palov",plov2d:"Butun bedana bilan maxsus palov — delikates",plov3:"Damlamа",plov3d:"Qozonda dim qilingan go'sht va sabzavotlar",
+    grill1:"Qo'y kabob",grill1d:"Ko'mirda qovurilgan qo'y go'shti, piyoz va ko'katlar (6 dona)",grill2:"Tandyr tovuq",grill2d:"Tandyrda xushbo'y o'tlar bilan butun tovuq",grill3:"Kabob mix",grill3d:"Qo'y, mol, tovuq, lula — assortiment (8 dona)",
+    bread1:"Qo'y go'shtli samsa",bread1d:"Qo'lda tayyorlangan qo'g'irdoq xamir, shirin qo'y go'shti (3 dona)",bread2:"Samarqand noni",bread2d:"Tandyrda pishirilgan an'anaviy kunjutli non",bread3:"Patir",bread3d:"Piyoz va qo'y yog'i bilan yumaloq non"
+  },
+  en: {
+    nav_menu:"Menu",nav_halls:"Halls",nav_gallery:"Gallery",nav_booking:"Booking",nav_cta:"Book a Table",
+    hero_tag:"Traditional Samarkand Cuisine",hero_h1_em:"QAND",hero_sub:"Uzbek restaurant in the heart of the city. Plov, shashlik, samsa — recipes over 300 years old.",
+    hero_btn1:"Book a Table",hero_btn2:"View Menu",
+    stat1:"years of recipes",stat2:"seats",stat3:"menu items",stat4:"years open",
+    feat_tag:"Our Advantages",feat_title:"Why Choose Us",
+    feat1_title:"Authentic Recipes",feat1_text:"We cook by traditional Samarkand recipes passed down through generations",
+    feat2_title:"Fresh Ingredients",feat2_text:"Daily delivery of fresh produce from Samarkand and Tashkent markets",
+    feat3_title:"Fast Service",feat3_text:"Plov and main dishes served within 20-30 minutes of ordering",
+    feat4_title:"Family Atmosphere",feat4_text:"Cozy interior with Uzbek decor elements. Perfect for family gatherings",
+    menu_tag:"Our Menu",menu_title:"Traditional Dishes",menu_sub:"Every dish is a story and tradition of Uzbek cuisine",
+    tab_soups:"Soups",tab_plov:"Plov & Rice",tab_grill:"Shashlik & Grill",tab_bread:"Samsa & Bread",
+    badge_hit:"Hit",badge_trad:"Traditional",badge_pop:"Popular",badge_sign:"Signature",badge_prem:"Premium",
+    halls_tag:"Restaurant Halls",halls_title:"Choose Your Hall",halls_sub:"Comfortable spaces for any occasion",
+    hall1_name:"Summer Terrace",hall1_desc:"Spacious open terrace with garden view. Uzbek ayvan lounges, live plants, fountain.",
+    hall2_name:"Banquet Hall",hall2_desc:"Private hall for celebrations with traditional Uzbek decor. Custom menu, live music.",
+    spec_seats:"seats",spec_season:"season",spec_wifi:"free",spec_hours:"per day",spec_av:"system",
+    gal_tag:"Photo Gallery",gal_title:"Our Atmosphere",
+    rev_tag:"Reviews",rev_title:"What Our Guests Say",
+    book_tag:"Reservation",book_title:"Book Your Table in Advance",book_sub:"We guarantee the best table. Confirmation within 15 minutes.",
+    phone_label:"PHONE",addr_label:"ADDRESS",hours_label:"OPENING HOURS",addr_val:"Registanskaya St., 12, Samarkand",hours_val:"10:00 — 23:00, daily",
+    form_title:"Table Reservation",form_name:"Your Name *",form_phone:"Phone *",form_date:"Date *",form_time:"Time *",form_guests:"Guests *",form_hall:"Hall",form_comment:"Comment",form_btn:"Book a Table",form_note:"Confirmation will arrive within 15 minutes",
+    opt_any:"Any",opt_summer:"Summer Terrace",opt_banquet:"Banquet Hall",
+    footer_brand:"Uzbek restaurant. Tradition, taste and hospitality since 2014.",footer_nav:"Navigation",footer_cont:"Contacts",footer_hours_label:"Opening Hours",footer_daily:"Daily",footer_order:"Orders until 22:30",footer_addr:"Registanskaya St., 12",footer_city:"Samarkand, Uzbekistan",footer_copy:"© 2024 SAMARQAND. All rights reserved.",
+    rev1_text:"\"Best Samarkand plov in the city! We come every Friday with the whole family.\"",rev1_name:"Akramjon T.",
+    rev2_text:"\"They decorated the banquet hall beautifully for our wedding. Everything was perfect!\"",rev2_name:"Madina K.",
+    rev3_text:"\"Came from Moscow specifically to try real plov. SAMARQAND did not disappoint!\"",rev3_name:"Sergey V.",
+    soup1:"Classic Shurpa",soup1d:"Rich lamb broth with vegetables and herbs by Samarkand recipe",soup2:"Mastava",soup2d:"Rice soup with beef and fresh tomatoes, topped with kaymak",soup3:"Lagman",soup3d:"Hand-pulled noodles in thick meat sauce with vegetables",
+    plov1:"Samarkand Plov",plov1d:"Lamb, carrot and chickpea plov cooked in kazan over open fire",plov2:"Quail Plov",plov2d:"Special plov with a whole quail — a gourmet variation",plov3:"Dimlama",plov3d:"Meat with vegetables slow-cooked in kazan",
+    grill1:"Lamb Shashlik",grill1d:"Marinated lamb on charcoal, served with onion and herbs (6 pcs)",grill2:"Tandoor Chicken",grill2d:"Whole chicken in tandoor with aromatic herbs",grill3:"Kabob Mix",grill3d:"Shashlik assortment: lamb, beef, chicken, lula (8 pcs)",
+    bread1:"Lamb Samsa",bread1d:"Handmade flaky pastry with juicy lamb filling (3 pcs)",bread2:"Samarkand Lepyoshka",bread2d:"Traditional tandoor flatbread with sesame, served hot",bread3:"Patir",bread3d:"Round flatbread with onion and lamb fat"
+  }
+};
+
+let lang = "ru";
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll(".lang-btn").forEach(b => b.classList.toggle("active", b.textContent.toLowerCase() === l));
+  document.querySelectorAll("[data-key]").forEach(el => {
+    const k = el.getAttribute("data-key");
+    if (T[l] && T[l][k]) el.textContent = T[l][k];
+  });
+}
+
+// MENU TABS
+function showMenu(cat, btn) {
+  document.querySelectorAll(".menu-category").forEach(c => c.classList.remove("active"));
+  document.querySelectorAll(".menu-tab").forEach(b => b.classList.remove("active"));
+  document.getElementById("menu-" + cat).classList.add("active");
+  btn.classList.add("active");
+}
+
+// MOBILE NAV
+function toggleMenu() {
+  document.getElementById("navLinks").classList.toggle("open");
+  document.getElementById("navCta").classList.toggle("open");
+}
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); }});
+}, {threshold: 0.1});
+document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+// BOOKING FORM
+document.getElementById("bookForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const btn = this.querySelector(".form-submit");
+  btn.textContent = "Отправляем...";
+  btn.disabled = true;
+  const msg = {
+    ru: { ok: "Бронь принята! Ждём вас в SAMARQAND", err: "Ошибка. Позвоните нам: +998 91 234-56-78" },
+    uz: { ok: "Bron qabul qilindi! SAMARQAND da kutamiz", err: "Xato. Bizga qo'ng'iroq qiling" },
+    en: { ok: "Reservation accepted! See you at SAMARQAND", err: "Error. Please call us: +998 91 234-56-78" }
+  };
+  const date = document.getElementById("fDate").value;
+  const time = document.getElementById("fTime").value;
+  const guests = document.getElementById("fGuests").value;
+  const hall = document.getElementById("fHall").value;
+  const comment = document.getElementById("fComment").value;
+  const text = `🏺 SAMARQAND — Новая бронь\n👤 ${document.getElementById("fName").value}\n📞 ${document.getElementById("fPhone").value}\n📅 ${date} в ${time}\n👥 Гостей: ${guests}\n🏛 Зал: ${hall}\n💬 ${comment || "—"}`;
+  try {
+    const res = await fetch("https://api.telegram.org/bot8294315634:AAHYHAikSetei6pwW-8XmupO7D_AGFPm5Fg/sendMessage", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({chat_id:"7118891995", text})
+    });
+    const d = await fetch;
+    const msgEl = document.getElementById("formMsg");
+    msgEl.className = "form-msg success";
+    msgEl.textContent = msg[lang].ok;
+    this.reset();
+  } catch(err) {
+    const msgEl = document.getElementById("formMsg");
+    msgEl.className = "form-msg error";
+    msgEl.textContent = msg[lang].err;
+  }
+  btn.textContent = T[lang].form_btn || "Забронировать стол";
+  btn.disabled = false;
+});
+</script>
+</body>
+</html>

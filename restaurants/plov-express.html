@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PLOV EXPRESS — Настоящий плов. Быстро. Вкусно.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ───────────────────────────────────────────── */
+    :root {
+      --bg:      #FFFFFF;
+      --bg2:     #FFF7ED;
+      --red:     #DC2626;
+      --red2:    #EF4444;
+      --yellow:  #FBBF24;
+      --yellow2: #FCD34D;
+      --dark:    #1C0A00;
+      --gray:    #6B7280;
+      --orange:  #EA580C;
+      --green:   #16A34A;
+      --white:   #FFFFFF;
+
+      --font-head: 'Baloo 2', cursive;
+      --font-body: 'Inter', sans-serif;
+
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 32px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 2px 8px rgba(28,10,0,.08);
+      --shadow-md: 0 8px 24px rgba(28,10,0,.12);
+      --shadow-lg: 0 20px 48px rgba(28,10,0,.18);
+
+      --trans: all .25s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ─── RESET ────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--dark);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+    input, textarea { font-family: inherit; }
+
+    /* ─── SCROLL-REVEAL ────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+    .reveal-delay-5 { transition-delay: .5s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+
+    /* ─── TOPBAR ────────────────────────────────────────────── */
+    .topbar {
+      background: var(--red);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .topbar__left { display: flex; align-items: center; gap: 8px; }
+    .topbar__left svg { flex-shrink: 0; }
+    .topbar__right a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: .02em;
+      transition: var(--trans);
+    }
+    .topbar__right a:hover { opacity: .85; }
+    .topbar__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--yellow);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: .7; }
+    }
+
+    /* ─── NAV ───────────────────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 2px solid #F3F4F6;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      box-shadow: 0 2px 12px rgba(28,10,0,.06);
+    }
+    .nav__logo {
+      font-family: var(--font-head);
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--red);
+      letter-spacing: -.5px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav__logo span {
+      display: inline-block;
+      width: 10px; height: 10px;
+      background: var(--yellow);
+      border-radius: 50%;
+      margin-left: 2px;
+      flex-shrink: 0;
+    }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav__links a {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--dark);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      transition: var(--trans);
+    }
+    .nav__links a:hover { background: var(--bg2); color: var(--red); }
+    .nav__cta {
+      background: var(--red);
+      color: #fff !important;
+      padding: 10px 22px !important;
+      border-radius: var(--radius-full) !important;
+      font-weight: 700 !important;
+      transition: var(--trans) !important;
+    }
+    .nav__cta:hover { background: var(--red2) !important; transform: scale(1.04); box-shadow: 0 4px 16px rgba(220,38,38,.35) !important; }
+
+    .nav__burger {
+      display: none;
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      color: var(--dark);
+    }
+
+    /* Mobile nav */
+    @media (max-width: 767px) {
+      .nav__links { display: none; }
+      .nav__links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 68px;
+        left: 0; right: 0;
+        background: var(--bg);
+        border-bottom: 2px solid #F3F4F6;
+        padding: 16px 24px 24px;
+        gap: 4px;
+        box-shadow: 0 8px 24px rgba(28,10,0,.12);
+        z-index: 99;
+      }
+      .nav__links.open a { padding: 12px 16px; font-size: 17px; }
+      .nav__burger { display: flex; }
+    }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    .hero {
+      background: var(--bg);
+      padding: 72px 24px 80px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 56px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    @media (min-width: 1024px) {
+      .hero { grid-template-columns: 1fr 1fr; align-items: center; padding: 96px 48px 112px; }
+    }
+
+    .hero__left { display: flex; flex-direction: column; gap: 28px; }
+
+    .hero__badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--yellow2);
+      color: var(--dark);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      width: fit-content;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+    .hero__badge-top svg { color: var(--orange); }
+
+    .hero__title {
+      font-family: var(--font-head);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+    }
+    .hero__title .line1 {
+      font-size: clamp(52px, 8vw, 88px);
+      color: var(--red);
+      display: block;
+    }
+    .hero__title .line2 {
+      font-size: clamp(52px, 8vw, 88px);
+      color: var(--dark);
+      display: block;
+    }
+    .hero__title .line2 em {
+      font-style: normal;
+      color: var(--yellow);
+      -webkit-text-stroke: 2px var(--orange);
+    }
+
+    .hero__sub {
+      font-size: clamp(18px, 2.5vw, 22px);
+      color: var(--gray);
+      font-weight: 500;
+      max-width: 480px;
+    }
+
+    .hero__counter {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg2);
+      border: 2px solid var(--yellow);
+      border-radius: var(--radius-md);
+      padding: 16px 24px;
+      width: fit-content;
+    }
+    .hero__counter svg { color: var(--orange); flex-shrink: 0; }
+    .hero__counter-num {
+      font-family: var(--font-head);
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--red);
+      line-height: 1;
+    }
+    .hero__counter-label { font-size: 14px; font-weight: 600; color: var(--gray); margin-top: 2px; }
+
+    .hero__btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 800;
+      padding: 16px 32px;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      transition: var(--trans);
+      box-shadow: 0 6px 20px rgba(220,38,38,.35);
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--red2); transform: scale(1.04); box-shadow: 0 10px 28px rgba(220,38,38,.45); }
+    .btn-primary:active { transform: scale(.98); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--dark);
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: var(--radius-full);
+      border: 2px solid var(--dark);
+      cursor: pointer;
+      transition: var(--trans);
+      white-space: nowrap;
+    }
+    .btn-outline:hover { background: var(--dark); color: #fff; transform: scale(1.03); }
+
+    /* Hero right visual */
+    .hero__right { position: relative; display: flex; justify-content: center; align-items: center; min-height: 400px; }
+    .hero__circle {
+      width: min(420px, 90vw);
+      height: min(420px, 90vw);
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--yellow2) 0%, var(--yellow) 50%, var(--orange) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .hero__circle::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35) 0%, transparent 60%),
+                  repeating-conic-gradient(rgba(255,255,255,.06) 0deg, transparent 5deg, transparent 15deg);
+    }
+    .hero__circle-inner {
+      position: relative;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero__big-emoji {
+      font-size: clamp(80px, 16vw, 140px);
+      line-height: 1;
+      filter: drop-shadow(0 8px 24px rgba(28,10,0,.2));
+    }
+    .hero__stats-mini {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .hero__stat-chip {
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-full);
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-sm);
+    }
+    .hero__stat-chip svg { color: var(--red); }
+
+    /* Floating badge */
+    .hero__float-badge {
+      position: absolute;
+      bottom: 24px;
+      right: 0;
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-weight: 800;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: float 3s ease-in-out infinite;
+      white-space: nowrap;
+      z-index: 2;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @media (max-width: 480px) {
+      .hero__float-badge { right: 50%; transform: translateX(50%); bottom: -16px; white-space: nowrap; }
+    }
+
+    /* ─── STATS BAR ─────────────────────────────────────────── */
+    .stats-bar {
+      background: var(--yellow);
+      padding: 32px 24px;
+    }
+    .stats-bar__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    @media (min-width: 768px) { .stats-bar__inner { grid-template-columns: repeat(4, 1fr); } }
+    .stat-item { text-align: center; }
+    .stat-item__num {
+      font-family: var(--font-head);
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1;
+    }
+    .stat-item__label {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(28,10,0,.7);
+      margin-top: 6px;
+    }
+
+    /* ─── SECTION COMMON ────────────────────────────────────── */
+    .section { padding: 80px 24px; }
+    .section-inner { max-width: 1280px; margin: 0 auto; }
+    .section__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg2);
+      border: 2px solid var(--yellow);
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 16px;
+    }
+    .section__title {
+      font-family: var(--font-head);
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1.1;
+      letter-spacing: -.5px;
+    }
+    .section__title span { color: var(--red); }
+    .section__desc {
+      font-size: 18px;
+      color: var(--gray);
+      margin-top: 12px;
+      max-width: 560px;
+    }
+    .section__header { margin-bottom: 48px; }
+
+    /* ─── DISHES GRID ───────────────────────────────────────── */
+    .dishes-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media (min-width: 640px) { .dishes-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .dishes-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .dish-card {
+      background: var(--bg);
+      border: 2px solid #F3F4F6;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--trans);
+      cursor: pointer;
+      position: relative;
+    }
+    .dish-card:hover {
+      transform: scale(1.03);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--yellow);
+    }
+    .dish-card__visual {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .dish-card__visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,.08));
+    }
+    .dish-card--plov   .dish-card__visual { background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); }
+    .dish-card--lagman .dish-card__visual { background: linear-gradient(135deg, #FFE4E6 0%, #FCA5A5 100%); }
+    .dish-card--shashlik .dish-card__visual { background: linear-gradient(135deg, #FEE2E2 0%, #FCA5A5 100%); }
+    .dish-card--samsa  .dish-card__visual { background: linear-gradient(135deg, #FEF9C3 0%, #FDE047 100%); }
+    .dish-card--manti  .dish-card__visual { background: linear-gradient(135deg, #DCFCE7 0%, #86EFAC 100%); }
+    .dish-card--dimlama .dish-card__visual { background: linear-gradient(135deg, #E0F2FE 0%, #7DD3FC 100%); }
+
+    .dish-card__badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--red);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      z-index: 1;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .dish-card__body { padding: 20px 24px 24px; }
+    .dish-card__name {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .dish-card__desc { font-size: 14px; color: var(--gray); margin-bottom: 16px; line-height: 1.5; }
+    .dish-card__footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .dish-card__price {
+      font-family: var(--font-head);
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--red);
+    }
+    .dish-card__price sup { font-size: 16px; vertical-align: super; font-weight: 700; }
+    .dish-card__btn {
+      background: var(--dark);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      transition: var(--trans);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dish-card__btn:hover { background: var(--red); transform: scale(1.06); }
+
+    /* ─── HOW WE COOK ───────────────────────────────────────── */
+    .cook-section { background: var(--bg2); }
+    .cook-steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    @media (min-width: 768px) {
+      .cook-steps { grid-template-columns: repeat(3, 1fr); position: relative; }
+      .cook-steps::before {
+        content: '';
+        position: absolute;
+        top: 52px;
+        left: calc(16.66% + 32px);
+        right: calc(16.66% + 32px);
+        height: 3px;
+        background: repeating-linear-gradient(90deg, var(--yellow) 0, var(--yellow) 12px, transparent 12px, transparent 20px);
+      }
+    }
+    .cook-step { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .cook-step__icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      position: relative;
+      box-shadow: 0 8px 24px rgba(251,191,36,.4);
+      transition: var(--trans);
+    }
+    .cook-step__icon:hover { transform: scale(1.1) rotate(-5deg); }
+    .cook-step__num {
+      position: absolute;
+      top: -6px; right: -6px;
+      width: 28px; height: 28px;
+      background: var(--red);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+    }
+    .cook-step__title {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--dark);
+    }
+    .cook-step__desc { font-size: 15px; color: var(--gray); max-width: 240px; }
+
+    /* ─── DELIVERY ──────────────────────────────────────────── */
+    .delivery-section { background: var(--red); padding: 80px 24px; }
+    .delivery-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 56px;
+    }
+    @media (min-width: 1024px) { .delivery-inner { grid-template-columns: 1fr 1fr; align-items: start; } }
+
+    .delivery-section .section__title { color: #fff; }
+    .delivery-section .section__title span { color: var(--yellow); }
+    .delivery-section .section__tag { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.3); color: var(--yellow); }
+    .delivery-section .section__desc { color: rgba(255,255,255,.8); }
+
+    .delivery-zones { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+    .delivery-zone {
+      background: rgba(255,255,255,.12);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .delivery-zone__left { display: flex; align-items: center; gap: 12px; }
+    .delivery-zone__icon {
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,.2);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .delivery-zone__name { font-weight: 700; color: #fff; font-size: 16px; }
+    .delivery-zone__time { font-size: 13px; color: rgba(255,255,255,.7); margin-top: 2px; }
+    .delivery-zone__price {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--yellow);
+    }
+
+    /* Delivery form */
+    .delivery-form {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      box-shadow: var(--shadow-lg);
+    }
+    .delivery-form h3 {
+      font-family: var(--font-head);
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .delivery-form p { font-size: 15px; color: var(--gray); margin-bottom: 28px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid #E5E7EB;
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      color: var(--dark);
+      background: var(--bg);
+      transition: var(--trans);
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--red); box-shadow: 0 0 0 4px rgba(220,38,38,.12); }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .btn-form {
+      width: 100%;
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 800;
+      padding: 16px;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      transition: var(--trans);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .btn-form:hover { background: var(--dark); transform: scale(1.02); box-shadow: 0 8px 24px rgba(28,10,0,.25); }
+
+    /* ─── REVIEWS ───────────────────────────────────────────── */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media (min-width: 768px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .review-card {
+      background: var(--bg);
+      border: 2px solid var(--yellow);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: var(--trans);
+      position: relative;
+    }
+    .review-card::before {
+      content: '"';
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      font-family: var(--font-head);
+      font-size: 80px;
+      color: var(--yellow2);
+      line-height: 1;
+    }
+    .review-card:hover { transform: scale(1.03); box-shadow: var(--shadow-md); border-color: var(--orange); }
+    .review-card__stars { display: flex; gap: 4px; margin-bottom: 16px; }
+    .review-card__stars svg { color: var(--yellow); }
+    .review-card__text {
+      font-size: 15px;
+      color: var(--dark);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .review-card__author { display: flex; align-items: center; gap: 12px; }
+    .review-card__avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      font-family: var(--font-head);
+      flex-shrink: 0;
+    }
+    .review-card__avatar--1 { background: var(--red); }
+    .review-card__avatar--2 { background: var(--orange); }
+    .review-card__avatar--3 { background: var(--dark); }
+    .review-card__name { font-weight: 700; font-size: 15px; color: var(--dark); }
+    .review-card__date { font-size: 12px; color: var(--gray); }
+
+    /* ─── CONTACTS ──────────────────────────────────────────── */
+    .contacts-section { background: var(--bg2); }
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media (min-width: 768px) { .contacts-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .contact-card {
+      background: var(--bg);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      border: 2px solid #E5E7EB;
+      transition: var(--trans);
+    }
+    .contact-card:hover { border-color: var(--yellow); box-shadow: var(--shadow-md); transform: scale(1.02); }
+    .contact-card__num {
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 8px;
+    }
+    .contact-card__title {
+      font-family: var(--font-head);
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    .contact-info-list { display: flex; flex-direction: column; gap: 14px; }
+    .contact-info-item { display: flex; align-items: flex-start; gap: 12px; }
+    .contact-info-item svg { color: var(--red); flex-shrink: 0; margin-top: 2px; }
+    .contact-info-item__label { font-size: 12px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: .06em; }
+    .contact-info-item__val { font-size: 15px; font-weight: 600; color: var(--dark); margin-top: 2px; }
+    .hours-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #DCFCE7;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      margin-top: 4px;
+    }
+    .hours-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    .footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 56px 24px 32px;
+    }
+    .footer__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .footer__top {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    @media (min-width: 768px) { .footer__top { grid-template-columns: 2fr 1fr 1fr; } }
+
+    .footer__brand-name {
+      font-family: var(--font-head);
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--yellow);
+      margin-bottom: 12px;
+    }
+    .footer__tagline { font-size: 15px; color: rgba(255,255,255,.6); margin-bottom: 24px; }
+    .footer__socials { display: flex; gap: 12px; }
+    .footer__social {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      transition: var(--trans);
+    }
+    .footer__social:hover { background: var(--yellow); color: var(--dark); transform: scale(1.1); }
+
+    .footer__col h4 {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .footer__col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer__col ul li a {
+      font-size: 15px;
+      color: rgba(255,255,255,.6);
+      transition: var(--trans);
+    }
+    .footer__col ul li a:hover { color: var(--yellow); }
+
+    .footer__bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer__copy { font-size: 14px; color: rgba(255,255,255,.4); }
+    .footer__bottom-links { display: flex; gap: 24px; }
+    .footer__bottom-links a { font-size: 14px; color: rgba(255,255,255,.4); transition: var(--trans); }
+    .footer__bottom-links a:hover { color: var(--yellow); }
+
+    /* ─── WHATSAPP FLOAT ────────────────────────────────────── */
+    .float-wa {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #16A34A;
+      color: #fff;
+      font-family: var(--font-head);
+      font-size: 15px;
+      font-weight: 800;
+      padding: 14px 22px 14px 18px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 8px 28px rgba(22,163,74,.45);
+      transition: var(--trans);
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+    .float-wa:hover { background: #15803D; transform: scale(1.06); box-shadow: 0 12px 36px rgba(22,163,74,.55); }
+    .float-wa:active { transform: scale(.97); }
+    .float-wa__icon {
+      width: 32px; height: 32px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 480px) {
+      .float-wa { bottom: 20px; right: 16px; padding: 14px 18px; }
+      .float-wa__text { display: none; }
+    }
+
+    /* ─── TOAST ─────────────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      right: 32px;
+      z-index: 300;
+      background: var(--dark);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 22px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all .3s cubic-bezier(.4,0,.2,1);
+      pointer-events: none;
+      max-width: 320px;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast svg { color: var(--yellow); flex-shrink: 0; }
+
+    /* ─── UTILITY ───────────────────────────────────────────── */
+    .text-red { color: var(--red); }
+    .text-yellow { color: var(--yellow); }
+    .mt-8 { margin-top: 8px; }
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+  </style>
+</head>
+<body>
+
+<!-- ══ TOP BAR ══════════════════════════════════════════════ -->
+<div class="topbar" role="banner">
+  <div class="topbar__left">
+    <div class="topbar__dot" aria-hidden="true"></div>
+    <span>Доставка от 30 минут&nbsp;&nbsp;·&nbsp;&nbsp;Работаем 09:00 — 23:00</span>
+  </div>
+  <div class="topbar__right">
+    <a href="tel:+998712345678" aria-label="Позвонить нам">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 6.5C2 4.567 3.567 3 5.5 3c.405 0 .77.247.924.623l1.5 3.75a1 1 0 01-.217 1.09l-1.2 1.2a11.047 11.047 0 005.83 5.83l1.2-1.2a1 1 0 011.09-.217l3.75 1.5c.376.154.623.519.623.924C21 18.433 19.433 20 17.5 20 8.94 20 2 13.06 2 6.5z"/></svg>
+      +998 (71) 234-56-78
+    </a>
+  </div>
+</div>
+
+<!-- ══ NAV ═════════════════════════════════════════════════ -->
+<nav class="nav" role="navigation" aria-label="Главная навигация">
+  <a href="#" class="nav__logo" aria-label="PLOV EXPRESS — на главную">
+    PLOV EXPRESS<span aria-hidden="true"></span>
+  </a>
+
+  <ul class="nav__links" id="navLinks" role="list">
+    <li><a href="#menu">Меню</a></li>
+    <li><a href="#delivery">Доставка</a></li>
+    <li><a href="#about">О нас</a></li>
+    <li><a href="#contacts">Контакты</a></li>
+    <li>
+      <a href="#delivery" class="nav__cta" onclick="scrollToDelivery(event)">
+        Заказать
+      </a>
+    </li>
+  </ul>
+
+  <button class="nav__burger" id="navBurger" aria-label="Открыть меню" aria-expanded="false" aria-controls="navLinks">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+  </button>
+</nav>
+
+<!-- ══ HERO ════════════════════════════════════════════════ -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__left reveal">
+    <div class="hero__badge-top" aria-label="Узбекская кухня">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+      Узбекская кухня
+    </div>
+
+    <h1 class="hero__title" id="hero-title">
+      <span class="line1">Настоящий</span>
+      <span class="line2">плов <em>&amp;</em></span>
+      <span class="line2">не только</span>
+    </h1>
+
+    <p class="hero__sub">
+      Быстро. Вкусно. Свежо.<br>
+      Доставка по Ташкенту или зал — как вам удобнее.
+    </p>
+
+    <div class="hero__counter" role="status" aria-live="polite">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.047 8.287 8.287 0 009 9.601a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/></svg>
+      <div>
+        <div class="hero__counter-num" id="portioncnt" aria-label="Уже подано порций">50,000+</div>
+        <div class="hero__counter-label">порций уже подано</div>
+      </div>
+    </div>
+
+    <div class="hero__btns">
+      <button class="btn-primary" onclick="scrollToDelivery()" aria-label="Заказать сейчас — перейти к форме доставки">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.836l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+        Заказать сейчас
+      </button>
+      <a href="#menu" class="btn-outline" aria-label="Посмотреть меню">
+        Посмотреть меню
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero__right reveal reveal-delay-2">
+    <div class="hero__circle" aria-hidden="true">
+      <div class="hero__circle-inner">
+        <div class="hero__big-emoji" role="img" aria-label="Плов в казане">🍲</div>
+        <div class="hero__stats-mini">
+          <div class="hero__stat-chip">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            30 мин доставка
+          </div>
+          <div class="hero__stat-chip">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            100% свежее
+          </div>
+          <div class="hero__stat-chip">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+            100% халяль
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__float-badge" aria-label="Хит дня — Плов Ферганский">
+      🔥 Хит дня — Плов Ферганский
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS BAR ══════════════════════════════════════════ -->
+<section class="stats-bar" aria-label="Ключевые показатели">
+  <div class="stats-bar__inner">
+    <div class="stat-item reveal" data-count="50000" data-suffix="к+">
+      <div class="stat-item__num counter" id="stat1">50к+</div>
+      <div class="stat-item__label">довольных клиентов</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-1" data-count="15" data-suffix=" лет">
+      <div class="stat-item__num counter" id="stat2">15 лет</div>
+      <div class="stat-item__label">опыта на кухне</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2" data-count="30" data-suffix=" мин">
+      <div class="stat-item__num counter" id="stat3">30 мин</div>
+      <div class="stat-item__label">средняя доставка</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-item__num">100%</div>
+      <div class="stat-item__label">халяль продукты</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MENU ════════════════════════════════════════════════ -->
+<section class="section" id="menu" aria-labelledby="menu-title">
+  <div class="section-inner">
+    <div class="section__header reveal">
+      <div class="section__tag" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.87c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513m-3-4.87v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-1.5-.75M12 15.75v-1.5"/></svg>
+        Наше меню
+      </div>
+      <h2 class="section__title" id="menu-title">Популярные <span>блюда</span></h2>
+      <p class="section__desc">Готовим каждый день из свежих продуктов. Никаких заготовок — только живой вкус.</p>
+    </div>
+
+    <div class="dishes-grid">
+
+      <!-- Плов Ферганский -->
+      <article class="dish-card dish-card--plov reveal" onclick="addToCart('Плов Ферганский', '$10')">
+        <div class="dish-card__visual">
+          <span role="img" aria-label="Плов">🍚</span>
+          <div class="dish-card__badge">Хит</div>
+        </div>
+        <div class="dish-card__body">
+          <h3 class="dish-card__name">Плов Ферганский</h3>
+          <p class="dish-card__desc">Классический плов из девзиры с бараниной, морковью и луком. Готовим в казане на живом огне.</p>
+          <div class="dish-card__footer">
+            <div class="dish-card__price"><sup>$</sup>10</div>
+            <button class="dish-card__btn" aria-label="Заказать Плов Ферганский за $10" onclick="addToCart('Плов Ферганский', '$10'); event.stopPropagation()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+              Заказать
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Лагман -->
+      <article class="dish-card dish-card--lagman reveal reveal-delay-1" onclick="addToCart('Лагман домашний', '$8')">
+        <div class="dish-card__visual">
+          <span role="img" aria-label="Лагман">🍜</span>
+        </div>
+        <div class="dish-card__body">
+          <h3 class="dish-card__name">Лагман домашний</h3>
+          <p class="dish-card__desc">Тянутая лапша ручной работы с мясным соусом из говядины, перца и томатов. Наваристый и сытный.</p>
+          <div class="dish-card__footer">
+            <div class="dish-card__price"><sup>$</sup>8</div>
+            <button class="dish-card__btn" aria-label="Заказать Лагман домашний за $8" onclick="addToCart('Лагман домашний', '$8'); event.stopPropagation()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+              Заказать
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Шашлык микс -->
+      <article class="dish-card dish-card--shashlik reveal reveal-delay-2" onclick="addToCart('Шашлык микс', '$16')">
+        <div class="dish-card__visual">
+          <span role="img" aria-label="Шашлык">🥩</span>
+          <div class="dish-card__badge">Premium</div>
+        </div>
+        <div class="dish-card__body">
+          <h3 class="dish-card__name">Шашлык микс</h3>
+          <p class="dish-card__desc">Ассорти из 4 видов шашлыка: баранина, говядина, курица, люля-кебаб. 8 шампуров. Лук, зелень.</p>
+          <div class="dish-card__footer">
+            <div class="dish-card__price"><sup>$</sup>16</div>
+            <button class="dish-card__btn" aria-label="Заказать Шашлык микс за $16" onclick="addToCart('Шашлык микс', '$16'); event.stopPropagation()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+              Заказать
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Самса -->
+      <article class="dish-card dish-card--samsa reveal reveal-delay-1" onclick="addToCart('Самса x3', '$5')">
+        <div class="dish-card__visual">
+          <span role="img" aria-label="Самса">🥐</span>
+          <div class="dish-card__badge">3 шт</div>
+        </div>
+        <div class="dish-card__body">
+          <h3 class="dish-card__name">Самса x3</h3>
+          <p class="dish-card__desc">Слоёная самса из тандыра с рубленым мясом и луком. Хрустящая корочка, сочная начинка.</p>
+          <div class="dish-card__footer">
+            <div class="dish-card__price"><sup>$</sup>5</div>
+            <button class="dish-card__btn" aria-label="Заказать Самса x3 за $5" onclick="addToCart('Самса x3', '$5'); event.stopPropagation()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+              Заказать
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Манты -->
+      <article class="dish-card dish-card--manti reveal reveal-delay-2" onclick="addToCart('Манты', '$9')">
+        <div class="dish-card__visual">
+          <span role="img" aria-label="Манты">🥟</span>
+        </div>
+        <div class="dish-card__body">
+          <h3 class="dish-card__name">Манты</h3>
+          <p class="dish-card__desc">Большие паровые манты с бараниной и тыквой. Подаются со сметаной и свежей зеленью.</p>
+          <div class="dish-card__footer">
+            <div class="dish-card__price"><sup>$</sup>9</div>
+            <button class="dish-card__btn" aria-label="Заказать Манты за $9" onclick="addToCart('Манты', '$9'); event.stopPropagation()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+              Заказать
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Димлама -->
+      <article class="dish-card dish-card--dimlama reveal reveal-delay-3" onclick="addToCart('Димлама', '$11')">
+        <div class="dish-card__visual">
+          <span role="img" aria-label="Димлама">🫕</span>
+        </div>
+        <div class="dish-card__body">
+          <h3 class="dish-card__name">Димлама</h3>
+          <p class="dish-card__desc">Тушёное мясо с сезонными овощами в казане. Картофель, капуста, помидоры. Мягко и ароматно.</p>
+          <div class="dish-card__footer">
+            <div class="dish-card__price"><sup>$</sup>11</div>
+            <button class="dish-card__btn" aria-label="Заказать Димлама за $11" onclick="addToCart('Димлама', '$11'); event.stopPropagation()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+              Заказать
+            </button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW WE COOK ════════════════════════════════════════ -->
+<section class="section cook-section" id="about" aria-labelledby="cook-title">
+  <div class="section-inner">
+    <div class="section__header reveal" style="text-align:center;">
+      <div class="section__tag" style="margin:0 auto 16px;" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.047 8.287 8.287 0 009 9.601a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/></svg>
+        Наш процесс
+      </div>
+      <h2 class="section__title" id="cook-title">Как мы <span>готовим</span></h2>
+      <p class="section__desc" style="margin:12px auto 0; text-align:center;">Каждый день — один и тот же ритуал, без компромиссов.</p>
+    </div>
+
+    <div class="cook-steps">
+      <div class="cook-step reveal">
+        <div class="cook-step__icon" aria-hidden="true">
+          🌾
+          <span class="cook-step__num">1</span>
+        </div>
+        <h3 class="cook-step__title">Свежие ингредиенты</h3>
+        <p class="cook-step__desc">Каждое утро закупаем на базаре. Только сезонные овощи, фермерское мясо, настоящий девзира.</p>
+      </div>
+      <div class="cook-step reveal reveal-delay-2">
+        <div class="cook-step__icon" aria-hidden="true">
+          🔥
+          <span class="cook-step__num">2</span>
+        </div>
+        <h3 class="cook-step__title">Готовим при вас</h3>
+        <p class="cook-step__desc">Открытая кухня — видно всё. Плов в казане на живом огне. Никаких разогревалок и заготовок.</p>
+      </div>
+      <div class="cook-step reveal reveal-delay-4">
+        <div class="cook-step__icon" aria-hidden="true">
+          🍽️
+          <span class="cook-step__num">3</span>
+        </div>
+        <h3 class="cook-step__title">Подаём горячим</h3>
+        <p class="cook-step__desc">Через 3–5 минут после готовности. В зале — на горячей тарелке. Доставка — в термоупаковке.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DELIVERY ═══════════════════════════════════════════ -->
+<section class="delivery-section" id="delivery" aria-labelledby="delivery-title">
+  <div class="delivery-inner">
+    <div>
+      <div class="section__tag reveal" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/></svg>
+        Доставка
+      </div>
+      <h2 class="section__title reveal" id="delivery-title">Доставим <span>горячим</span></h2>
+      <p class="section__desc reveal">Работаем по всему Ташкенту. Минимальный заказ — $8. Бесплатно от $25.</p>
+
+      <div class="delivery-zones reveal" aria-label="Зоны доставки">
+        <div class="delivery-zone">
+          <div class="delivery-zone__left">
+            <div class="delivery-zone__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+            </div>
+            <div>
+              <div class="delivery-zone__name">Центр Ташкента</div>
+              <div class="delivery-zone__time">Мирабадский, Юнусабадский, Чиланзарский</div>
+            </div>
+          </div>
+          <div class="delivery-zone__price">Бесплатно</div>
+        </div>
+
+        <div class="delivery-zone">
+          <div class="delivery-zone__left">
+            <div class="delivery-zone__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+            </div>
+            <div>
+              <div class="delivery-zone__name">Районы 2-го пояса</div>
+              <div class="delivery-zone__time">Бектемир, Янгихаёт, Сергели, Учтепа</div>
+            </div>
+          </div>
+          <div class="delivery-zone__price">$1.5</div>
+        </div>
+
+        <div class="delivery-zone">
+          <div class="delivery-zone__left">
+            <div class="delivery-zone__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+            </div>
+            <div>
+              <div class="delivery-zone__name">Пригород</div>
+              <div class="delivery-zone__time">Пригородные районы, от 45 минут</div>
+            </div>
+          </div>
+          <div class="delivery-zone__price">$3</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="delivery-form reveal reveal-delay-2">
+      <h3>Вызвать курьера</h3>
+      <p>Оформите заказ — перезвоним за 2 минуты для подтверждения.</p>
+
+      <form onsubmit="handleDeliveryForm(event)" novalidate>
+        <div class="form-group">
+          <label for="phone">Телефон *</label>
+          <input type="tel" id="phone" name="phone" placeholder="+998 __ ___ __ __" autocomplete="tel" required aria-required="true" />
+        </div>
+        <div class="form-group">
+          <label for="address">Адрес доставки *</label>
+          <input type="text" id="address" name="address" placeholder="Улица, дом, квартира" autocomplete="street-address" required aria-required="true" />
+        </div>
+        <div class="form-group">
+          <label for="comment">Комментарий к заказу</label>
+          <textarea id="comment" name="comment" placeholder="Что хотите заказать, пожелания..."></textarea>
+        </div>
+        <button type="submit" class="btn-form">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.836l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+          Вызвать курьера
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REVIEWS ══════════════════════════════════════════ -->
+<section class="section" aria-labelledby="reviews-title">
+  <div class="section-inner">
+    <div class="section__header reveal">
+      <div class="section__tag" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+        Отзывы
+      </div>
+      <h2 class="section__title" id="reviews-title">Что говорят <span>гости</span></h2>
+    </div>
+
+    <div class="reviews-grid">
+      <article class="review-card reveal">
+        <div class="review-card__stars" aria-label="Оценка: 5 звёзд">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-card__text">Лучший плов в Ташкенте, без преувеличений. Привожу сюда всех гостей из других городов. Рис рассыпчатый, мясо тает, зирвак — отдельная песня. Обязательно попробуйте Ферганский!</p>
+        <div class="review-card__author">
+          <div class="review-card__avatar review-card__avatar--1" aria-hidden="true">А</div>
+          <div>
+            <div class="review-card__name">Азиз Каримов</div>
+            <div class="review-card__date">15 мая 2026</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card reveal reveal-delay-2">
+        <div class="review-card__stars" aria-label="Оценка: 5 звёзд">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-card__text">Заказываем каждую пятницу на офис, человек на 15. Доставка всегда вовремя, ещё горячее. Лагман домашний — просто произведение искусства. Ребята умеют готовить, видно что с душой.</p>
+        <div class="review-card__author">
+          <div class="review-card__avatar review-card__avatar--2" aria-hidden="true">М</div>
+          <div>
+            <div class="review-card__name">Мухаммад Рашидов</div>
+            <div class="review-card__date">8 мая 2026</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card reveal reveal-delay-4">
+        <div class="review-card__stars" aria-label="Оценка: 5 звёзд">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-card__text">Самса! Просто невероятная самса из тандыра. Горячая, хрустящая, сочная. Беру по 6 штук каждое утро перед работой. И шашлык микс на выходных — обязательный ритуал для нашей семьи.</p>
+        <div class="review-card__author">
+          <div class="review-card__avatar review-card__avatar--3" aria-hidden="true">Н</div>
+          <div>
+            <div class="review-card__name">Нилуфар Юсупова</div>
+            <div class="review-card__date">2 мая 2026</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACTS ══════════════════════════════════════════ -->
+<section class="section contacts-section" id="contacts" aria-labelledby="contacts-title">
+  <div class="section-inner">
+    <div class="section__header reveal">
+      <div class="section__tag" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+        Рестораны
+      </div>
+      <h2 class="section__title" id="contacts-title">Наши <span>адреса</span></h2>
+      <p class="section__desc">Два ресторана в Ташкенте — всегда рядом.</p>
+    </div>
+
+    <div class="contacts-grid">
+      <div class="contact-card reveal">
+        <div class="contact-card__num">Ресторан #1</div>
+        <h3 class="contact-card__title">Мирабад</h3>
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+            <div>
+              <div class="contact-info-item__label">Адрес</div>
+              <div class="contact-info-item__val">ул. Амира Темура, 45, Мирабадский район</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 6.5C2 4.567 3.567 3 5.5 3c.405 0 .77.247.924.623l1.5 3.75a1 1 0 01-.217 1.09l-1.2 1.2a11.047 11.047 0 005.83 5.83l1.2-1.2a1 1 0 011.09-.217l3.75 1.5c.376.154.623.519.623.924C21 18.433 19.433 20 17.5 20 8.94 20 2 13.06 2 6.5z"/></svg>
+            <div>
+              <div class="contact-info-item__label">Телефон</div>
+              <div class="contact-info-item__val"><a href="tel:+998712345678" style="color:var(--red);font-weight:700;">+998 (71) 234-56-78</a></div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div>
+              <div class="contact-info-item__label">Режим работы</div>
+              <div class="contact-info-item__val">09:00 — 23:00, без выходных</div>
+              <div class="hours-badge">Сейчас открыто</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-card reveal reveal-delay-2">
+        <div class="contact-card__num">Ресторан #2</div>
+        <h3 class="contact-card__title">Юнусабад</h3>
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+            <div>
+              <div class="contact-info-item__label">Адрес</div>
+              <div class="contact-info-item__val">пр. Бунёдкор, 12, Юнусабадский район</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 6.5C2 4.567 3.567 3 5.5 3c.405 0 .77.247.924.623l1.5 3.75a1 1 0 01-.217 1.09l-1.2 1.2a11.047 11.047 0 005.83 5.83l1.2-1.2a1 1 0 011.09-.217l3.75 1.5c.376.154.623.519.623.924C21 18.433 19.433 20 17.5 20 8.94 20 2 13.06 2 6.5z"/></svg>
+            <div>
+              <div class="contact-info-item__label">Телефон</div>
+              <div class="contact-info-item__val"><a href="tel:+998712345679" style="color:var(--red);font-weight:700;">+998 (71) 234-56-79</a></div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div>
+              <div class="contact-info-item__label">Режим работы</div>
+              <div class="contact-info-item__val">09:00 — 23:00, без выходных</div>
+              <div class="hours-badge">Сейчас открыто</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ═══════════════════════════════════════════ -->
+<footer class="footer" role="contentinfo">
+  <div class="footer__inner">
+    <div class="footer__top">
+      <div>
+        <div class="footer__brand-name">PLOV EXPRESS</div>
+        <p class="footer__tagline">Настоящий плов. Быстро. Вкусно.<br>Два ресторана в Ташкенте.</p>
+        <div class="footer__socials" aria-label="Социальные сети">
+          <a href="#" class="footer__social" aria-label="Instagram PLOV EXPRESS">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="footer__social" aria-label="Telegram канал PLOV EXPRESS">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 12 12 12 0 0011.944 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+          <a href="https://wa.me/998712345678" class="footer__social" aria-label="WhatsApp PLOV EXPRESS">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h4>Меню</h4>
+        <ul>
+          <li><a href="#menu">Плов и рис</a></li>
+          <li><a href="#menu">Лагман и супы</a></li>
+          <li><a href="#menu">Шашлык</a></li>
+          <li><a href="#menu">Самса и выпечка</a></li>
+          <li><a href="#menu">Манты и хинкали</a></li>
+          <li><a href="#menu">Напитки</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4>Компания</h4>
+        <ul>
+          <li><a href="#about">О нас</a></li>
+          <li><a href="#delivery">Доставка</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+          <li><a href="#">Вакансии</a></li>
+          <li><a href="#">Франшиза</a></li>
+          <li><a href="#">Корпоративные заказы</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2026 PLOV EXPRESS. Все права защищены.</p>
+      <div class="footer__bottom-links">
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Условия использования</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ FLOAT WHATSAPP ════════════════════════════════════ -->
+<a href="https://wa.me/998712345678?text=Хочу%20сделать%20заказ%20из%20PLOV%20EXPRESS" class="float-wa" aria-label="Заказать через WhatsApp" target="_blank" rel="noopener noreferrer">
+  <svg class="float-wa__icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  <span class="float-wa__text">Заказать по WhatsApp</span>
+</a>
+
+<!-- ══ TOAST ═════════════════════════════════════════════ -->
+<div class="toast" id="toast" role="alert" aria-live="polite">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+  <span id="toast-msg">Добавлено в заказ!</span>
+</div>
+
+<!-- ══ SCRIPT ════════════════════════════════════════════ -->
+<script>
+  // ── Burger nav ──────────────────────────────────────
+  const burger = document.getElementById('navBurger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ── Scroll reveal ────────────────────────────────────
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+  }
+
+  // ── Counter animation ────────────────────────────────
+  function animateCounter(el, target, suffix, duration) {
+    if (prefersReducedMotion) return;
+    let start = 0;
+    const step = Math.ceil(target / (duration / 30));
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) {
+        start = target;
+        clearInterval(timer);
+      }
+      if (target >= 1000) {
+        el.textContent = Math.floor(start / 1000) + 'к' + suffix.replace('к+','').replace('к','') + (suffix.includes('+') ? '+' : '');
+      } else {
+        el.textContent = start + suffix;
+      }
+    }, 30);
+  }
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const parent = e.target;
+        const items = parent.querySelectorAll('[data-count]');
+        items.forEach(item => {
+          const el = item.querySelector('.counter');
+          const count = parseInt(item.dataset.count);
+          const suffix = item.dataset.suffix || '';
+          if (el) animateCounter(el, count, suffix, 1200);
+        });
+        statsObserver.unobserve(parent);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const statsBar = document.querySelector('.stats-bar__inner');
+  if (statsBar) statsObserver.observe(statsBar);
+
+  // ── Hero portion counter ─────────────────────────────
+  const heroCounterEl = document.getElementById('portioncnt');
+  const heroObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !prefersReducedMotion) {
+        let val = 0;
+        const target = 50000;
+        const timer = setInterval(() => {
+          val += 1000;
+          if (val >= target) { val = target; clearInterval(timer); }
+          heroCounterEl.textContent = (val / 1000).toFixed(0) + ',000+';
+        }, 20);
+        heroObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  if (heroCounterEl) heroObs.observe(heroCounterEl);
+
+  // ── Scroll to delivery ───────────────────────────────
+  function scrollToDelivery(e) {
+    if (e) e.preventDefault();
+    document.getElementById('delivery').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── Toast ────────────────────────────────────────────
+  let toastTimer;
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    const msgEl = document.getElementById('toast-msg');
+    msgEl.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+
+  // ── Add to cart ──────────────────────────────────────
+  function addToCart(name, price) {
+    showToast(name + ' — ' + price + ' добавлено в заказ!');
+  }
+
+  // ── Delivery form ────────────────────────────────────
+  function handleDeliveryForm(e) {
+    e.preventDefault();
+    const phone = document.getElementById('phone').value.trim();
+    const address = document.getElementById('address').value.trim();
+    if (!phone) {
+      document.getElementById('phone').focus();
+      showToast('Введите номер телефона');
+      return;
+    }
+    if (!address) {
+      document.getElementById('address').focus();
+      showToast('Введите адрес доставки');
+      return;
+    }
+    showToast('Заказ принят! Перезвоним через 2 минуты.');
+    e.target.reset();
+  }
+
+  // ── Sticky nav shadow on scroll ──────────────────────
+  const nav = document.querySelector('.nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 10
+      ? '0 4px 20px rgba(28,10,0,.1)'
+      : '0 2px 12px rgba(28,10,0,.06)';
+  }, { passive: true });
+</script>
+</body>
+</html>

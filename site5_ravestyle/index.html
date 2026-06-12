@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRAG — Компьютерный клуб</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Share+Tech+Mono&family=Bebas+Neue&family=Oswald:wght@700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; overflow-x: hidden; }
+
+  body {
+    background: #000;
+    color: #fff;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  /* ── PRELOADER ── */
+  #preloader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #000;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.8s, visibility 0.8s;
+  }
+  #preloader.hide { opacity: 0; visibility: hidden; }
+  .pre-text {
+    font-family: 'Black Ops One', sans-serif;
+    font-size: 48px; color: #E8001A;
+    letter-spacing: 12px;
+    animation: pre-flicker 0.8s steps(1) infinite;
+  }
+  @keyframes pre-flicker {
+    0%,100%{opacity:1} 50%{opacity:0.2}
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 50px;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(232,0,26,0.2);
+  }
+  .nav-logo {
+    font-family: 'Black Ops One', sans-serif;
+    font-size: 22px; color: #E8001A;
+    letter-spacing: 6px;
+    text-shadow: 0 0 20px rgba(232,0,26,0.6);
+  }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px; letter-spacing: 2px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: #E8001A; }
+  .nav-book {
+    background: #E8001A; color: #fff; border: none;
+    padding: 10px 26px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px; letter-spacing: 2px;
+    cursor: pointer; transition: all 0.3s;
+    clip-path: polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);
+  }
+  .nav-book:hover { background: #ff1a2e; box-shadow: 0 0 24px rgba(232,0,26,0.5); }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    background: #000;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+
+  /* Big title background */
+  .hero-bigtitle {
+    position: absolute;
+    top: 60px; left: 0; right: 0;
+    text-align: center;
+    font-family: 'Black Ops One', sans-serif;
+    font-size: clamp(80px, 13vw, 170px);
+    font-weight: 400;
+    letter-spacing: -4px;
+    line-height: 0.85;
+    color: #E8001A;
+    text-shadow:
+      2px 2px 0 #8B0000,
+      4px 4px 0 #5a0000,
+      0 0 60px rgba(232,0,26,0.3);
+    white-space: nowrap;
+    user-select: none;
+    z-index: 1;
+  }
+
+  /* Torn paper effect */
+  .torn-top {
+    position: absolute;
+    top: 220px; left: 0; right: 0;
+    height: 120px;
+    z-index: 2;
+  }
+
+  .torn-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 80px;
+    z-index: 2;
+  }
+
+  /* Character image */
+  .hero-character {
+    position: absolute;
+    bottom: 0;
+    left: 50%; transform: translateX(-50%);
+    width: 520px;
+    height: 85vh;
+    z-index: 4;
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  .hero-character img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    object-position: top center;
+    mix-blend-mode: luminosity;
+    filter: contrast(1.1) brightness(1.05);
+  }
+
+  /* Glow under character */
+  .char-glow {
+    position: absolute;
+    bottom: -20px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 200px;
+    background: radial-gradient(ellipse, rgba(232,0,26,0.25) 0%, transparent 70%);
+    z-index: 3;
+  }
+
+  /* Side watermarks */
+  .watermark-left, .watermark-right {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    font-family: 'Black Ops One', sans-serif;
+    font-size: 130px;
+    color: rgba(255,255,255,0.04);
+    user-select: none; z-index: 1;
+    letter-spacing: 10px;
+  }
+  .watermark-left { left: -20px; }
+  .watermark-right { right: -20px; }
+
+  /* Text block left */
+  .hero-textblock {
+    position: absolute;
+    bottom: 120px; left: 60px;
+    z-index: 5;
+    max-width: 400px;
+  }
+  .htb-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 15px; color: #E8001A;
+    letter-spacing: 2px; margin-bottom: 16px;
+    border-left: 3px solid #E8001A;
+    padding-left: 12px;
+  }
+  .htb-body {
+    font-size: 13px;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.75);
+    border: 1px solid rgba(232,0,26,0.3);
+    padding: 18px 20px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  /* Nav right vertical */
+  .hero-nav-right {
+    position: absolute;
+    right: 50px; top: 50%; transform: translateY(-50%);
+    z-index: 5;
+    display: flex; flex-direction: column; gap: 4px;
+    align-items: flex-end;
+  }
+  .hnr-item {
+    font-family: 'Black Ops One', sans-serif;
+    font-size: 28px; color: rgba(255,255,255,0.12);
+    letter-spacing: 3px; cursor: pointer;
+    transition: all 0.3s; text-decoration: none;
+    display: block; text-align: right;
+    text-transform: uppercase;
+  }
+  .hnr-item:hover { color: #E8001A; text-shadow: 0 0 20px rgba(232,0,26,0.5); }
+
+  /* Scroll line */
+  .scroll-line {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    z-index: 5;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.2); font-size: 9px; letter-spacing: 4px;
+  }
+  .scroll-bar {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, #E8001A, transparent);
+    animation: scroll-pulse 2s ease-in-out infinite;
+  }
+  @keyframes scroll-pulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+  /* ── SECTIONS ── */
+  section.content { background: #0a0a0a; padding: 100px 60px; position: relative; z-index: 10; }
+  section.content.dark { background: #050505; }
+
+  .sec-head { margin-bottom: 60px; }
+  .sec-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px; letter-spacing: 4px; color: #E8001A;
+    text-transform: uppercase; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sec-tag::before { content: '//'; color: rgba(232,0,26,0.5); }
+  .sec-title {
+    font-family: 'Black Ops One', sans-serif;
+    font-size: clamp(32px,5vw,60px);
+    color: #fff; letter-spacing: 2px; line-height: 1;
+  }
+  .sec-title span { color: #E8001A; }
+  .sec-desc {
+    font-size: 14px; color: rgba(255,255,255,0.4);
+    max-width: 500px; line-height: 1.8; margin-top: 14px;
+  }
+
+  /* ── ТАРИФЫ ── */
+  .tarify-grid {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 2px; max-width: 1100px;
+    background: rgba(232,0,26,0.1);
+    border: 1px solid rgba(232,0,26,0.2);
+  }
+  .tarif {
+    background: #0a0a0a;
+    padding: 44px 36px;
+    position: relative; transition: background 0.3s;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .tarif:hover { background: rgba(232,0,26,0.04); }
+  .tarif.hot { background: #0f0000; border-color: rgba(232,0,26,0.3); }
+  .tarif-badge {
+    position: absolute; top: 0; left: 28px;
+    background: #E8001A; color: #fff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px; letter-spacing: 2px; padding: 4px 12px;
+    text-transform: uppercase;
+  }
+  .tarif-rank {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; letter-spacing: 4px;
+    color: rgba(232,0,26,0.7); text-transform: uppercase; margin-bottom: 20px;
+  }
+  .tarif-price {
+    font-family: 'Black Ops One', sans-serif;
+    font-size: 50px; color: #fff; line-height: 1; letter-spacing: -1px;
+  }
+  .tarif-price sub { font-size: 16px; color: rgba(255,255,255,0.4); font-family: 'Share Tech Mono', monospace; }
+  .tarif-per { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 2px; margin-bottom: 30px; margin-top: 4px; }
+  .tarif-line { width: 100%; height: 1px; background: rgba(255,255,255,0.06); margin-bottom: 24px; }
+  .tarif-list { list-style: none; margin-bottom: 36px; }
+  .tarif-list li {
+    font-size: 13px; color: rgba(255,255,255,0.7);
+    padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .tarif-list li::before { content: '▶'; color: #E8001A; font-size: 8px; }
+
+  /* ── IRON (HARDWARE) ── */
+  .hw-tabs {
+    display: flex; gap: 2px; margin-bottom: 36px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .hw-tab {
+    background: transparent; border: none; border-bottom: 2px solid transparent;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px; letter-spacing: 2px; color: rgba(255,255,255,0.3);
+    padding: 12px 28px; cursor: pointer; transition: all 0.3s;
+    text-transform: uppercase; margin-bottom: -1px;
+  }
+  .hw-tab.active { border-bottom-color: #E8001A; color: #fff; }
+  .hw-tab:hover:not(.active) { color: rgba(255,255,255,0.6); }
+
+  .hw-panel { display: none; }
+  .hw-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1100px; }
+  .hw-box {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 36px;
+    transition: border-color 0.3s;
+  }
+  .hw-box:hover { border-color: rgba(232,0,26,0.3); }
+  .hw-box-head {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; letter-spacing: 4px; color: #E8001A;
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .hw-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .hw-row:last-of-type { border-bottom: none; }
+  .hw-k { font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 1px; text-transform: uppercase; }
+  .hw-v { font-size: 13px; font-weight: 700; color: #fff; text-align: right; }
+  .hw-v.red { color: #E8001A; font-family: 'Black Ops One', sans-serif; letter-spacing: 1px; }
+  .fps-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.04); }
+  .fps-tag { font-size: 10px; letter-spacing: 1px; padding: 4px 12px; background: rgba(232,0,26,0.1); color: #E8001A; border: 1px solid rgba(232,0,26,0.2); }
+
+  /* ── ПЕРИФЕРИЯ ── */
+  .p-grid {
+    display: grid; grid-template-columns: repeat(auto-fill,minmax(210px,1fr));
+    gap: 16px; max-width: 1100px;
+  }
+  .p-card {
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+    padding: 26px 22px; text-align: center;
+    transition: all 0.3s;
+  }
+  .p-card:hover { border-color: rgba(232,0,26,0.4); transform: translateY(-3px); }
+  .p-ico { font-size: 34px; margin-bottom: 14px; display: block; }
+  .p-type { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 3px; color: #E8001A; text-transform: uppercase; margin-bottom: 8px; }
+  .p-model { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.3; }
+  .p-spec { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.6; }
+  .p-zone { display: inline-block; margin-top: 12px; font-size: 9px; letter-spacing: 2px; padding: 3px 10px; text-transform: uppercase; }
+  .p-zone.all { background: rgba(232,0,26,0.15); color: #E8001A; border: 1px solid rgba(232,0,26,0.3); }
+  .p-zone.std { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.1); }
+  .p-zone.pro { background: rgba(232,0,26,0.2); color: #ff4455; border: 1px solid rgba(232,0,26,0.4); }
+
+  /* ── ТУРНИРЫ ── */
+  .t-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); gap: 16px; margin-bottom: 40px; }
+  .t-card {
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+    padding: 32px; transition: all 0.3s; position: relative;
+  }
+  .t-card:hover { border-color: rgba(232,0,26,0.3); }
+  .t-card.live { border-color: rgba(232,0,26,0.4); background: rgba(232,0,26,0.03); }
+  .t-status {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 9px; letter-spacing: 2px; padding: 4px 12px;
+    text-transform: uppercase; margin-bottom: 18px;
+  }
+  .t-status.live { background: rgba(232,0,26,0.15); color: #E8001A; border: 1px solid rgba(232,0,26,0.3); }
+  .t-status.live::before { content: '●'; animation: blink 1.5s infinite; }
+  @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.2} }
+  .t-status.open { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.1); }
+  .t-status.soon { color: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.06); }
+  .t-game { font-size: 10px; letter-spacing: 3px; color: rgba(232,0,26,0.7); text-transform: uppercase; margin-bottom: 6px; }
+  .t-name { font-family: 'Black Ops One', sans-serif; font-size: 18px; color: #fff; letter-spacing: 1px; margin-bottom: 22px; line-height: 1.2; }
+  .t-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  .t-ml { font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,0.25); text-transform: uppercase; margin-bottom: 3px; }
+  .t-mv { font-size: 14px; font-weight: 700; color: #fff; }
+  .t-prize { color: #E8001A !important; font-family: 'Black Ops One', sans-serif; font-size: 16px !important; letter-spacing: 1px; }
+  .t-btn {
+    width: 100%; padding: 13px; border: none; font-family: 'Share Tech Mono', monospace;
+    font-size: 11px; letter-spacing: 2px; cursor: pointer;
+    text-transform: uppercase; transition: all 0.3s;
+    clip-path: polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);
+  }
+  .t-btn.red { background: #E8001A; color: #fff; }
+  .t-btn.red:hover { background: #ff1a2e; box-shadow: 0 0 20px rgba(232,0,26,0.4); }
+  .t-btn.outline { background: transparent; color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.1); clip-path: none; }
+  .t-btn.outline:hover { border-color: #E8001A; color: #E8001A; }
+
+  .sched-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); max-width: 1100px; }
+  .sched-head { padding: 18px 24px; border-bottom: 1px solid rgba(255,255,255,0.06); font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 3px; color: #E8001A; }
+  table.sched { width: 100%; border-collapse: collapse; }
+  table.sched th { padding: 12px 20px; text-align: left; font-size: 9px; letter-spacing: 3px; color: rgba(255,255,255,0.2); text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.06); font-weight: 400; }
+  table.sched td { padding: 14px 20px; font-size: 12px; color: rgba(255,255,255,0.65); border-bottom: 1px solid rgba(255,255,255,0.03); transition: background 0.2s; }
+  table.sched tr:hover td { background: rgba(255,255,255,0.02); }
+  table.sched tr:last-child td { border-bottom: none; }
+  .sg { display: inline-block; font-size: 9px; letter-spacing: 1px; padding: 2px 8px; background: rgba(232,0,26,0.1); color: #E8001A; border: 1px solid rgba(232,0,26,0.2); }
+  .sp { color: #E8001A; font-weight: 700; }
+  .s-live { color: #E8001A; font-size: 9px; letter-spacing: 1px; }
+  .s-open { color: rgba(255,255,255,0.5); font-size: 9px; letter-spacing: 1px; }
+  .s-soon { color: rgba(255,255,255,0.25); font-size: 9px; letter-spacing: 1px; }
+
+  /* ── CONTACTS ── */
+  .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1000px; align-items: start; }
+  .c-row { display: flex; align-items: center; gap: 16px; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .c-row:first-child { border-top: 1px solid rgba(255,255,255,0.04); }
+  .c-ico { font-size: 20px; width: 36px; text-align: center; }
+  .c-lbl { font-size: 9px; letter-spacing: 3px; color: rgba(255,255,255,0.2); text-transform: uppercase; }
+  .c-val { font-size: 15px; font-weight: 600; color: #fff; margin-top: 2px; }
+  .f-field {
+    width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+    color: #fff; padding: 14px 18px;
+    font-family: 'Share Tech Mono', monospace; font-size: 13px;
+    outline: none; margin-bottom: 12px; transition: border-color 0.3s;
+  }
+  .f-field:focus { border-color: #E8001A; }
+  .f-field::placeholder { color: rgba(255,255,255,0.15); }
+
+  /* ── GALLERY ── */
+  .gallery-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;
+    max-width: 1100px;
+  }
+  .g-item {
+    aspect-ratio: 4/3; overflow: hidden;
+    background: rgba(232,0,26,0.05); border: 1px solid rgba(232,0,26,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px; cursor: pointer;
+    transition: all 0.3s; position: relative;
+  }
+  .g-item:hover { border-color: rgba(232,0,26,0.5); }
+  .g-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: opacity 0.3s; }
+  .g-item:hover img { opacity: 1; }
+  .g-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.7)); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #000; border-top: 1px solid rgba(232,0,26,0.2);
+    padding: 30px 60px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+  }
+  .f-logo { font-family: 'Black Ops One', sans-serif; font-size: 18px; color: #E8001A; letter-spacing: 6px; text-shadow: 0 0 16px rgba(232,0,26,0.4); }
+  .f-copy { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.2); }
+  .f-links { display: flex; gap: 24px; }
+  .f-links a { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.2); text-decoration: none; letter-spacing: 1px; transition: color 0.3s; }
+  .f-links a:hover { color: #E8001A; }
+
+  .strova-badge {
+    position: fixed; bottom: 24px; right: 24px;
+    background: rgba(0,0,0,0.9); border: 1px solid rgba(232,0,26,0.3);
+    padding: 8px 16px; font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.3);
+    z-index: 999;
+  }
+  .strova-badge span { color: #E8001A; }
+
+  /* Btn styles */
+  .btn-red {
+    background: #E8001A; color: #fff; border: none;
+    padding: 16px 44px; font-family: 'Share Tech Mono', monospace;
+    font-size: 12px; letter-spacing: 3px; cursor: pointer;
+    clip-path: polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);
+    transition: all 0.3s; text-decoration: none; display: inline-block;
+    text-transform: uppercase;
+  }
+  .btn-red:hover { background: #ff1a2e; box-shadow: 0 0 30px rgba(232,0,26,0.5); }
+  .btn-outline-r {
+    background: transparent; color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(232,0,26,0.4); padding: 16px 44px;
+    font-family: 'Share Tech Mono', monospace; font-size: 12px;
+    letter-spacing: 3px; cursor: pointer; transition: all 0.3s;
+    text-decoration: none; display: inline-block; text-transform: uppercase;
+    clip-path: polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);
+  }
+  .btn-outline-r:hover { border-color: #E8001A; color: #E8001A; }
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader"><div class="pre-text">FRAG</div></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">FRAG</div>
+  <div class="nav-links">
+    <a href="#tarify">Тарифы</a>
+    <a href="#hardware">Железо</a>
+    <a href="#gallery">Галерея</a>
+    <a href="#tournaments">Турниры</a>
+    <a href="#contacts">Контакты</a>
+  </div>
+  <button class="nav-book" onclick="document.getElementById('contacts').scrollIntoView({behavior:'smooth'})">Записаться</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+
+  <!-- Big background title -->
+  <div class="hero-bigtitle">FRAG BY CLUB</div>
+
+  <!-- Torn paper SVG top -->
+  <svg class="torn-top" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L0,60 L40,40 L80,70 L120,30 L160,65 L200,20 L240,55 L280,15 L320,50 L360,25 L400,60 L440,10 L480,50 L520,30 L560,65 L600,20 L640,55 L680,35 L720,70 L760,25 L800,60 L840,15 L880,50 L920,30 L960,65 L1000,20 L1040,55 L1080,35 L1120,70 L1160,25 L1200,60 L1240,15 L1280,50 L1320,30 L1360,65 L1400,20 L1440,55 L1440,0 Z" fill="#E8001A"/>
+  </svg>
+
+  <!-- Watermarks -->
+  <div class="watermark-left">FRAG</div>
+  <div class="watermark-right">FRAG</div>
+
+  <!-- Character -->
+  <div class="hero-character">
+    <img src="https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=800&q=90&fit=crop&crop=top" alt="Gamer">
+  </div>
+  <div class="char-glow"></div>
+
+  <!-- Text block left -->
+  <div class="hero-textblock">
+    <div class="htb-title">FRAG CLUB</div>
+    <div class="htb-body">
+      Не просто клуб, а территория.<br><br>
+      FRAG — это сеть легендарных<br>
+      киберспортивных локаций.<br>
+      RTX 4090, 360Hz мониторы,<br>
+      турниры каждую неделю.<br><br>
+      Приходи. Почувствуй разницу.
+    </div>
+  </div>
+
+  <!-- Right vertical nav -->
+  <div class="hero-nav-right">
+    <a href="#tarify" class="hnr-item">ТАРИФЫ</a>
+    <a href="#hardware" class="hnr-item">ЖЕЛЕЗО</a>
+    <a href="#gallery" class="hnr-item">ГАЛЕРЕЯ</a>
+    <a href="#tournaments" class="hnr-item">ТУРНИРЫ</a>
+    <a href="#contacts" class="hnr-item">КОНТАКТЫ</a>
+  </div>
+
+  <div class="scroll-line">
+    <div class="scroll-bar"></div>
+    SCROLL
+  </div>
+</section>
+
+<!-- ТАРИФЫ -->
+<section class="content" id="tarify">
+  <div class="sec-head">
+    <div class="sec-tag">Тарифы</div>
+    <h2 class="sec-title">Выбери свой <span>уровень</span></h2>
+    <p class="sec-desc">Три зоны — для каждого бойца своё место.</p>
+  </div>
+  <div class="tarify-grid">
+    <div class="tarif">
+      <div class="tarif-rank">// Рядовой</div>
+      <div class="tarif-price">8 000<sub> сум</sub></div>
+      <div class="tarif-per">/ час</div>
+      <div class="tarif-line"></div>
+      <ul class="tarif-list">
+        <li>GTX 1660 Super 6GB</li>
+        <li>144Hz монитор</li>
+        <li>Игровая мышь + коврик</li>
+        <li>Наушники 7.1</li>
+        <li>Мех. клавиатура</li>
+      </ul>
+      <a href="#contacts" class="btn-outline-r" style="display:block;text-align:center;width:100%;">В БОЙ</a>
+    </div>
+    <div class="tarif hot">
+      <div class="tarif-badge">Топ выбор</div>
+      <div class="tarif-rank">// Сержант</div>
+      <div class="tarif-price">12 000<sub> сум</sub></div>
+      <div class="tarif-per">/ час</div>
+      <div class="tarif-line"></div>
+      <ul class="tarif-list">
+        <li>RTX 4070 Ti 12GB</li>
+        <li>240Hz QHD монитор</li>
+        <li>Razer мышь + коврик XL</li>
+        <li>SteelSeries наушники</li>
+        <li>HyperX клавиатура</li>
+        <li>Напиток в подарок</li>
+      </ul>
+      <a href="#contacts" class="btn-red" style="display:block;text-align:center;width:100%;">В БОЙ</a>
+    </div>
+    <div class="tarif">
+      <div class="tarif-rank">// Генерал</div>
+      <div class="tarif-price">20 000<sub> сум</sub></div>
+      <div class="tarif-per">/ час</div>
+      <div class="tarif-line"></div>
+      <ul class="tarif-list">
+        <li>RTX 4090 24GB</li>
+        <li>360Hz OLED монитор</li>
+        <li>Razer топ-периферия</li>
+        <li>Отдельная кабинка</li>
+        <li>Безлимит напитки</li>
+        <li>Персональный стол</li>
+      </ul>
+      <a href="#contacts" class="btn-outline-r" style="display:block;text-align:center;width:100%;">В БОЙ</a>
+    </div>
+  </div>
+</section>
+
+<!-- ЖЕЛЕЗО -->
+<section class="content dark" id="hardware">
+  <div class="sec-head">
+    <div class="sec-tag">Железо</div>
+    <h2 class="sec-title">Начинка <span>компьютеров</span></h2>
+    <p class="sec-desc">Полные характеристики. Всё открыто — без маркетинга.</p>
+  </div>
+  <div class="hw-tabs">
+    <button class="hw-tab active" onclick="switchTab(this,'hw-std')">СТАНДАРТ</button>
+    <button class="hw-tab" onclick="switchTab(this,'hw-pro')">PRO ЗОНА</button>
+    <button class="hw-tab" onclick="switchTab(this,'hw-vip')">VIP</button>
+  </div>
+  <div class="hw-panel active" id="hw-std">
+    <div class="hw-box">
+      <div class="hw-box-head">Процессор и память</div>
+      <div class="hw-row"><span class="hw-k">CPU</span><span class="hw-v red">Intel Core i5-10400F</span></div>
+      <div class="hw-row"><span class="hw-k">Ядра / Потоки</span><span class="hw-v">6 / 12</span></div>
+      <div class="hw-row"><span class="hw-k">Частота Boost</span><span class="hw-v">4.3 GHz</span></div>
+      <div class="hw-row"><span class="hw-k">ОЗУ</span><span class="hw-v red">16 GB DDR4 3200MHz</span></div>
+      <div class="hw-row"><span class="hw-k">Плата</span><span class="hw-v">ASUS B560M-K</span></div>
+      <div class="hw-row"><span class="hw-k">БП</span><span class="hw-v">600W 80+ Bronze</span></div>
+    </div>
+    <div class="hw-box">
+      <div class="hw-box-head">Графика и дисплей</div>
+      <div class="hw-row"><span class="hw-k">GPU</span><span class="hw-v red">GTX 1660 Super 6GB</span></div>
+      <div class="hw-row"><span class="hw-k">VRAM</span><span class="hw-v">6 GB GDDR6</span></div>
+      <div class="hw-row"><span class="hw-k">SSD</span><span class="hw-v red">512 GB NVMe</span></div>
+      <div class="hw-row"><span class="hw-k">Монитор</span><span class="hw-v">24" 144Hz FHD IPS</span></div>
+      <div class="hw-row"><span class="hw-k">Разрешение</span><span class="hw-v">1920×1080</span></div>
+      <div class="hw-row"><span class="hw-k">Отклик</span><span class="hw-v">1ms</span></div>
+      <div class="fps-row"><span class="fps-tag">CS2 → 200+ FPS</span><span class="fps-tag">Valorant → 250+</span><span class="fps-tag">Dota 2 → 150+</span></div>
+    </div>
+  </div>
+  <div class="hw-panel" id="hw-pro">
+    <div class="hw-box">
+      <div class="hw-box-head">Процессор и память</div>
+      <div class="hw-row"><span class="hw-k">CPU</span><span class="hw-v red">Intel Core i7-13700KF</span></div>
+      <div class="hw-row"><span class="hw-k">Ядра / Потоки</span><span class="hw-v">16 / 24</span></div>
+      <div class="hw-row"><span class="hw-k">Частота Boost</span><span class="hw-v">5.4 GHz</span></div>
+      <div class="hw-row"><span class="hw-k">ОЗУ</span><span class="hw-v red">32 GB DDR5 5600MHz</span></div>
+      <div class="hw-row"><span class="hw-k">Плата</span><span class="hw-v">MSI Z790 Gaming Plus</span></div>
+      <div class="hw-row"><span class="hw-k">БП</span><span class="hw-v">850W 80+ Gold</span></div>
+    </div>
+    <div class="hw-box">
+      <div class="hw-box-head">Графика и дисплей</div>
+      <div class="hw-row"><span class="hw-k">GPU</span><span class="hw-v red">RTX 4070 Ti 12GB</span></div>
+      <div class="hw-row"><span class="hw-k">VRAM</span><span class="hw-v">12 GB GDDR6X</span></div>
+      <div class="hw-row"><span class="hw-k">SSD</span><span class="hw-v red">1 TB NVMe Gen4</span></div>
+      <div class="hw-row"><span class="hw-k">Монитор</span><span class="hw-v">27" 240Hz QHD IPS</span></div>
+      <div class="hw-row"><span class="hw-k">Разрешение</span><span class="hw-v">2560×1440</span></div>
+      <div class="hw-row"><span class="hw-k">Отклик</span><span class="hw-v">1ms GtG</span></div>
+      <div class="fps-row"><span class="fps-tag">CS2 → 400+ FPS</span><span class="fps-tag">Cyberpunk Ultra → 100+</span><span class="fps-tag">4K Ready</span></div>
+    </div>
+  </div>
+  <div class="hw-panel" id="hw-vip">
+    <div class="hw-box">
+      <div class="hw-box-head">Процессор и память</div>
+      <div class="hw-row"><span class="hw-k">CPU</span><span class="hw-v red">Intel Core i9-14900KS</span></div>
+      <div class="hw-row"><span class="hw-k">Ядра / Потоки</span><span class="hw-v">24 / 32</span></div>
+      <div class="hw-row"><span class="hw-k">Частота Boost</span><span class="hw-v">6.2 GHz</span></div>
+      <div class="hw-row"><span class="hw-k">ОЗУ</span><span class="hw-v red">64 GB DDR5 6400MHz</span></div>
+      <div class="hw-row"><span class="hw-k">Плата</span><span class="hw-v">ASUS ROG Maximus Z790</span></div>
+      <div class="hw-row"><span class="hw-k">БП</span><span class="hw-v">1200W 80+ Platinum</span></div>
+    </div>
+    <div class="hw-box">
+      <div class="hw-box-head">Графика и дисплей</div>
+      <div class="hw-row"><span class="hw-k">GPU</span><span class="hw-v red">RTX 4090 24GB</span></div>
+      <div class="hw-row"><span class="hw-k">VRAM</span><span class="hw-v">24 GB GDDR6X</span></div>
+      <div class="hw-row"><span class="hw-k">SSD</span><span class="hw-v red">2 TB NVMe Gen5</span></div>
+      <div class="hw-row"><span class="hw-k">Монитор</span><span class="hw-v">27" 360Hz OLED QHD</span></div>
+      <div class="hw-row"><span class="hw-k">Разрешение</span><span class="hw-v">2560×1440</span></div>
+      <div class="hw-row"><span class="hw-k">Отклик</span><span class="hw-v">0.03ms</span></div>
+      <div class="fps-row"><span class="fps-tag">CS2 → 600+ FPS</span><span class="fps-tag">Ray Tracing Ultra</span><span class="fps-tag">DLSS 3.5</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ПЕРИФЕРИЯ -->
+<section class="content" id="periphery">
+  <div class="sec-head">
+    <div class="sec-tag">Периферия</div>
+    <h2 class="sec-title">Снаряжение <span>столов</span></h2>
+  </div>
+  <div class="p-grid">
+    <div class="p-card"><span class="p-ico">🖱️</span><div class="p-type">Мышь</div><div class="p-model">Logitech G102</div><div class="p-spec">8000 DPI · 85г</div><span class="p-zone std">Стандарт</span></div>
+    <div class="p-card"><span class="p-ico">🖱️</span><div class="p-type">Мышь</div><div class="p-model">Razer DeathAdder V3</div><div class="p-spec">30000 DPI · 59г</div><span class="p-zone pro">Pro / VIP</span></div>
+    <div class="p-card"><span class="p-ico">⌨️</span><div class="p-type">Клавиатура</div><div class="p-model">A4Tech Bloody B800</div><div class="p-spec">Мех. · RGB</div><span class="p-zone std">Стандарт</span></div>
+    <div class="p-card"><span class="p-ico">⌨️</span><div class="p-type">Клавиатура</div><div class="p-model">HyperX Alloy Origins</div><div class="p-spec">Red свитчи · Алюминий</div><span class="p-zone pro">Pro / VIP</span></div>
+    <div class="p-card"><span class="p-ico">🎧</span><div class="p-type">Наушники</div><div class="p-model">HyperX Cloud Stinger 2</div><div class="p-spec">Виртуальный 7.1</div><span class="p-zone std">Стандарт</span></div>
+    <div class="p-card"><span class="p-ico">🎧</span><div class="p-type">Наушники</div><div class="p-model">SteelSeries Arctis Nova Pro</div><div class="p-spec">Hi-Res · ANC</div><span class="p-zone pro">Pro / VIP</span></div>
+    <div class="p-card"><span class="p-ico">💺</span><div class="p-type">Кресло</div><div class="p-model">DXRacer Formula F08</div><div class="p-spec">Регулировка 180°</div><span class="p-zone all">Все зоны</span></div>
+    <div class="p-card"><span class="p-ico">🌐</span><div class="p-type">Сеть</div><div class="p-model">Cisco + Ubiquiti</div><div class="p-spec">1 Gbps · Пинг &lt;5ms</div><span class="p-zone all">Все зоны</span></div>
+  </div>
+</section>
+
+<!-- ГАЛЕРЕЯ -->
+<section class="content dark" id="gallery">
+  <div class="sec-head">
+    <div class="sec-tag">Галерея</div>
+    <h2 class="sec-title">Атмосфера <span>клуба</span></h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&q=80" alt=""><div class="g-overlay"></div></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=600&q=80" alt=""><div class="g-overlay"></div></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt=""><div class="g-overlay"></div></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1601979031925-424e53b6caaa?w=600&q=80" alt=""><div class="g-overlay"></div></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=600&q=80" alt=""><div class="g-overlay"></div></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80" alt=""><div class="g-overlay"></div></div>
+  </div>
+</section>
+
+<!-- ТУРНИРЫ -->
+<section class="content" id="tournaments">
+  <div class="sec-head" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px">
+    <div>
+      <div class="sec-tag">Турниры</div>
+      <h2 class="sec-title">Боевое <span>расписание</span></h2>
+    </div>
+    <a href="#contacts" class="btn-red">Подать заявку</a>
+  </div>
+  <div class="t-grid">
+    <div class="t-card live">
+      <div class="t-status live">Идёт сейчас</div>
+      <div class="t-game">CS2</div>
+      <div class="t-name">FRAG CUP — Сезон 3</div>
+      <div class="t-meta">
+        <div><div class="t-ml">Дата</div><div class="t-mv">25 мая</div></div>
+        <div><div class="t-ml">Формат</div><div class="t-mv">5v5 BO3</div></div>
+        <div><div class="t-ml">Команд</div><div class="t-mv">8 / 8</div></div>
+        <div><div class="t-ml">Призовой</div><div class="t-mv t-prize">500 000</div></div>
+      </div>
+      <button class="t-btn red">Смотреть</button>
+    </div>
+    <div class="t-card">
+      <div class="t-status open">Регистрация</div>
+      <div class="t-game">Dota 2</div>
+      <div class="t-name">DISTRICT CLASH — Открытый чемпионат</div>
+      <div class="t-meta">
+        <div><div class="t-ml">Дата</div><div class="t-mv">1 июня</div></div>
+        <div><div class="t-ml">Формат</div><div class="t-mv">5v5 BO2</div></div>
+        <div><div class="t-ml">Команд</div><div class="t-mv">5 / 16</div></div>
+        <div><div class="t-ml">Призовой</div><div class="t-mv t-prize">750 000</div></div>
+      </div>
+      <button class="t-btn red">Зарегистрироваться</button>
+    </div>
+    <div class="t-card">
+      <div class="t-status open">Регистрация</div>
+      <div class="t-game">FC 25</div>
+      <div class="t-name">FRAG FC — Городской кубок</div>
+      <div class="t-meta">
+        <div><div class="t-ml">Дата</div><div class="t-mv">8 июня</div></div>
+        <div><div class="t-ml">Формат</div><div class="t-mv">1v1 BO1</div></div>
+        <div><div class="t-ml">Игроков</div><div class="t-mv">12 / 32</div></div>
+        <div><div class="t-ml">Призовой</div><div class="t-mv t-prize">300 000</div></div>
+      </div>
+      <button class="t-btn red">Зарегистрироваться</button>
+    </div>
+    <div class="t-card">
+      <div class="t-status soon">Скоро</div>
+      <div class="t-game">CS2</div>
+      <div class="t-name">SUMMER BLAST — Летний кубок</div>
+      <div class="t-meta">
+        <div><div class="t-ml">Дата</div><div class="t-mv">22 июня</div></div>
+        <div><div class="t-ml">Формат</div><div class="t-mv">5v5 BO3</div></div>
+        <div><div class="t-ml">Команд</div><div class="t-mv">0 / 16</div></div>
+        <div><div class="t-ml">Призовой</div><div class="t-mv t-prize">1 000 000</div></div>
+      </div>
+      <button class="t-btn outline">Уведомить меня</button>
+    </div>
+  </div>
+  <div class="sched-box">
+    <div class="sched-head">// ПОЛНОЕ РАСПИСАНИЕ — МАЙ–ИЮНЬ 2026</div>
+    <table class="sched">
+      <thead><tr><th>Дата</th><th>Турнир</th><th>Игра</th><th>Формат</th><th>Призовой</th><th>Статус</th></tr></thead>
+      <tbody>
+        <tr><td>25 мая</td><td>FRAG CUP — Сезон 3</td><td><span class="sg">CS2</span></td><td>5v5 BO3</td><td><span class="sp">500 000 сум</span></td><td><span class="s-live">● Идёт</span></td></tr>
+        <tr><td>1 июня</td><td>District Clash</td><td><span class="sg">Dota 2</span></td><td>5v5 BO2</td><td><span class="sp">750 000 сум</span></td><td><span class="s-open">● Запись</span></td></tr>
+        <tr><td>8 июня</td><td>FRAG FC — Кубок</td><td><span class="sg">FC 25</span></td><td>1v1 BO1</td><td><span class="sp">300 000 сум</span></td><td><span class="s-open">● Запись</span></td></tr>
+        <tr><td>15 июня</td><td>Fight Night</td><td><span class="sg">MK1</span></td><td>1v1 D.Elim</td><td><span class="sp">200 000 сум</span></td><td><span class="s-soon">● Скоро</span></td></tr>
+        <tr><td>22 июня</td><td>Summer Blast</td><td><span class="sg">CS2</span></td><td>5v5 BO3</td><td><span class="sp">1 000 000 сум</span></td><td><span class="s-soon">● Скоро</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- КОНТАКТЫ -->
+<section class="content dark" id="contacts">
+  <div class="sec-head">
+    <div class="sec-tag">Контакты</div>
+    <h2 class="sec-title">Приходи и <span>почувствуй</span></h2>
+  </div>
+  <div class="contacts-grid">
+    <div>
+      <div class="c-row"><div class="c-ico">📍</div><div><div class="c-lbl">Адрес</div><div class="c-val">ул. Амира Темура, 45, Самарканд</div></div></div>
+      <div class="c-row"><div class="c-ico">📞</div><div><div class="c-lbl">Телефон</div><div class="c-val">+998 90 123 45 67</div></div></div>
+      <div class="c-row"><div class="c-ico">✈️</div><div><div class="c-lbl">Telegram</div><div class="c-val">@frag_club_uz</div></div></div>
+      <div class="c-row"><div class="c-ico">🕐</div><div><div class="c-lbl">Работаем</div><div class="c-val">24 / 7 без выходных</div></div></div>
+    </div>
+    <form onsubmit="return false;">
+      <input class="f-field" type="text" placeholder="Твоё имя">
+      <input class="f-field" type="tel" placeholder="Телефон">
+      <select class="f-field" style="cursor:pointer">
+        <option style="background:#050505">Выбери зону</option>
+        <option style="background:#050505">Стандарт</option>
+        <option style="background:#050505">Pro Зона</option>
+        <option style="background:#050505">VIP</option>
+      </select>
+      <textarea class="f-field" rows="4" placeholder="Сообщение..."></textarea>
+      <button class="btn-red" style="border:none;width:100%;padding:16px">ОТПРАВИТЬ ЗАЯВКУ</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">FRAG</div>
+  <div class="f-copy">© 2026 Frag Club. Все права защищены.</div>
+  <div class="f-links">
+    <a href="#">Instagram</a>
+    <a href="#">Telegram</a>
+    <a href="#">TikTok</a>
+    <a href="#">YouTube</a>
+  </div>
+</footer>
+
+<div class="strova-badge">Сайт разработан — <span>Strova</span></div>
+
+<script>
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('preloader').classList.add('hide'), 1400);
+});
+function switchTab(btn, id) {
+  document.querySelectorAll('.hw-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.hw-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

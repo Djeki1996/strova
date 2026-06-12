@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MONO PLAY — Компьютерный клуб</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;900&display=swap');
+
+  :root {
+    --black: #0A0A0A;
+    --white: #FFFFFF;
+    --red:   #E50000;
+    --gray:  #888888;
+    --light: #F5F5F5;
+    --border: #E0E0E0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 80px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-size: 18px; font-weight: 900;
+    color: var(--black); letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--red); }
+  .nav-links { display: flex; gap: 40px; }
+  .nav-links a {
+    color: var(--gray); text-decoration: none;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--black); }
+  .nav-btn {
+    background: var(--black); color: var(--white);
+    border: none; padding: 11px 28px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .nav-btn:hover { background: var(--red); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    overflow: hidden;
+  }
+  .hero-left {
+    padding: 100px 60px 80px 80px;
+    display: flex; flex-direction: column; justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+  .hero-tag {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 3px; color: var(--red);
+    text-transform: uppercase; margin-bottom: 32px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--red); }
+  .hero-title {
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 900; line-height: 0.95;
+    letter-spacing: -3px; color: var(--black);
+    margin-bottom: 32px;
+  }
+  .hero-title .line2 { color: var(--red); display: block; }
+  .hero-desc {
+    font-size: 17px; font-weight: 300;
+    color: var(--gray); line-height: 1.7;
+    max-width: 420px; margin-bottom: 48px;
+  }
+  .hero-btns { display: flex; gap: 14px; }
+  .btn-black {
+    background: var(--black); color: var(--white);
+    border: none; padding: 16px 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 1px;
+    cursor: pointer; text-decoration: none; display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-black:hover { background: var(--red); }
+  .btn-border {
+    background: transparent; color: var(--black);
+    border: 1px solid var(--black); padding: 16px 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 1px;
+    cursor: pointer; text-decoration: none; display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-border:hover { border-color: var(--red); color: var(--red); }
+
+  .hero-stats {
+    display: flex; gap: 0;
+    margin-top: 64px;
+    border-top: 1px solid var(--border);
+    padding-top: 32px;
+  }
+  .hstat {
+    flex: 1; padding-right: 32px;
+    border-right: 1px solid var(--border);
+    margin-right: 32px;
+  }
+  .hstat:last-child { border-right: none; margin-right: 0; }
+  .hstat-num {
+    font-size: 36px; font-weight: 900;
+    letter-spacing: -2px; color: var(--black); line-height: 1;
+  }
+  .hstat-num span { color: var(--red); }
+  .hstat-label { font-size: 12px; font-weight: 400; color: var(--gray); margin-top: 4px; }
+
+  .hero-right {
+    position: relative; overflow: hidden;
+    background: var(--black);
+  }
+  .hero-right img {
+    width: 100%; height: 100%;
+    object-fit: cover; opacity: 0.6;
+  }
+  .hero-right-overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 60px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+  }
+  .hero-right-label {
+    font-size: 10px; letter-spacing: 4px;
+    color: rgba(255,255,255,0.5); margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .hero-right-text {
+    font-size: 28px; font-weight: 700;
+    color: var(--white); line-height: 1.3;
+    letter-spacing: -0.5px;
+  }
+  .hero-right-text span { color: var(--red); }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 80px; }
+  .sec-label {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 3px; color: var(--red);
+    text-transform: uppercase; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .sec-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--red); }
+  .sec-title {
+    font-size: clamp(32px, 4vw, 52px); font-weight: 900;
+    letter-spacing: -2px; color: var(--black);
+    margin-bottom: 16px; line-height: 1.05;
+  }
+  .sec-title span { color: var(--red); }
+  .sec-desc {
+    font-size: 16px; font-weight: 300; color: var(--gray);
+    max-width: 480px; line-height: 1.7; margin-bottom: 60px;
+  }
+
+  /* ── ТАРИФЫ ── */
+  #tarify { background: var(--light); }
+  .tarify-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--border);
+    max-width: 1100px;
+  }
+  .tarif {
+    padding: 48px 40px;
+    border-right: 1px solid var(--border);
+    position: relative; transition: background 0.2s;
+  }
+  .tarif:last-child { border-right: none; }
+  .tarif.featured { background: var(--black); }
+  .tarif-badge {
+    display: inline-block;
+    background: var(--red); color: var(--white);
+    font-size: 9px; font-weight: 700; letter-spacing: 2px;
+    padding: 4px 12px; margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .tarif-name {
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 1px; color: var(--gray);
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .tarif.featured .tarif-name { color: rgba(255,255,255,0.5); }
+  .tarif-price {
+    font-size: 52px; font-weight: 900;
+    letter-spacing: -3px; color: var(--black); line-height: 1;
+  }
+  .tarif.featured .tarif-price { color: var(--white); }
+  .tarif-price sub { font-size: 16px; font-weight: 400; letter-spacing: 0; color: var(--gray); }
+  .tarif-per { font-size: 12px; color: var(--gray); margin-bottom: 36px; margin-top: 4px; }
+  .tarif-divider { width: 100%; height: 1px; background: var(--border); margin-bottom: 28px; }
+  .tarif.featured .tarif-divider { background: rgba(255,255,255,0.1); }
+  .tarif-list { list-style: none; margin-bottom: 40px; }
+  .tarif-list li {
+    font-size: 14px; font-weight: 400; color: var(--black);
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .tarif.featured .tarif-list li { color: var(--white); border-color: rgba(255,255,255,0.08); }
+  .tarif-list li:last-child { border-bottom: none; }
+  .tarif-list .check { color: var(--red); font-size: 12px; font-weight: 700; }
+
+  /* ── ЖЕЛЕЗО ── */
+  #hardware { background: var(--white); }
+  .hw-zone-tabs {
+    display: flex; gap: 0;
+    border: 1px solid var(--border);
+    display: inline-flex; margin-bottom: 48px;
+  }
+  .hw-ztab {
+    padding: 12px 32px;
+    font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    cursor: pointer; border: none; background: transparent;
+    color: var(--gray); transition: all 0.2s;
+    border-right: 1px solid var(--border);
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+  }
+  .hw-ztab:last-child { border-right: none; }
+  .hw-ztab.active { background: var(--black); color: var(--white); }
+  .hw-ztab:hover:not(.active) { color: var(--black); }
+
+  .hw-content { display: none; max-width: 1100px; }
+  .hw-content.active { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+
+  .hw-block {
+    background: var(--white);
+    padding: 40px;
+  }
+  .hw-block-title {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; color: var(--red);
+    text-transform: uppercase; margin-bottom: 28px;
+  }
+  .hw-row {
+    display: flex; justify-content: space-between;
+    align-items: baseline; padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .hw-row:last-child { border-bottom: none; }
+  .hw-key { font-size: 12px; color: var(--gray); font-weight: 400; }
+  .hw-val { font-size: 14px; font-weight: 600; color: var(--black); text-align: right; }
+  .hw-val.red { color: var(--red); }
+  .hw-fps-row {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px;
+    padding-top: 20px; border-top: 1px solid var(--border);
+  }
+  .hw-fps-tag {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    padding: 5px 12px; background: var(--light); color: var(--black);
+  }
+
+  /* ── ПЕРИФЕРИЯ ── */
+  #periphery { background: var(--light); }
+  .periph-table { width: 100%; max-width: 1100px; border-collapse: collapse; }
+  .periph-table th {
+    text-align: left; padding: 14px 20px;
+    font-size: 11px; font-weight: 600; letter-spacing: 2px;
+    color: var(--gray); text-transform: uppercase;
+    border-bottom: 2px solid var(--black);
+  }
+  .periph-table td {
+    padding: 18px 20px; font-size: 14px;
+    border-bottom: 1px solid var(--border); color: var(--black);
+    vertical-align: middle;
+  }
+  .periph-table tr:hover td { background: var(--white); }
+  .periph-table tr:last-child td { border-bottom: none; }
+  .pt-icon { font-size: 22px; }
+  .pt-model { font-weight: 600; }
+  .pt-spec { font-size: 12px; color: var(--gray); margin-top: 2px; }
+  .pt-zone {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    letter-spacing: 1px; padding: 3px 10px;
+    text-transform: uppercase;
+  }
+  .pt-zone.all { background: var(--black); color: var(--white); }
+  .pt-zone.std { background: var(--light); color: var(--gray); border: 1px solid var(--border); }
+  .pt-zone.pro { background: var(--red); color: var(--white); }
+
+  /* ── ТУРНИРЫ ── */
+  #tournaments { background: var(--white); }
+  .tourn-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border); max-width: 1100px;
+  }
+  .tourn-card {
+    background: var(--white);
+    padding: 40px 36px;
+    position: relative; transition: background 0.2s;
+  }
+  .tourn-card:hover { background: var(--light); }
+  .tourn-card.active-now { background: var(--black); }
+  .tc-status {
+    display: inline-block;
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    padding: 4px 12px; margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .tc-status.open { background: var(--light); color: var(--black); border: 1px solid var(--border); }
+  .tc-status.live { background: var(--red); color: var(--white); }
+  .tc-status.soon { color: var(--gray); border: 1px solid var(--border); }
+  .tc-game { font-size: 11px; letter-spacing: 2px; color: var(--red); text-transform: uppercase; margin-bottom: 8px; }
+  .tourn-card.active-now .tc-game { color: rgba(255,255,255,0.5); }
+  .tc-name {
+    font-size: 20px; font-weight: 700;
+    letter-spacing: -0.5px; color: var(--black);
+    line-height: 1.2; margin-bottom: 24px;
+  }
+  .tourn-card.active-now .tc-name { color: var(--white); }
+  .tc-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .tc-meta-item {}
+  .tc-meta-label { font-size: 10px; letter-spacing: 1px; color: var(--gray); text-transform: uppercase; margin-bottom: 3px; }
+  .tourn-card.active-now .tc-meta-label { color: rgba(255,255,255,0.4); }
+  .tc-meta-val { font-size: 15px; font-weight: 600; color: var(--black); }
+  .tourn-card.active-now .tc-meta-val { color: var(--white); }
+  .tc-prize { color: var(--red) !important; font-weight: 900; font-size: 18px !important; }
+  .tc-btn {
+    width: 100%; padding: 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 1px;
+    cursor: pointer; border: none; text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .tc-btn.black { background: var(--black); color: var(--white); }
+  .tc-btn.black:hover { background: var(--red); }
+  .tc-btn.border { background: transparent; color: var(--black); border: 1px solid var(--black); }
+  .tc-btn.border:hover { border-color: var(--red); color: var(--red); }
+  .tc-btn.white { background: var(--white); color: var(--black); }
+  .tc-btn.white:hover { background: var(--red); color: var(--white); }
+
+  /* ── КОНТАКТЫ ── */
+  #contacts { background: var(--black); }
+  #contacts .sec-label { color: var(--red); }
+  #contacts .sec-label::before { background: var(--red); }
+  #contacts .sec-title { color: var(--white); }
+  #contacts .sec-desc { color: rgba(255,255,255,0.4); }
+  .contacts-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    max-width: 1100px; align-items: start;
+  }
+  .contact-row {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; gap: 20px;
+  }
+  .contact-row:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
+  .cr-icon { font-size: 20px; width: 32px; text-align: center; }
+  .cr-label { font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.3); text-transform: uppercase; }
+  .cr-val { font-size: 16px; font-weight: 500; color: var(--white); margin-top: 2px; }
+  .form-field {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white); padding: 16px 20px;
+    font-family: 'Inter', sans-serif; font-size: 14px;
+    outline: none; width: 100%; margin-bottom: 14px;
+    transition: border-color 0.2s;
+  }
+  .form-field:focus { border-color: var(--red); }
+  .form-field::placeholder { color: rgba(255,255,255,0.2); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050505;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 28px 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-logo { font-size: 15px; font-weight: 900; color: var(--white); letter-spacing: -0.5px; }
+  .footer-logo span { color: var(--red); }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--red); }
+
+  .strova-badge {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--white); border: 1px solid var(--border);
+    padding: 8px 16px; font-size: 10px; font-weight: 500;
+    letter-spacing: 1px; color: var(--gray);
+    z-index: 999; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .strova-badge span { color: var(--red); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MONO<span>.</span>PLAY</div>
+  <div class="nav-links">
+    <a href="#tarify">Тарифы</a>
+    <a href="#hardware">Железо</a>
+    <a href="#periphery">Периферия</a>
+    <a href="#tournaments">Турниры</a>
+    <a href="#contacts">Контакты</a>
+  </div>
+  <button class="nav-btn" onclick="document.getElementById('contacts').scrollIntoView({behavior:'smooth'})">Записаться</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Компьютерный клуб — Самарканд</div>
+    <h1 class="hero-title">
+      MONO
+      <span class="line2">PLAY.</span>
+    </h1>
+    <p class="hero-desc">Чистое пространство. Топовое железо. Никаких компромиссов. Просто играй.</p>
+    <div class="hero-btns">
+      <a href="#tarify" class="btn-black">Выбрать тариф</a>
+      <a href="#hardware" class="btn-border">Наше железо</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-num">60<span>+</span></div>
+        <div class="hstat-label">Игровых ПК</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">240<span>Hz</span></div>
+        <div class="hstat-label">Мониторы</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">24<span>/7</span></div>
+        <div class="hstat-label">Работаем</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=1200&q=80" alt="Gaming">
+    <div class="hero-right-overlay">
+      <div class="hero-right-label">Прямо сейчас</div>
+      <div class="hero-right-text">42 игрока<br>онлайн <span>сейчас</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ТАРИФЫ -->
+<section id="tarify">
+  <div class="sec-label">Тарифы</div>
+  <h2 class="sec-title">Простые <span>цены</span></h2>
+  <p class="sec-desc">Три тарифа без скрытых условий. Платишь за час — получаешь всё.</p>
+  <div class="tarify-grid">
+    <div class="tarif">
+      <div class="tarif-name">Стандарт</div>
+      <div class="tarif-price">8 000<sub> сум</sub></div>
+      <div class="tarif-per">за час</div>
+      <div class="tarif-divider"></div>
+      <ul class="tarif-list">
+        <li>GTX 1660 Super <span class="check">✓</span></li>
+        <li>144Hz монитор <span class="check">✓</span></li>
+        <li>Игровая мышь <span class="check">✓</span></li>
+        <li>Механическая клавиатура <span class="check">✓</span></li>
+        <li>Наушники <span class="check">✓</span></li>
+      </ul>
+      <a href="#contacts" class="btn-border" style="display:block;text-align:center;width:100%;">Выбрать</a>
+    </div>
+    <div class="tarif featured">
+      <div class="tarif-badge">Популярный</div>
+      <div class="tarif-name">Pro</div>
+      <div class="tarif-price" style="color:#fff">12 000<sub> сум</sub></div>
+      <div class="tarif-per">за час</div>
+      <div class="tarif-divider"></div>
+      <ul class="tarif-list">
+        <li>RTX 4070 Ti <span class="check">✓</span></li>
+        <li>240Hz монитор 27" <span class="check">✓</span></li>
+        <li>Razer мышь <span class="check">✓</span></li>
+        <li>HyperX клавиатура <span class="check">✓</span></li>
+        <li>7.1 наушники <span class="check">✓</span></li>
+        <li>Напиток в подарок <span class="check">✓</span></li>
+      </ul>
+      <a href="#contacts" class="btn-black" style="background:#E50000;display:block;text-align:center;width:100%;">Выбрать</a>
+    </div>
+    <div class="tarif">
+      <div class="tarif-name">VIP</div>
+      <div class="tarif-price">20 000<sub> сум</sub></div>
+      <div class="tarif-per">за час</div>
+      <div class="tarif-divider"></div>
+      <ul class="tarif-list">
+        <li>RTX 4090 <span class="check">✓</span></li>
+        <li>360Hz OLED монитор <span class="check">✓</span></li>
+        <li>Razer топ-периферия <span class="check">✓</span></li>
+        <li>Отдельная кабинка <span class="check">✓</span></li>
+        <li>Безлимит напитки <span class="check">✓</span></li>
+        <li>Персональный стол <span class="check">✓</span></li>
+      </ul>
+      <a href="#contacts" class="btn-black" style="display:block;text-align:center;width:100%;">Выбрать</a>
+    </div>
+  </div>
+</section>
+
+<!-- ЖЕЛЕЗО -->
+<section id="hardware">
+  <div class="sec-label">Железо</div>
+  <h2 class="sec-title">Полные <span>характеристики</span></h2>
+  <p class="sec-desc">Знаем, что важно для геймеров. Никакого маркетинга — только реальные цифры.</p>
+
+  <div class="hw-zone-tabs">
+    <button class="hw-ztab active" onclick="showZone('std')">Стандарт</button>
+    <button class="hw-ztab" onclick="showZone('pro')">Pro</button>
+    <button class="hw-ztab" onclick="showZone('vip')">VIP</button>
+  </div>
+
+  <!-- СТАНДАРТ -->
+  <div class="hw-content active" id="zone-std">
+    <div class="hw-block">
+      <div class="hw-block-title">Процессор и система</div>
+      <div class="hw-row"><span class="hw-key">CPU</span><span class="hw-val red">Intel Core i5-10400F</span></div>
+      <div class="hw-row"><span class="hw-key">Ядра / Потоки</span><span class="hw-val">6 / 12</span></div>
+      <div class="hw-row"><span class="hw-key">Частота Boost</span><span class="hw-val">4.3 GHz</span></div>
+      <div class="hw-row"><span class="hw-key">ОЗУ</span><span class="hw-val red">16 GB DDR4 3200MHz</span></div>
+      <div class="hw-row"><span class="hw-key">Материнская плата</span><span class="hw-val">ASUS B560M-K</span></div>
+      <div class="hw-row"><span class="hw-key">Блок питания</span><span class="hw-val">600W 80+ Bronze</span></div>
+    </div>
+    <div class="hw-block">
+      <div class="hw-block-title">Графика и дисплей</div>
+      <div class="hw-row"><span class="hw-key">Видеокарта</span><span class="hw-val red">GTX 1660 Super 6GB</span></div>
+      <div class="hw-row"><span class="hw-key">VRAM</span><span class="hw-val">6 GB GDDR6</span></div>
+      <div class="hw-row"><span class="hw-key">Накопитель</span><span class="hw-val red">SSD 512GB NVMe</span></div>
+      <div class="hw-row"><span class="hw-key">Монитор</span><span class="hw-val">24" 144Hz FHD IPS</span></div>
+      <div class="hw-row"><span class="hw-key">Разрешение</span><span class="hw-val">1920 × 1080</span></div>
+      <div class="hw-row"><span class="hw-key">Отклик</span><span class="hw-val">1ms</span></div>
+      <div class="hw-fps-row">
+        <span class="hw-fps-tag">CS2 → 200+ FPS</span>
+        <span class="hw-fps-tag">Valorant → 250+ FPS</span>
+        <span class="hw-fps-tag">Dota 2 → 150+ FPS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRO -->
+  <div class="hw-content" id="zone-pro">
+    <div class="hw-block">
+      <div class="hw-block-title">Процессор и система</div>
+      <div class="hw-row"><span class="hw-key">CPU</span><span class="hw-val red">Intel Core i7-13700KF</span></div>
+      <div class="hw-row"><span class="hw-key">Ядра / Потоки</span><span class="hw-val">16 / 24</span></div>
+      <div class="hw-row"><span class="hw-key">Частота Boost</span><span class="hw-val">5.4 GHz</span></div>
+      <div class="hw-row"><span class="hw-key">ОЗУ</span><span class="hw-val red">32 GB DDR5 5600MHz</span></div>
+      <div class="hw-row"><span class="hw-key">Материнская плата</span><span class="hw-val">MSI Z790 Gaming Plus</span></div>
+      <div class="hw-row"><span class="hw-key">Блок питания</span><span class="hw-val">850W 80+ Gold</span></div>
+    </div>
+    <div class="hw-block">
+      <div class="hw-block-title">Графика и дисплей</div>
+      <div class="hw-row"><span class="hw-key">Видеокарта</span><span class="hw-val red">RTX 4070 Ti 12GB</span></div>
+      <div class="hw-row"><span class="hw-key">VRAM</span><span class="hw-val">12 GB GDDR6X</span></div>
+      <div class="hw-row"><span class="hw-key">Накопитель</span><span class="hw-val red">SSD 1TB NVMe Gen4</span></div>
+      <div class="hw-row"><span class="hw-key">Монитор</span><span class="hw-val">27" 240Hz QHD IPS</span></div>
+      <div class="hw-row"><span class="hw-key">Разрешение</span><span class="hw-val">2560 × 1440</span></div>
+      <div class="hw-row"><span class="hw-key">Отклик</span><span class="hw-val">1ms GtG</span></div>
+      <div class="hw-fps-row">
+        <span class="hw-fps-tag">CS2 → 400+ FPS</span>
+        <span class="hw-fps-tag">Cyberpunk → Ultra 100+</span>
+        <span class="hw-fps-tag">4K Ready</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIP -->
+  <div class="hw-content" id="zone-vip">
+    <div class="hw-block">
+      <div class="hw-block-title">Процессор и система</div>
+      <div class="hw-row"><span class="hw-key">CPU</span><span class="hw-val red">Intel Core i9-14900KS</span></div>
+      <div class="hw-row"><span class="hw-key">Ядра / Потоки</span><span class="hw-val">24 / 32</span></div>
+      <div class="hw-row"><span class="hw-key">Частота Boost</span><span class="hw-val">6.2 GHz</span></div>
+      <div class="hw-row"><span class="hw-key">ОЗУ</span><span class="hw-val red">64 GB DDR5 6400MHz</span></div>
+      <div class="hw-row"><span class="hw-key">Материнская плата</span><span class="hw-val">ASUS ROG Maximus Z790</span></div>
+      <div class="hw-row"><span class="hw-key">Блок питания</span><span class="hw-val">1200W 80+ Platinum</span></div>
+    </div>
+    <div class="hw-block">
+      <div class="hw-block-title">Графика и дисплей</div>
+      <div class="hw-row"><span class="hw-key">Видеокарта</span><span class="hw-val red">RTX 4090 24GB</span></div>
+      <div class="hw-row"><span class="hw-key">VRAM</span><span class="hw-val">24 GB GDDR6X</span></div>
+      <div class="hw-row"><span class="hw-key">Накопитель</span><span class="hw-val red">SSD 2TB NVMe Gen5</span></div>
+      <div class="hw-row"><span class="hw-key">Монитор</span><span class="hw-val">27" 360Hz OLED QHD</span></div>
+      <div class="hw-row"><span class="hw-key">Разрешение</span><span class="hw-val">2560 × 1440</span></div>
+      <div class="hw-row"><span class="hw-key">Отклик</span><span class="hw-val">0.03ms</span></div>
+      <div class="hw-fps-row">
+        <span class="hw-fps-tag">CS2 → 600+ FPS</span>
+        <span class="hw-fps-tag">Ray Tracing Ultra</span>
+        <span class="hw-fps-tag">DLSS 3.5</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ПЕРИФЕРИЯ -->
+<section id="periphery">
+  <div class="sec-label">Периферия</div>
+  <h2 class="sec-title">Что стоит <span>на столах</span></h2>
+  <p class="sec-desc">Каждый девайс выбран под конкретную задачу. Ничего лишнего.</p>
+  <table class="periph-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Тип</th>
+        <th>Модель</th>
+        <th>Характеристики</th>
+        <th>Зона</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="pt-icon">🖱️</td>
+        <td>Мышь</td>
+        <td><div class="pt-model">Logitech G102</div><div class="pt-spec">8000 DPI · 200 IPS</div></td>
+        <td>LIGHTSYNC RGB · Оптический сенсор · 85г</td>
+        <td><span class="pt-zone std">Стандарт</span></td>
+      </tr>
+      <tr>
+        <td class="pt-icon">🖱️</td>
+        <td>Мышь</td>
+        <td><div class="pt-model">Razer DeathAdder V3</div><div class="pt-spec">30000 DPI · 750 IPS</div></td>
+        <td>Focus Pro сенсор · 59г · Эргономичная</td>
+        <td><span class="pt-zone pro">Pro / VIP</span></td>
+      </tr>
+      <tr>
+        <td class="pt-icon">⌨️</td>
+        <td>Клавиатура</td>
+        <td><div class="pt-model">A4Tech Bloody B800</div><div class="pt-spec">Механические свитчи</div></td>
+        <td>RGB · Anti-ghosting · Full size</td>
+        <td><span class="pt-zone std">Стандарт</span></td>
+      </tr>
+      <tr>
+        <td class="pt-icon">⌨️</td>
+        <td>Клавиатура</td>
+        <td><div class="pt-model">HyperX Alloy Origins</div><div class="pt-spec">HyperX Red свитчи</div></td>
+        <td>Per-key RGB · Алюминий · Compact</td>
+        <td><span class="pt-zone pro">Pro / VIP</span></td>
+      </tr>
+      <tr>
+        <td class="pt-icon">🎧</td>
+        <td>Наушники</td>
+        <td><div class="pt-model">HyperX Cloud Stinger 2</div><div class="pt-spec">Виртуальный 7.1</div></td>
+        <td>Шумоподавление · Складные · USB</td>
+        <td><span class="pt-zone std">Стандарт</span></td>
+      </tr>
+      <tr>
+        <td class="pt-icon">🎧</td>
+        <td>Наушники</td>
+        <td><div class="pt-model">SteelSeries Arctis Nova Pro</div><div class="pt-spec">Hi-Res Audio</div></td>
+        <td>ANC активный · Двойная акустика · USB-C</td>
+        <td><span class="pt-zone pro">Pro / VIP</span></td>
+      </tr>
+      <tr>
+        <td class="pt-icon">🖱️</td>
+        <td>Коврик</td>
+        <td><div class="pt-model">SteelSeries QcK Medium</div><div class="pt-spec">450×400×2mm</div></td>
+        <td>Ткань · Нескользящее основание</td>
+        <td><span class="pt-zone std">Стандарт</span></td>
+      </tr>
+      <tr>
+        <td class="pt-icon">🖱️</td>
+        <td>Коврик</td>
+        <td><div class="pt-model">Razer Gigantus V2 XL</div><div class="pt-spec">900×400×4mm</div></td>
+        <td>Micro-weave · RGB окантовка</td>
+        <td><span class="pt-zone pro">Pro / VIP</span></td>
+      </tr>
+      <tr>
+        <td class="pt-icon">💺</td>
+        <td>Кресло</td>
+        <td><div class="pt-model">DXRacer Formula F08</div><div class="pt-spec">Нагрузка до 100кг</div></td>
+        <td>Поясничная поддержка · Регулировка 180°</td>
+        <td><span class="pt-zone all">Все зоны</span></td>
+      </tr>
+      <tr>
+        <td class="pt-icon">🌐</td>
+        <td>Сеть</td>
+        <td><div class="pt-model">Cisco + Ubiquiti</div><div class="pt-spec">1 Gbps канал</div></td>
+        <td>Wi-Fi 6 · Пинг &lt;5ms · Без ограничений</td>
+        <td><span class="pt-zone all">Все зоны</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ТУРНИРЫ -->
+<section id="tournaments">
+  <div class="sec-label">Турниры</div>
+  <h2 class="sec-title">Ближайшие <span>события</span></h2>
+  <p class="sec-desc">Регулярные турниры с призовыми. Открытая регистрация для всех.</p>
+  <div class="tourn-grid">
+    <div class="tourn-card active-now">
+      <div class="tc-status live">● Идёт сейчас</div>
+      <div class="tc-game">CS2</div>
+      <div class="tc-name">Mono Cup — Весенний сезон</div>
+      <div class="tc-meta">
+        <div class="tc-meta-item"><div class="tc-meta-label">Дата</div><div class="tc-meta-val">25 мая</div></div>
+        <div class="tc-meta-item"><div class="tc-meta-label">Формат</div><div class="tc-meta-val">5v5 BO3</div></div>
+        <div class="tc-meta-item"><div class="tc-meta-label">Команд</div><div class="tc-meta-val">8 / 8</div></div>
+        <div class="tc-meta-item"><div class="tc-meta-label">Призовой</div><div class="tc-meta-val tc-prize">500 000</div></div>
+      </div>
+      <button class="tc-btn white">Смотреть</button>
+    </div>
+    <div class="tourn-card">
+      <div class="tc-status open">Регистрация</div>
+      <div class="tc-game">Dota 2</div>
+      <div class="tc-name">Open Championship — Лето 2026</div>
+      <div class="tc-meta">
+        <div class="tc-meta-item"><div class="tc-meta-label">Дата</div><div class="tc-meta-val">1 июня</div></div>
+        <div class="tc-meta-item"><div class="tc-meta-label">Формат</div><div class="tc-meta-val">5v5 BO2</div></div>
+        <div class="tc-meta-item"><div class="tc-meta-label">Команд</div><div class="tc-meta-val">5 / 16</div></div>
+        <div class="tc-meta-item"><div class="tc-meta-label">Призовой</div><div class="tc-meta-val tc-prize">750 000</div></div>
+      </div>
+      <button class="tc-btn black">Зарегистрироваться</button>
+    </div>
+    <div class="tourn-card">
+      <div class="tc-status open">Регистрация</div>
+      <div class="tc-game">FC 25</div>
+      <div class="tc-name">Mono FC — Городской кубок</div>
+      <div class="tc-meta">
+        <div class="tc-meta-item"><div class="tc-meta-label">Дата</div><div class="tc-meta-val">8 июня</div></div>
+        <div class="tc-meta-item"><div class="tc-meta-label">Формат</div><div class="tc-meta-val">1v1 BO1</div></div>
+        <div class="tc-meta-item"><div class="tc-meta-label">Игроков</div><div class="tc-meta-val">12 / 32</div></div>
+        <div class="tc-meta-item"><div class="tc-meta-label">Призовой</div><div class="tc-meta-val tc-prize">300 000</div></div>
+      </div>
+      <button class="tc-btn black">Зарегистрироваться</button>
+    </div>
+    <div class="tourn-card">
+      <div class="tc-status soon">Скоро</div>
+      <div class="tc-game">CS2</div>
+      <div class="tc-name">Summer Blast — Летний кубок</div>
+      <div class="tc-meta">
+        <div class="tc-meta-item"><div class="tc-meta-label">Дата</div><div class="tc-meta-val">22 июня</div></div>
+        <div class="tc-meta-item"><div class="tc-meta-label">Формат</div><div class="tc-meta-val">5v5 BO3</div></div>
+        <div class="tc-meta-item"><div class="tc-meta-label">Команд</div><div class="tc-meta-val">0 / 16</div></div>
+        <div class="tc-meta-item"><div class="tc-meta-label">Призовой</div><div class="tc-meta-val tc-prize">1 000 000</div></div>
+      </div>
+      <button class="tc-btn border">Уведомить меня</button>
+    </div>
+  </div>
+</section>
+
+<!-- КОНТАКТЫ -->
+<section id="contacts">
+  <div class="sec-label">Контакты</div>
+  <h2 class="sec-title">Давай <span>познакомимся</span></h2>
+  <p class="sec-desc">Запишись или задай вопрос — ответим в течение часа.</p>
+  <div class="contacts-grid">
+    <div>
+      <div class="contact-row"><div class="cr-icon">📍</div><div><div class="cr-label">Адрес</div><div class="cr-val">ул. Амира Темура, 45, Самарканд</div></div></div>
+      <div class="contact-row"><div class="cr-icon">📞</div><div><div class="cr-label">Телефон</div><div class="cr-val">+998 90 123 45 67</div></div></div>
+      <div class="contact-row"><div class="cr-icon">💬</div><div><div class="cr-label">Telegram</div><div class="cr-val">@monoplay_uz</div></div></div>
+      <div class="contact-row"><div class="cr-icon">🕐</div><div><div class="cr-label">Работаем</div><div class="cr-val">24 / 7 без выходных</div></div></div>
+    </div>
+    <form onsubmit="return false;">
+      <input class="form-field" type="text" placeholder="Ваше имя">
+      <input class="form-field" type="tel" placeholder="Телефон">
+      <select class="form-field" style="cursor:pointer;">
+        <option style="background:#0A0A0A">Выберите тариф</option>
+        <option style="background:#0A0A0A">Стандарт</option>
+        <option style="background:#0A0A0A">Pro</option>
+        <option style="background:#0A0A0A">VIP</option>
+      </select>
+      <textarea class="form-field" rows="4" placeholder="Ваш вопрос или пожелание..."></textarea>
+      <button class="btn-black" style="border:none;width:100%;padding:16px;">Отправить</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MONO<span>.</span>PLAY</div>
+  <div class="footer-copy">© 2026 Mono Play. Все права защищены.</div>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">Telegram</a>
+    <a href="#">TikTok</a>
+  </div>
+</footer>
+
+<div class="strova-badge">Сайт разработан — <span>Strova</span></div>
+
+<script>
+function showZone(zone) {
+  document.querySelectorAll('.hw-content').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.hw-ztab').forEach(t => t.classList.remove('active'));
+  document.getElementById('zone-' + zone).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>

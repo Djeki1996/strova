@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEON DISTRICT — Компьютерный клуб</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap');
+
+  :root {
+    --yellow: #FFE600;
+    --purple: #8B00FF;
+    --pink: #FF006E;
+    --dark: #080810;
+    --dark2: #0d0d1a;
+    --text: #c8c8e8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── GRID BG ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(139,0,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139,0,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(8,8,16,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,230,0,0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--yellow);
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(255,230,0,0.6);
+  }
+
+  .nav-logo span { color: var(--purple); }
+
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .nav-links a:hover { color: var(--yellow); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-btn {
+    background: var(--yellow);
+    color: #000;
+    border: none;
+    padding: 10px 24px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+  .nav-btn:hover {
+    background: #fff;
+    box-shadow: 0 0 20px rgba(255,230,0,0.5);
+  }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 60px 60px;
+    overflow: hidden;
+    background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+  }
+
+  #hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(8,8,16,0.75) 0%,
+      rgba(8,8,16,0.55) 40%,
+      rgba(8,8,16,0.85) 80%,
+      rgba(8,8,16,1) 100%
+    );
+    z-index: 1;
+  }
+
+  #hero .hero-scan,
+  #hero .corner,
+  #hero .hero-content {
+    z-index: 2;
+  }
+
+  .hero-scan {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 3px,
+      rgba(255,230,0,0.015) 3px, rgba(255,230,0,0.015) 4px
+    );
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    max-width: 900px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    border: 1px solid var(--purple);
+    color: var(--purple);
+    font-size: 11px;
+    letter-spacing: 5px;
+    padding: 6px 20px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+  }
+
+  .hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 900;
+    line-height: 1;
+    color: #fff;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .hero-title .accent { color: var(--yellow); text-shadow: 0 0 40px rgba(255,230,0,0.8); }
+
+  /* Glitch */
+  .glitch {
+    position: relative;
+    display: inline-block;
+  }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+  .glitch::before {
+    color: var(--pink);
+    animation: glitch1 3s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  }
+  .glitch::after {
+    color: var(--purple);
+    animation: glitch2 3s infinite;
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+  }
+  @keyframes glitch1 {
+    0%, 90%, 100% { transform: translate(0); }
+    92% { transform: translate(-4px, 2px); }
+    94% { transform: translate(4px, -2px); }
+    96% { transform: translate(-2px, 0); }
+  }
+  @keyframes glitch2 {
+    0%, 90%, 100% { transform: translate(0); }
+    92% { transform: translate(4px, -2px); }
+    94% { transform: translate(-4px, 2px); }
+    96% { transform: translate(2px, 0); }
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: var(--text);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    color: #8888aa;
+    max-width: 500px;
+    margin: 0 auto 50px;
+    line-height: 1.7;
+  }
+
+  .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--yellow);
+    color: #000;
+    border: none;
+    padding: 16px 40px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    background: #fff;
+    box-shadow: 0 0 30px rgba(255,230,0,0.6);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--yellow);
+    border: 1px solid var(--yellow);
+    padding: 16px 40px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-secondary:hover {
+    background: rgba(255,230,0,0.1);
+    box-shadow: 0 0 20px rgba(255,230,0,0.2);
+  }
+
+  /* Stats */
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 80px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    flex-wrap: wrap;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--yellow);
+    text-shadow: 0 0 20px rgba(255,230,0,0.5);
+  }
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #6666aa;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* Deco corners */
+  .corner { position: absolute; width: 40px; height: 40px; }
+  .corner-tl { top: 100px; left: 60px; border-top: 2px solid var(--yellow); border-left: 2px solid var(--yellow); }
+  .corner-tr { top: 100px; right: 60px; border-top: 2px solid var(--yellow); border-right: 2px solid var(--yellow); }
+  .corner-bl { bottom: 40px; left: 60px; border-bottom: 2px solid var(--purple); border-left: 2px solid var(--purple); }
+  .corner-br { bottom: 40px; right: 60px; border-bottom: 2px solid var(--purple); border-right: 2px solid var(--purple); }
+
+  /* ── SECTION COMMON ── */
+  section { position: relative; z-index: 1; padding: 100px 60px; }
+  .section-tag {
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .section-title span { color: var(--yellow); }
+  .section-desc {
+    font-size: 16px;
+    color: #6666aa;
+    max-width: 500px;
+    line-height: 1.7;
+    margin-bottom: 60px;
+  }
+
+  /* ── ТАРИФЫ ── */
+  #tarify { background: var(--dark2); }
+
+  .tarify-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .tarif-card {
+    background: rgba(13,13,26,0.8);
+    border: 1px solid rgba(139,0,255,0.2);
+    padding: 40px 32px;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+  .tarif-card:hover {
+    border-color: var(--yellow);
+    transform: translateY(-4px);
+    box-shadow: 0 0 40px rgba(255,230,0,0.1);
+  }
+  .tarif-card.featured {
+    border-color: var(--yellow);
+    background: rgba(255,230,0,0.04);
+  }
+  .tarif-badge {
+    position: absolute;
+    top: -1px; right: 20px;
+    background: var(--yellow);
+    color: #000;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+  }
+  .tarif-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--purple);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .tarif-card.featured .tarif-name { color: var(--yellow); }
+  .tarif-price {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .tarif-price span { font-size: 16px; color: #6666aa; }
+  .tarif-per { font-size: 12px; color: #6666aa; letter-spacing: 2px; margin-bottom: 30px; }
+  .tarif-list { list-style: none; margin-bottom: 36px; }
+  .tarif-list li {
+    font-size: 14px;
+    color: var(--text);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .tarif-list li::before {
+    content: '▸';
+    color: var(--yellow);
+    font-size: 10px;
+  }
+
+  /* ── ПК ЗОНА ── */
+  #pczones {
+    background: var(--dark);
+  }
+
+  .zones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .zone-card {
+    position: relative;
+    padding: 50px 36px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.04);
+    transition: all 0.4s;
+  }
+  .zone-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .zone-card.z1::before { background: linear-gradient(135deg, rgba(139,0,255,0.15), transparent); }
+  .zone-card.z2::before { background: linear-gradient(135deg, rgba(255,230,0,0.1), transparent); }
+  .zone-card.z3::before { background: linear-gradient(135deg, rgba(255,0,110,0.15), transparent); }
+  .zone-card:hover::before { opacity: 1; }
+  .zone-card:hover { border-color: rgba(255,230,0,0.3); }
+
+  .zone-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 64px;
+    font-weight: 900;
+    opacity: 0.06;
+    position: absolute;
+    top: 10px; right: 20px;
+    line-height: 1;
+    color: #fff;
+  }
+
+  .zone-icon { font-size: 40px; margin-bottom: 20px; }
+  .zone-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+  }
+  .zone-desc { font-size: 14px; color: #6666aa; line-height: 1.7; margin-bottom: 20px; }
+  .zone-spec {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .zone-tag {
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border: 1px solid rgba(255,230,0,0.3);
+    color: var(--yellow);
+  }
+
+  /* ── КОНТАКТЫ ── */
+  #contacts {
+    background: var(--dark2);
+  }
+
+  .contacts-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .contact-info { display: flex; flex-direction: column; gap: 24px; }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border: 1px solid rgba(139,0,255,0.2);
+    transition: border-color 0.3s;
+  }
+  .contact-item:hover { border-color: var(--yellow); }
+  .contact-icon {
+    font-size: 24px;
+    width: 50px;
+    text-align: center;
+  }
+  .contact-label { font-size: 11px; letter-spacing: 2px; color: #6666aa; text-transform: uppercase; }
+  .contact-value { font-size: 16px; color: #fff; font-weight: 600; margin-top: 2px; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-input {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(139,0,255,0.2);
+    color: #fff;
+    padding: 14px 18px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .form-input:focus { border-color: var(--yellow); }
+  .form-input::placeholder { color: #444466; }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative; z-index: 1;
+    background: #050508;
+    border-top: 1px solid rgba(255,230,0,0.1);
+    padding: 30px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--yellow);
+    letter-spacing: 4px;
+  }
+  .footer-copy { font-size: 12px; color: #444466; letter-spacing: 1px; }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 12px; color: #444466; text-decoration: none; letter-spacing: 1px; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--yellow); }
+
+  /* ── ТУРНИРЫ ── */
+  #tournaments { background: var(--dark); }
+
+  .tourn-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .tourn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+
+  .tourn-card {
+    background: rgba(13,13,26,0.9);
+    border: 1px solid rgba(139,0,255,0.2);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+  }
+  .tourn-card:hover {
+    border-color: var(--yellow);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 40px rgba(255,230,0,0.08);
+  }
+  .tourn-card.live { border-color: var(--pink); }
+  .tourn-card.live:hover { border-color: var(--pink); box-shadow: 0 8px 40px rgba(255,0,110,0.15); }
+
+  .tourn-top {
+    padding: 28px 28px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .tourn-game-icon { font-size: 36px; }
+
+  .tourn-status {
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+  }
+  .tourn-status.open { border: 1px solid var(--yellow); color: var(--yellow); }
+  .tourn-status.soon { border: 1px solid var(--purple); color: var(--purple); }
+  .tourn-status.live-badge {
+    border: 1px solid var(--pink);
+    color: var(--pink);
+    animation: pulse-badge 1.5s infinite;
+  }
+  @keyframes pulse-badge {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .tourn-body { padding: 20px 28px 28px; }
+
+  .tourn-game {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--purple);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .tourn-card.live .tourn-game { color: var(--pink); }
+
+  .tourn-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .tourn-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .tourn-meta-item { }
+  .tourn-meta-label { font-size: 9px; letter-spacing: 2px; color: #444466; text-transform: uppercase; margin-bottom: 3px; }
+  .tourn-meta-value { font-size: 14px; color: var(--text); font-weight: 600; }
+  .tourn-meta-value.prize { color: var(--yellow); font-family: 'Orbitron', sans-serif; }
+
+  .tourn-progress {
+    margin-bottom: 20px;
+  }
+  .tourn-progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #444466;
+    margin-bottom: 6px;
+  }
+  .tourn-progress-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.06);
+    position: relative;
+  }
+  .tourn-progress-fill {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    background: linear-gradient(90deg, var(--purple), var(--yellow));
+    transition: width 0.5s;
+  }
+
+  .tourn-btn {
+    width: 100%;
+    padding: 12px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border: none;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    transition: all 0.3s;
+  }
+  .tourn-btn.open { background: var(--yellow); color: #000; }
+  .tourn-btn.open:hover { background: #fff; box-shadow: 0 0 20px rgba(255,230,0,0.4); }
+  .tourn-btn.soon { background: transparent; color: var(--purple); border: 1px solid var(--purple); clip-path: none; }
+  .tourn-btn.live-btn { background: var(--pink); color: #fff; }
+  .tourn-btn.live-btn:hover { background: #ff3d8a; box-shadow: 0 0 20px rgba(255,0,110,0.4); }
+
+  /* Schedule table */
+  .schedule-wrap {
+    background: rgba(13,13,26,0.6);
+    border: 1px solid rgba(139,0,255,0.15);
+    overflow: hidden;
+  }
+  .schedule-title {
+    background: rgba(139,0,255,0.1);
+    border-bottom: 1px solid rgba(139,0,255,0.2);
+    padding: 16px 28px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--yellow);
+  }
+  .schedule-table { width: 100%; border-collapse: collapse; }
+  .schedule-table th {
+    text-align: left;
+    padding: 14px 20px;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: #444466;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-weight: 400;
+  }
+  .schedule-table td {
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--text);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .schedule-table tr:last-child td { border-bottom: none; }
+  .schedule-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .schedule-game-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    font-size: 9px;
+    letter-spacing: 1px;
+    border: 1px solid rgba(139,0,255,0.4);
+    color: var(--purple);
+  }
+  .schedule-prize { color: var(--yellow); font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 700; }
+  .s-open { color: #4ade80; font-size: 10px; letter-spacing: 1px; }
+  .s-soon { color: var(--purple); font-size: 10px; letter-spacing: 1px; }
+  .s-live { color: var(--pink); font-size: 10px; letter-spacing: 1px; animation: pulse-badge 1.5s infinite; }
+
+  /* Strova badge */
+  .strova-badge {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    background: rgba(8,8,16,0.9);
+    border: 1px solid rgba(139,0,255,0.4);
+    padding: 8px 16px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #8888aa;
+    z-index: 999;
+    backdrop-filter: blur(8px);
+  }
+  .strova-badge span { color: var(--purple); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">NEON<span>_</span>DISTRICT</div>
+  <div class="nav-links">
+    <a href="#tarify">Тарифы</a>
+    <a href="#pczones">ПК Зоны</a>
+    <a href="#tournaments">Турниры</a>
+    <a href="#contacts">Контакты</a>
+  </div>
+  <button class="nav-btn" onclick="document.getElementById('contacts').scrollIntoView({behavior:'smooth'})">ЗАБРОНИРОВАТЬ</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-scan"></div>
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">// Компьютерный клуб нового поколения</div>
+    <h1 class="hero-title">
+      <span class="glitch accent" data-text="NEON">NEON</span><br>
+      <span style="color:#fff; font-size:0.6em; letter-spacing:12px;">DISTRICT</span>
+    </h1>
+    <p class="hero-sub">Войди в игру — выйди победителем</p>
+    <p class="hero-desc">Топовые ПК, профессиональные периферии, атмосфера киберспорта. Место где рождаются чемпионы.</p>
+    <div class="hero-btns">
+      <a href="#tarify" class="btn-primary">ВЫБРАТЬ ТАРИФ</a>
+      <a href="#pczones" class="btn-secondary">ПК ЗОНЫ</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">60+</div>
+        <div class="stat-label">Игровых ПК</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">360Hz</div>
+        <div class="stat-label">Мониторы</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Работаем</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1Gbps</div>
+        <div class="stat-label">Интернет</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ТАРИФЫ -->
+<section id="tarify">
+  <div class="section-tag">// 02. ТАРИФЫ</div>
+  <h2 class="section-title">Выбери свой <span>уровень</span></h2>
+  <p class="section-desc">Гибкие тарифы для любого игрока — от казуального до профессионального.</p>
+
+  <div class="tarify-grid">
+    <div class="tarif-card">
+      <div class="tarif-name">СТАНДАРТ</div>
+      <div class="tarif-price">8 000<span> сум</span></div>
+      <div class="tarif-per">/ ЧАС</div>
+      <ul class="tarif-list">
+        <li>GTX 1660 Super</li>
+        <li>144Hz монитор</li>
+        <li>Игровая периферия</li>
+        <li>Доступ к Steam, Epic</li>
+      </ul>
+      <a href="#contacts" class="btn-secondary" style="width:100%; text-align:center; display:block;">ВЫБРАТЬ</a>
+    </div>
+
+    <div class="tarif-card featured">
+      <div class="tarif-badge">ПОПУЛЯРНЫЙ</div>
+      <div class="tarif-name">PRO ZONE</div>
+      <div class="tarif-price">12 000<span> сум</span></div>
+      <div class="tarif-per">/ ЧАС</div>
+      <ul class="tarif-list">
+        <li>RTX 4070 Ti</li>
+        <li>240Hz монитор</li>
+        <li>Механическая клавиатура</li>
+        <li>Приоритетная зона</li>
+        <li>Напиток в подарок</li>
+      </ul>
+      <a href="#contacts" class="btn-primary" style="width:100%; text-align:center; display:block;">ВЫБРАТЬ</a>
+    </div>
+
+    <div class="tarif-card">
+      <div class="tarif-name">VIP SECTOR</div>
+      <div class="tarif-price">18 000<span> сум</span></div>
+      <div class="tarif-per">/ ЧАС</div>
+      <ul class="tarif-list">
+        <li>RTX 4090</li>
+        <li>360Hz OLED монитор</li>
+        <li>Отдельная кабинка</li>
+        <li>Персональный стол</li>
+        <li>Безлимит напитки</li>
+      </ul>
+      <a href="#contacts" class="btn-secondary" style="width:100%; text-align:center; display:block;">ВЫБРАТЬ</a>
+    </div>
+  </div>
+</section>
+
+<!-- ПК ЗОНЫ -->
+<section id="pczones">
+  <div class="section-tag">// 03. ПК ЗОНЫ</div>
+  <h2 class="section-title">Три зоны — <span>один уровень</span></h2>
+  <p class="section-desc">Каждая зона создана под определённый стиль игры и атмосферу.</p>
+
+  <div class="zones-grid">
+    <div class="zone-card z1">
+      <div class="zone-num">01</div>
+      <div class="zone-icon">⚡</div>
+      <div class="zone-name">CYBER FLOOR</div>
+      <div class="zone-desc">Основная игровая зона на 40 мест. Идеально для командных игр, турниров и ночных сессий.</div>
+      <div class="zone-spec">
+        <span class="zone-tag">40 МЕСТ</span>
+        <span class="zone-tag">RTX 4070</span>
+        <span class="zone-tag">240Hz</span>
+      </div>
+    </div>
+
+    <div class="zone-card z2">
+      <div class="zone-num">02</div>
+      <div class="zone-icon">👑</div>
+      <div class="zone-name">NEON VIP</div>
+      <div class="zone-desc">Приватная VIP зона для тех, кто ценит комфорт. Отдельные кабинки, лучшее железо.</div>
+      <div class="zone-spec">
+        <span class="zone-tag">10 КАБИНОК</span>
+        <span class="zone-tag">RTX 4090</span>
+        <span class="zone-tag">360Hz OLED</span>
+      </div>
+    </div>
+
+    <div class="zone-card z3">
+      <div class="zone-num">03</div>
+      <div class="zone-icon">🏆</div>
+      <div class="zone-name">ARENA</div>
+      <div class="zone-desc">Турнирная арена на 10 мест. Стримовое оборудование, профессиональные кресла, трансляции.</div>
+      <div class="zone-spec">
+        <span class="zone-tag">10 МЕСТ</span>
+        <span class="zone-tag">СТРИМИНГ</span>
+        <span class="zone-tag">ТУРНИРЫ</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ТУРНИРЫ -->
+<section id="tournaments">
+  <div class="tourn-header">
+    <div>
+      <div class="section-tag">// 04. ТУРНИРЫ</div>
+      <h2 class="section-title">Расписание <span>турниров</span></h2>
+      <p class="section-desc" style="margin-bottom:0">Регистрируйся, соревнуйся, побеждай. Призовые каждую неделю.</p>
+    </div>
+    <a href="#contacts" class="btn-secondary">ПОДАТЬ ЗАЯВКУ</a>
+  </div>
+
+  <!-- Карточки турниров -->
+  <div class="tourn-grid">
+
+    <!-- 1 -->
+    <div class="tourn-card live">
+      <div class="tourn-top">
+        <div class="tourn-game-icon">🔫</div>
+        <div class="tourn-status live-badge">● ИДЁТ</div>
+      </div>
+      <div class="tourn-body">
+        <div class="tourn-game">CS2</div>
+        <div class="tourn-name">NEON CUP — Весенний сезон</div>
+        <div class="tourn-meta">
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Призовой фонд</div>
+            <div class="tourn-meta-value prize">500 000 сум</div>
+          </div>
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Формат</div>
+            <div class="tourn-meta-value">5v5, BO3</div>
+          </div>
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Дата</div>
+            <div class="tourn-meta-value">25 мая 2026</div>
+          </div>
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Команд</div>
+            <div class="tourn-meta-value">8 / 8</div>
+          </div>
+        </div>
+        <div class="tourn-progress">
+          <div class="tourn-progress-label"><span>Слоты заполнены</span><span>8/8</span></div>
+          <div class="tourn-progress-bar"><div class="tourn-progress-fill" style="width:100%"></div></div>
+        </div>
+        <button class="tourn-btn live-btn">СМОТРЕТЬ ТРАНСЛЯЦИЮ</button>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="tourn-card">
+      <div class="tourn-top">
+        <div class="tourn-game-icon">🎮</div>
+        <div class="tourn-status open">РЕГИСТРАЦИЯ</div>
+      </div>
+      <div class="tourn-body">
+        <div class="tourn-game">Dota 2</div>
+        <div class="tourn-name">DISTRICT CLASH — Открытый чемпионат</div>
+        <div class="tourn-meta">
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Призовой фонд</div>
+            <div class="tourn-meta-value prize">750 000 сум</div>
+          </div>
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Формат</div>
+            <div class="tourn-meta-value">5v5, BO2</div>
+          </div>
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Дата</div>
+            <div class="tourn-meta-value">1 июня 2026</div>
+          </div>
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Команд</div>
+            <div class="tourn-meta-value">5 / 16</div>
+          </div>
+        </div>
+        <div class="tourn-progress">
+          <div class="tourn-progress-label"><span>Свободные слоты</span><span>5/16</span></div>
+          <div class="tourn-progress-bar"><div class="tourn-progress-fill" style="width:31%"></div></div>
+        </div>
+        <button class="tourn-btn open">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="tourn-card">
+      <div class="tourn-top">
+        <div class="tourn-game-icon">⚽</div>
+        <div class="tourn-status open">РЕГИСТРАЦИЯ</div>
+      </div>
+      <div class="tourn-body">
+        <div class="tourn-game">FC 25</div>
+        <div class="tourn-name">NEON FC — Кубок Самарканда</div>
+        <div class="tourn-meta">
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Призовой фонд</div>
+            <div class="tourn-meta-value prize">300 000 сум</div>
+          </div>
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Формат</div>
+            <div class="tourn-meta-value">1v1, BO1</div>
+          </div>
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Дата</div>
+            <div class="tourn-meta-value">8 июня 2026</div>
+          </div>
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Участников</div>
+            <div class="tourn-meta-value">12 / 32</div>
+          </div>
+        </div>
+        <div class="tourn-progress">
+          <div class="tourn-progress-label"><span>Свободные слоты</span><span>12/32</span></div>
+          <div class="tourn-progress-bar"><div class="tourn-progress-fill" style="width:37%"></div></div>
+        </div>
+        <button class="tourn-btn open">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="tourn-card">
+      <div class="tourn-top">
+        <div class="tourn-game-icon">🕹️</div>
+        <div class="tourn-status soon">СКОРО</div>
+      </div>
+      <div class="tourn-body">
+        <div class="tourn-game">Mortal Kombat 1</div>
+        <div class="tourn-name">NEON FIGHT — Файтинг турнир</div>
+        <div class="tourn-meta">
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Призовой фонд</div>
+            <div class="tourn-meta-value prize">200 000 сум</div>
+          </div>
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Формат</div>
+            <div class="tourn-meta-value">1v1, Double Elim</div>
+          </div>
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Дата</div>
+            <div class="tourn-meta-value">15 июня 2026</div>
+          </div>
+          <div class="tourn-meta-item">
+            <div class="tourn-meta-label">Участников</div>
+            <div class="tourn-meta-value">0 / 16</div>
+          </div>
+        </div>
+        <div class="tourn-progress">
+          <div class="tourn-progress-label"><span>Регистрация откроется 5 июня</span><span>0/16</span></div>
+          <div class="tourn-progress-bar"><div class="tourn-progress-fill" style="width:0%"></div></div>
+        </div>
+        <button class="tourn-btn soon">СКОРО ОТКРЫТИЕ</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Расписание таблица -->
+  <div class="schedule-wrap">
+    <div class="schedule-title">// ПОЛНОЕ РАСПИСАНИЕ — МАЙ–ИЮНЬ 2026</div>
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th>Дата</th>
+          <th>Турнир</th>
+          <th>Игра</th>
+          <th>Формат</th>
+          <th>Призовой фонд</th>
+          <th>Статус</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>25 мая</td>
+          <td>NEON CUP — Весенний сезон</td>
+          <td><span class="schedule-game-badge">CS2</span></td>
+          <td>5v5, BO3</td>
+          <td><span class="schedule-prize">500 000 сум</span></td>
+          <td><span class="s-live">● ИДЁТ</span></td>
+        </tr>
+        <tr>
+          <td>1 июня</td>
+          <td>DISTRICT CLASH — Открытый чемпионат</td>
+          <td><span class="schedule-game-badge">Dota 2</span></td>
+          <td>5v5, BO2</td>
+          <td><span class="schedule-prize">750 000 сум</span></td>
+          <td><span class="s-open">● Регистрация</span></td>
+        </tr>
+        <tr>
+          <td>8 июня</td>
+          <td>NEON FC — Кубок Самарканда</td>
+          <td><span class="schedule-game-badge">FC 25</span></td>
+          <td>1v1, BO1</td>
+          <td><span class="schedule-prize">300 000 сум</span></td>
+          <td><span class="s-open">● Регистрация</span></td>
+        </tr>
+        <tr>
+          <td>15 июня</td>
+          <td>NEON FIGHT — Файтинг турнир</td>
+          <td><span class="schedule-game-badge">MK1</span></td>
+          <td>1v1, D.Elim</td>
+          <td><span class="schedule-prize">200 000 сум</span></td>
+          <td><span class="s-soon">● Скоро</span></td>
+        </tr>
+        <tr>
+          <td>22 июня</td>
+          <td>SUMMER BLAST — Летний кубок</td>
+          <td><span class="schedule-game-badge">CS2</span></td>
+          <td>5v5, BO3</td>
+          <td><span class="schedule-prize">1 000 000 сум</span></td>
+          <td><span class="s-soon">● Скоро</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- КОНТАКТЫ -->
+<section id="contacts">
+  <div class="section-tag">// 04. КОНТАКТЫ</div>
+  <h2 class="section-title">Свяжись <span>с нами</span></h2>
+  <p class="section-desc">Бронируй место или задавай вопросы — ответим быстро.</p>
+
+  <div class="contacts-inner">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Адрес</div>
+          <div class="contact-value">ул. Амира Темура, 45</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Телефон</div>
+          <div class="contact-value">+998 90 123 45 67</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">💬</div>
+        <div>
+          <div class="contact-label">Telegram</div>
+          <div class="contact-value">@neondistrict_uz</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <div class="contact-label">Режим работы</div>
+          <div class="contact-value">24 часа / 7 дней</div>
+        </div>
+      </div>
+    </div>
+
+    <form class="contact-form" onsubmit="return false;">
+      <input class="form-input" type="text" placeholder="Твоё имя">
+      <input class="form-input" type="tel" placeholder="Телефон">
+      <select class="form-input" style="cursor:pointer;">
+        <option value="" style="background:#0d0d1a">Выбери зону</option>
+        <option style="background:#0d0d1a">Cyber Floor</option>
+        <option style="background:#0d0d1a">Neon VIP</option>
+        <option style="background:#0d0d1a">Arena</option>
+      </select>
+      <textarea class="form-input" rows="4" placeholder="Сообщение или вопрос..."></textarea>
+      <button class="btn-primary" style="border:none; width:100%;">ОТПРАВИТЬ ЗАЯВКУ</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">NEON_DISTRICT</div>
+  <div class="footer-copy">© 2026 Neon District. Все права защищены.</div>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">Telegram</a>
+    <a href="#">TikTok</a>
+  </div>
+</footer>
+
+<!-- Strova badge -->
+<div class="strova-badge">Сайт разработан — <span>Strova</span></div>
+
+</body>
+</html>

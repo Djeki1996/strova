@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GRAND RESIDENCE — жилой комплекс бизнес-класса в Ташкенте. 24 этажа, 320 квартир, сдача 2026." />
+  <title>GRAND RESIDENCE — Ташкент</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    :root {
+      --bg:         #0A0A0F;
+      --bg-2:       #0F0F18;
+      --bg-3:       #13131E;
+      --gold:       #C9A96E;
+      --gold-dim:   #8B6914;
+      --gold-light: #E8C98A;
+      --gold-glow:  rgba(201,169,110,.18);
+      --white:      #F5F0E8;
+      --white-dim:  rgba(245,240,232,.72);
+      --white-muted:rgba(245,240,232,.40);
+      --border:     rgba(201,169,110,.20);
+      --border-dim: rgba(201,169,110,.10);
+      --font-head:  'Cormorant Garamond', Georgia, serif;
+      --font-body:  'Inter', system-ui, sans-serif;
+      --nav-h:      72px;
+      --radius:     4px;
+      --transition: 280ms ease;
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    ul { list-style: none; }
+
+    /* ============================================================
+       SCROLL-REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 500ms ease, transform 500ms ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ============================================================
+       GOLD DIVIDER
+    ============================================================ */
+    .gold-line {
+      display: block;
+      width: 64px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto;
+    }
+    .gold-line--left { margin: 0; }
+
+    /* ============================================================
+       SECTION LABEL
+    ============================================================ */
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border-radius: var(--radius);
+      transition: background var(--transition), color var(--transition), border-color var(--transition), transform 120ms ease, box-shadow var(--transition);
+      cursor: pointer;
+      min-height: 48px;
+    }
+    .btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+    .btn--primary {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dim) 100%);
+      color: #0A0A0F;
+    }
+    .btn--primary:hover {
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+      box-shadow: 0 6px 28px var(--gold-glow);
+      transform: translateY(-1px);
+    }
+    .btn--outline {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+    }
+    .btn--outline:hover {
+      background: var(--gold-glow);
+      transform: translateY(-1px);
+    }
+    .btn--nav {
+      padding: 10px 20px;
+      min-height: 40px;
+      font-size: 12px;
+    }
+
+    /* ============================================================
+       LANG BAR
+    ============================================================ */
+    #lang-bar {
+      background: var(--bg-2);
+      border-bottom: 1px solid var(--border-dim);
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 24px;
+      position: relative;
+      z-index: 200;
+    }
+    .lang-btn {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      min-height: 30px;
+      min-width: 44px;
+      border-radius: 2px;
+      color: var(--white-muted);
+      border: 1px solid transparent;
+      transition: color var(--transition), border-color var(--transition), background var(--transition);
+      cursor: pointer;
+    }
+    .lang-btn:hover { color: var(--gold); border-color: var(--border); }
+    .lang-btn.active { color: var(--gold); border-color: var(--gold); background: var(--gold-glow); }
+    .lang-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    #nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(10,10,15,.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-dim);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 0;
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      color: var(--gold);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .nav-logo span {
+      display: block;
+      font-size: 9px;
+      font-family: var(--font-body);
+      font-weight: 400;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--white-muted);
+      margin-top: -2px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin: 0 auto 0 48px;
+    }
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      transition: color var(--transition);
+      padding: 4px 0;
+      border-bottom: 1px solid transparent;
+    }
+    .nav-links a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+    .nav-links a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    .nav-cta { flex-shrink: 0; }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      gap: 5px;
+      margin-left: auto;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--gold);
+      transition: transform var(--transition), opacity var(--transition);
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile nav drawer */
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(10,10,15,.97);
+      z-index: 99;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      font-family: var(--font-head);
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: .08em;
+      color: var(--white-dim);
+      transition: color var(--transition);
+    }
+    .nav-drawer a:hover { color: var(--gold); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,105,20,.22) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 50% at 80% 100%, rgba(201,169,110,.10) 0%, transparent 60%),
+        linear-gradient(180deg, #0A0A0F 0%, #0F0D18 50%, #0A0A0F 100%);
+    }
+    .hero-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(201,169,110,.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(201,169,110,.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 900px; }
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+    .hero-eyebrow::after { background: linear-gradient(90deg, var(--gold), transparent); }
+
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(52px, 10vw, 112px);
+      font-weight: 300;
+      letter-spacing: .14em;
+      line-height: 1.0;
+      color: var(--white);
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-subtitle {
+      font-size: clamp(14px, 2vw, 18px);
+      font-weight: 300;
+      color: var(--white-dim);
+      letter-spacing: .04em;
+      margin-bottom: 48px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 80px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 0;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-stat {
+      padding: 24px 48px;
+      border: 1px solid var(--border);
+      position: relative;
+      text-align: center;
+    }
+    .hero-stat + .hero-stat { border-left: none; }
+    .hero-stat__num {
+      font-family: var(--font-head);
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      letter-spacing: .06em;
+    }
+    .hero-stat__label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--white-muted);
+      margin-top: 6px;
+    }
+
+    /* scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: .5;
+    }
+    .scroll-indicator__line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity: .3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.15); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-indicator__line { animation: none; opacity: .5; }
+    }
+
+    /* ============================================================
+       SECTIONS SHARED
+    ============================================================ */
+    .section {
+      padding: 100px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section--full { max-width: none; padding-left: 0; padding-right: 0; }
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 300;
+      letter-spacing: .08em;
+      line-height: 1.15;
+      color: var(--white);
+      margin-top: 16px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .section-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--white-dim);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+
+    /* ============================================================
+       ABOUT
+    ============================================================ */
+    #about { background: var(--bg-2); padding: 100px 24px; }
+    #about .inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .about-text .section-title { text-align: left; }
+    .about-text .gold-line { margin: 20px 0; }
+    .about-body {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--white-dim);
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+    .about-body + .about-body { margin-top: 0; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .feature-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border-dim);
+      padding: 28px 24px;
+      border-radius: var(--radius);
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+    .feature-card:hover {
+      border-color: var(--border);
+      box-shadow: 0 8px 32px rgba(201,169,110,.08);
+      transform: translateY(-3px);
+    }
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .feature-title {
+      font-family: var(--font-head);
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 8px;
+      letter-spacing: .04em;
+    }
+    .feature-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--white-muted);
+      line-height: 1.65;
+    }
+
+    /* ============================================================
+       APARTMENTS
+    ============================================================ */
+    #apartments { background: var(--bg); }
+    .apartments-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .apt-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+    .apt-card:hover {
+      border-color: var(--gold-dim);
+      box-shadow: 0 12px 48px rgba(201,169,110,.12);
+      transform: translateY(-4px);
+    }
+    .apt-plan {
+      background: var(--bg-2);
+      padding: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 160px;
+      border-bottom: 1px solid var(--border-dim);
+    }
+    .apt-plan svg { opacity: .85; }
+    .apt-info { padding: 24px 20px; flex: 1; display: flex; flex-direction: column; }
+    .apt-type {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: .06em;
+      margin-bottom: 8px;
+    }
+    .apt-area {
+      font-size: 13px;
+      color: var(--white-muted);
+      letter-spacing: .08em;
+      margin-bottom: 16px;
+    }
+    .apt-price {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: .04em;
+      margin-bottom: 20px;
+    }
+    .apt-price span { font-size: 13px; font-family: var(--font-body); color: var(--white-muted); }
+    .apt-card .btn { align-self: flex-start; margin-top: auto; }
+
+    /* ============================================================
+       INFRASTRUCTURE
+    ============================================================ */
+    #infrastructure { background: var(--bg-2); }
+    .infra-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+    }
+    .infra-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 32px 16px 28px;
+      background: var(--bg-3);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius);
+      text-align: center;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .infra-item:hover {
+      border-color: var(--border);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(201,169,110,.08);
+    }
+    .infra-icon {
+      width: 48px;
+      height: 48px;
+      color: var(--gold);
+    }
+    .infra-label {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+    }
+
+    /* ============================================================
+       GALLERY
+    ============================================================ */
+    #gallery { background: var(--bg); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 260px 260px;
+      gap: 12px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .gallery-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--border-dim);
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .gallery-item:hover { border-color: var(--border); transform: scale(1.015); }
+    .gallery-item--tall { grid-row: span 2; }
+    .gallery-thumb {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+    .gallery-thumb span {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.6);
+      background: rgba(10,10,15,.6);
+      padding: 6px 12px;
+      border-radius: 2px;
+      backdrop-filter: blur(6px);
+    }
+    .g1 { background: linear-gradient(145deg, #1a1420 0%, #2d1f0e 100%); }
+    .g2 { background: linear-gradient(135deg, #0e1a2e 0%, #1c2a1a 100%); }
+    .g3 { background: linear-gradient(160deg, #1e1209 0%, #0f1a2a 100%); }
+    .g4 { background: linear-gradient(140deg, #231a09 0%, #12100f 100%); }
+    .g5 { background: linear-gradient(150deg, #0d1a16 0%, #200e1a 100%); }
+    .g6 { background: linear-gradient(130deg, #1a1209 0%, #0a1420 100%); }
+    /* Decorative pattern overlay */
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(201,169,110,.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(201,169,110,.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* ============================================================
+       CONTACT FORM
+    ============================================================ */
+    #contact { background: var(--bg-2); }
+    .contact-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 56px 48px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .form-group:last-of-type { margin-bottom: 0; }
+    .form-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--white-muted);
+    }
+    .form-label .req { color: var(--gold); margin-left: 2px; }
+    .form-control {
+      background: var(--bg-2);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--white);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      min-height: 48px;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-control::placeholder { color: var(--white-muted); }
+    .form-control:focus {
+      border-color: var(--gold-dim);
+      box-shadow: 0 0 0 3px rgba(201,169,110,.12);
+    }
+    .form-control:invalid:not(:placeholder-shown) { border-color: #b33; }
+    select.form-control { cursor: pointer; }
+    textarea.form-control { resize: vertical; min-height: 100px; }
+    .form-submit-wrap { text-align: center; margin-top: 32px; }
+    .form-submit-wrap .btn { min-width: 240px; justify-content: center; }
+    .form-message {
+      margin-top: 20px;
+      padding: 14px 20px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 400;
+      text-align: center;
+      display: none;
+    }
+    .form-message.success {
+      background: rgba(34,100,56,.25);
+      border: 1px solid rgba(34,180,96,.35);
+      color: #7eefaa;
+      display: block;
+    }
+    .form-message.error {
+      background: rgba(160,30,30,.2);
+      border: 1px solid rgba(200,60,60,.35);
+      color: #f4a4a4;
+      display: block;
+    }
+    /* Field error */
+    .field-error {
+      font-size: 12px;
+      color: #f4a4a4;
+      display: none;
+    }
+    .field-error.visible { display: block; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    #footer {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border-dim);
+      padding: 60px 24px 36px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border-dim);
+      margin-bottom: 32px;
+    }
+    .footer-logo {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .footer-logo span {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--white-muted);
+      margin-top: 2px;
+    }
+    .footer-tagline {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--white-muted);
+      line-height: 1.65;
+    }
+    .footer-col-title {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 20px;
+    }
+    .footer-list li {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--white-muted);
+      line-height: 1.6;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .footer-list li svg { flex-shrink: 0; margin-top: 2px; color: var(--gold-dim); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--white-muted);
+      letter-spacing: .04em;
+    }
+    .footer-dev {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--white-muted);
+    }
+    .footer-dev a {
+      color: var(--gold-dim);
+      border-bottom: 1px solid transparent;
+      transition: color var(--transition), border-color var(--transition);
+    }
+    .footer-dev a:hover { color: var(--gold); border-bottom-color: var(--gold-dim); }
+
+    /* ============================================================
+       RESPONSIVE — TABLET 768
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .apartments-grid { grid-template-columns: repeat(2, 1fr); }
+      .infra-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-top > :last-child { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --nav-h: 60px; }
+
+      #lang-bar { padding: 6px 16px; }
+      #nav { padding: 0 16px; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-toggle { display: flex; }
+
+      #hero { padding: 80px 16px 60px; }
+      .hero-stat { padding: 20px 28px; }
+      .hero-stats { flex-direction: row; }
+
+      #about .inner { grid-template-columns: 1fr; gap: 48px; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+
+      .apartments-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .gallery-item--tall { grid-row: span 1; }
+
+      .infra-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .contact-inner { padding: 36px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .apartments-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: column; align-items: center; width: 100%; }
+      .hero-stat { width: 100%; max-width: 240px; }
+      .hero-stat + .hero-stat { border-left: 1px solid var(--border); border-top: none; }
+      .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       LANG BAR
+  ============================================================ -->
+  <div id="lang-bar" role="navigation" aria-label="Language selector">
+    <button class="lang-btn active" onclick="setLang('ru')" data-lang="ru" aria-pressed="true">RU</button>
+    <button class="lang-btn" onclick="setLang('uz')" data-lang="uz" aria-pressed="false">UZ</button>
+    <button class="lang-btn" onclick="setLang('en')" data-lang="en" aria-pressed="false">EN</button>
+  </div>
+
+  <!-- ============================================================
+       NAV
+  ============================================================ -->
+  <header id="nav" role="banner">
+    <div class="nav-logo" aria-label="GRAND RESIDENCE">
+      GRAND RESIDENCE
+      <span data-key="nav_sub">Жилой комплекс</span>
+    </div>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#about" data-key="nav_project">Проект</a>
+      <a href="#apartments" data-key="nav_apts">Квартиры</a>
+      <a href="#infrastructure" data-key="nav_infra">Инфраструктура</a>
+      <a href="#contact" data-key="nav_contact">Контакты</a>
+    </nav>
+
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn--primary btn--nav" data-key="nav_cta">Получить КП</a>
+    </div>
+
+    <button class="nav-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-drawer" onclick="toggleMenu(this)">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile drawer -->
+  <nav id="nav-drawer" class="nav-drawer" aria-label="Mobile navigation" role="dialog" aria-modal="true">
+    <a href="#about" data-key="nav_project" onclick="closeMenu()">Проект</a>
+    <a href="#apartments" data-key="nav_apts" onclick="closeMenu()">Квартиры</a>
+    <a href="#infrastructure" data-key="nav_infra" onclick="closeMenu()">Инфраструктура</a>
+    <a href="#contact" data-key="nav_contact" onclick="closeMenu()">Контакты</a>
+    <a href="#contact" class="btn btn--primary" data-key="nav_cta" onclick="closeMenu()">Получить КП</a>
+  </nav>
+
+  <main id="main" tabindex="-1">
+
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
+    <section id="hero" aria-label="Hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-grid-lines" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <p class="hero-eyebrow" data-key="hero_eyebrow">Ташкент · Бизнес-класс · 2026</p>
+
+        <h1 class="hero-title">
+          GRAND<br><em>RESIDENCE</em>
+        </h1>
+
+        <p class="hero-subtitle" data-key="hero_sub">
+          Жилой комплекс бизнес-класса в Ташкенте — пространство для тех, кто ценит качество жизни
+        </p>
+
+        <div class="hero-actions">
+          <a href="#apartments" class="btn btn--primary" data-key="hero_cta1">Смотреть квартиры</a>
+          <a href="#contact" class="btn btn--outline" data-key="hero_cta2">Скачать презентацию</a>
+        </div>
+
+        <div class="hero-stats" role="list">
+          <div class="hero-stat" role="listitem">
+            <div class="hero-stat__num" aria-label="24">24</div>
+            <div class="hero-stat__label" data-key="stat1">Этажа</div>
+          </div>
+          <div class="hero-stat" role="listitem">
+            <div class="hero-stat__num" aria-label="320">320</div>
+            <div class="hero-stat__label" data-key="stat2">Квартир</div>
+          </div>
+          <div class="hero-stat" role="listitem">
+            <div class="hero-stat__num" aria-label="2026">2026</div>
+            <div class="hero-stat__label" data-key="stat3">Сдача</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-indicator" aria-hidden="true">
+        <div class="scroll-indicator__line"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ABOUT
+    ============================================================ -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="inner">
+        <div class="about-text reveal">
+          <p class="section-label" data-key="about_label">О проекте</p>
+          <h2 class="section-title" id="about-title" style="text-align:left;" data-key="about_title">
+            Архитектура будущего
+          </h2>
+          <span class="gold-line gold-line--left"></span>
+          <p class="about-body" style="margin-top:24px;" data-key="about_p1">
+            GRAND RESIDENCE — это жилой комплекс бизнес-класса в сердце Ташкента, где каждая деталь продумана до совершенства. Монолитно-каркасная конструкция, панорамное остекление, авторская архитектура.
+          </p>
+          <p class="about-body" data-key="about_p2">
+            24 этажа современного жилья с видом на город, развитой инфраструктурой и высочайшим стандартом безопасности. Ваш новый дом — это не просто квартира, это образ жизни.
+          </p>
+        </div>
+
+        <div class="features-grid reveal" style="transition-delay:120ms">
+          <!-- Feature 1: Паркинг -->
+          <div class="feature-card">
+            <svg class="feature-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <rect x="4" y="10" width="36" height="26" rx="3" />
+              <path d="M4 17h36M14 17v19M30 17v19" />
+              <path d="M18 22h5a3 3 0 010 6h-5v-6z" />
+            </svg>
+            <h3 class="feature-title" data-key="feat1_title">Подземный паркинг</h3>
+            <p class="feature-desc" data-key="feat1_desc">Охраняемый паркинг на 2 уровня с системой контроля доступа и видеонаблюдением</p>
+          </div>
+
+          <!-- Feature 2: Охрана -->
+          <div class="feature-card">
+            <svg class="feature-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M22 4l14 5v10c0 9-6 16-14 19C8 35 2 28 2 19V9z" />
+              <path d="M14 22l5 5 9-10" />
+            </svg>
+            <h3 class="feature-title" data-key="feat2_title">Охрана 24/7</h3>
+            <p class="feature-desc" data-key="feat2_desc">Круглосуточная охрана, СКУД, видеонаблюдение по всему периметру и в помещениях</p>
+          </div>
+
+          <!-- Feature 3: Умный дом -->
+          <div class="feature-card">
+            <svg class="feature-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <rect x="12" y="18" width="20" height="18" rx="2" />
+              <path d="M6 22l16-16 16 16" />
+              <circle cx="22" cy="27" r="3" />
+              <path d="M22 30v6" />
+            </svg>
+            <h3 class="feature-title" data-key="feat3_title">Умный дом</h3>
+            <p class="feature-desc" data-key="feat3_desc">Интегрированные системы управления освещением, климатом и безопасностью</p>
+          </div>
+
+          <!-- Feature 4: Детская зона -->
+          <div class="feature-card">
+            <svg class="feature-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <circle cx="22" cy="10" r="5" />
+              <path d="M12 34c0-5.5 4.5-10 10-10s10 4.5 10 10" />
+              <path d="M7 26c3-4 8-6 8-6M37 26c-3-4-8-6-8-6" />
+              <circle cx="10" cy="20" r="3" />
+              <circle cx="34" cy="20" r="3" />
+            </svg>
+            <h3 class="feature-title" data-key="feat4_title">Детская зона</h3>
+            <p class="feature-desc" data-key="feat4_desc">Безопасные детские площадки и зоны отдыха с профессиональным покрытием</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         APARTMENTS
+    ============================================================ -->
+    <section id="apartments" aria-labelledby="apts-title">
+      <div class="section">
+        <div class="section-header reveal">
+          <p class="section-label" data-key="apts_label">Планировки</p>
+          <h2 class="section-title" id="apts-title" data-key="apts_title">Выберите свою квартиру</h2>
+          <span class="gold-line"></span>
+          <p class="section-desc" style="margin-top:16px;" data-key="apts_desc">
+            Четыре типа планировок для разных стилей жизни — от студии до пентхауса
+          </p>
+        </div>
+
+        <div class="apartments-grid">
+
+          <!-- Studio -->
+          <article class="apt-card reveal" style="transition-delay:0ms">
+            <div class="apt-plan" aria-hidden="true">
+              <svg width="100" height="90" viewBox="0 0 100 90" fill="none" stroke="#C9A96E" stroke-width="1.2">
+                <rect x="10" y="10" width="80" height="70" rx="1"/>
+                <line x1="10" y1="42" x2="55" y2="42"/>
+                <rect x="14" y="14" width="37" height="24" rx="1" stroke-dasharray="3 2"/>
+                <rect x="60" y="14" width="26" height="20" rx="1" stroke-dasharray="3 2"/>
+                <rect x="14" y="46" width="72" height="30" rx="1" stroke-dasharray="3 2"/>
+              </svg>
+            </div>
+            <div class="apt-info">
+              <p class="apt-type" data-key="apt1_type">Студия</p>
+              <p class="apt-area" data-key="apt1_area">35 м²</p>
+              <p class="apt-price">от $45 000 <span data-key="apt_from"></span></p>
+              <a href="#contact" class="btn btn--outline btn--nav" data-key="apt_btn">Подробнее</a>
+            </div>
+          </article>
+
+          <!-- 1-room -->
+          <article class="apt-card reveal" style="transition-delay:80ms">
+            <div class="apt-plan" aria-hidden="true">
+              <svg width="100" height="90" viewBox="0 0 100 90" fill="none" stroke="#C9A96E" stroke-width="1.2">
+                <rect x="8" y="8" width="84" height="74" rx="1"/>
+                <line x1="8" y1="46" x2="60" y2="46"/>
+                <line x1="60" y1="8" x2="60" y2="46"/>
+                <rect x="12" y="12" width="44" height="30" rx="1" stroke-dasharray="3 2"/>
+                <rect x="64" y="12" width="24" height="30" rx="1" stroke-dasharray="3 2"/>
+                <rect x="12" y="50" width="78" height="28" rx="1" stroke-dasharray="3 2"/>
+              </svg>
+            </div>
+            <div class="apt-info">
+              <p class="apt-type" data-key="apt2_type">1-комнатная</p>
+              <p class="apt-area" data-key="apt2_area">55 м²</p>
+              <p class="apt-price">от $68 000 <span data-key="apt_from"></span></p>
+              <a href="#contact" class="btn btn--outline btn--nav" data-key="apt_btn">Подробнее</a>
+            </div>
+          </article>
+
+          <!-- 2-room -->
+          <article class="apt-card reveal" style="transition-delay:160ms">
+            <div class="apt-plan" aria-hidden="true">
+              <svg width="100" height="90" viewBox="0 0 100 90" fill="none" stroke="#C9A96E" stroke-width="1.2">
+                <rect x="6" y="6" width="88" height="78" rx="1"/>
+                <line x1="6" y1="48" x2="94" y2="48"/>
+                <line x1="52" y1="6" x2="52" y2="48"/>
+                <rect x="10" y="10" width="38" height="34" rx="1" stroke-dasharray="3 2"/>
+                <rect x="56" y="10" width="34" height="34" rx="1" stroke-dasharray="3 2"/>
+                <line x1="6" y1="62" x2="94" y2="62"/>
+                <rect x="10" y="52" width="38" height="28" rx="1" stroke-dasharray="3 2"/>
+                <rect x="56" y="52" width="34" height="28" rx="1" stroke-dasharray="3 2"/>
+              </svg>
+            </div>
+            <div class="apt-info">
+              <p class="apt-type" data-key="apt3_type">2-комнатная</p>
+              <p class="apt-area" data-key="apt3_area">85 м²</p>
+              <p class="apt-price">от $105 000 <span data-key="apt_from"></span></p>
+              <a href="#contact" class="btn btn--outline btn--nav" data-key="apt_btn">Подробнее</a>
+            </div>
+          </article>
+
+          <!-- Penthouse -->
+          <article class="apt-card reveal" style="transition-delay:240ms">
+            <div class="apt-plan" aria-hidden="true">
+              <svg width="100" height="90" viewBox="0 0 100 90" fill="none" stroke="#C9A96E" stroke-width="1.2">
+                <rect x="4" y="4" width="92" height="82" rx="1"/>
+                <line x1="4" y1="50" x2="96" y2="50"/>
+                <line x1="50" y1="4" x2="50" y2="50"/>
+                <rect x="8" y="8" width="38" height="38" rx="1" stroke-dasharray="3 2"/>
+                <rect x="54" y="8" width="38" height="38" rx="1" stroke-dasharray="3 2"/>
+                <line x1="4" y1="68" x2="96" y2="68"/>
+                <line x1="50" y1="50" x2="50" y2="86"/>
+                <rect x="8" y="54" width="38" height="30" rx="1" stroke-dasharray="3 2"/>
+                <rect x="54" y="54" width="38" height="30" rx="1" stroke-dasharray="3 2"/>
+                <!-- Terrace indicator -->
+                <path d="M8 4 L4 8M92 4 L96 8" stroke-opacity="0.5"/>
+              </svg>
+            </div>
+            <div class="apt-info">
+              <p class="apt-type" data-key="apt4_type">Пентхаус</p>
+              <p class="apt-area" data-key="apt4_area">140 м²</p>
+              <p class="apt-price">от $180 000 <span data-key="apt_from"></span></p>
+              <a href="#contact" class="btn btn--primary btn--nav" data-key="apt_btn_ph">Подробнее</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         INFRASTRUCTURE
+    ============================================================ -->
+    <section id="infrastructure" aria-labelledby="infra-title">
+      <div class="section">
+        <div class="section-header reveal">
+          <p class="section-label" data-key="infra_label">Окружение</p>
+          <h2 class="section-title" id="infra-title" data-key="infra_title">Инфраструктура рядом</h2>
+          <span class="gold-line"></span>
+        </div>
+
+        <div class="infra-grid">
+
+          <!-- School -->
+          <div class="infra-item reveal" style="transition-delay:0ms">
+            <svg class="infra-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <rect x="6" y="20" width="36" height="22" rx="2"/>
+              <path d="M2 22L24 6l22 16"/>
+              <rect x="18" y="30" width="12" height="12" rx="1"/>
+              <line x1="24" y1="20" x2="24" y2="22"/>
+            </svg>
+            <span class="infra-label" data-key="infra1">Школа</span>
+          </div>
+
+          <!-- Mall -->
+          <div class="infra-item reveal" style="transition-delay:60ms">
+            <svg class="infra-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <rect x="4" y="18" width="40" height="24" rx="2"/>
+              <path d="M4 18h40M16 18V12a8 8 0 0116 0v6"/>
+              <line x1="16" y1="18" x2="16" y2="42"/>
+              <line x1="32" y1="18" x2="32" y2="42"/>
+              <rect x="20" y="28" width="8" height="14" rx="1"/>
+            </svg>
+            <span class="infra-label" data-key="infra2">ТЦ</span>
+          </div>
+
+          <!-- Metro -->
+          <div class="infra-item reveal" style="transition-delay:120ms">
+            <svg class="infra-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <circle cx="24" cy="24" r="20"/>
+              <path d="M10 36L18 14l6 12 6-12 8 22"/>
+            </svg>
+            <span class="infra-label" data-key="infra3">Метро</span>
+          </div>
+
+          <!-- Park -->
+          <div class="infra-item reveal" style="transition-delay:180ms">
+            <svg class="infra-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M24 40V22"/>
+              <path d="M14 22c0-5.5 4.5-10 10-10s10 4.5 10 10H14z"/>
+              <path d="M10 28c0-4 3.1-7.5 7-8.5M38 28c0-4-3.1-7.5-7-8.5"/>
+              <path d="M8 36c0-4 3.5-7 8-7s7 3.5 8 7M40 36c0-4-3.5-7-8-7s-7 3.5-8 7"/>
+              <line x1="6" y1="40" x2="42" y2="40"/>
+            </svg>
+            <span class="infra-label" data-key="infra4">Парк</span>
+          </div>
+
+          <!-- Clinic -->
+          <div class="infra-item reveal" style="transition-delay:240ms">
+            <svg class="infra-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <rect x="6" y="12" width="36" height="30" rx="2"/>
+              <path d="M16 12V8a2 2 0 012-2h12a2 2 0 012 2v4"/>
+              <path d="M20 22h8M24 18v8"/>
+            </svg>
+            <span class="infra-label" data-key="infra5">Клиника</span>
+          </div>
+
+          <!-- Restaurant -->
+          <div class="infra-item reveal" style="transition-delay:300ms">
+            <svg class="infra-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M16 8v12c0 3.3 2.7 6 6 6h4c3.3 0 6-2.7 6-6V8"/>
+              <line x1="24" y1="26" x2="24" y2="40"/>
+              <line x1="16" y1="40" x2="32" y2="40"/>
+              <line x1="10" y1="8" x2="10" y2="40"/>
+              <path d="M10 8c0 0-4 4-4 10s4 10 4 10"/>
+            </svg>
+            <span class="infra-label" data-key="infra6">Ресторан</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         GALLERY
+    ============================================================ -->
+    <section id="gallery" aria-labelledby="gallery-title">
+      <div class="section">
+        <div class="section-header reveal">
+          <p class="section-label" data-key="gallery_label">Визуализация</p>
+          <h2 class="section-title" id="gallery-title" data-key="gallery_title">Фотогалерея</h2>
+          <span class="gold-line"></span>
+        </div>
+      </div>
+
+      <div class="gallery-grid" style="padding:0 24px;" role="list" aria-label="Галерея проекта">
+        <div class="gallery-item gallery-item--tall g1 reveal" role="listitem" aria-label="Экстерьер комплекса">
+          <div class="gallery-thumb">
+            <span data-key="gal1">Экстерьер</span>
+          </div>
+        </div>
+        <div class="gallery-item g2 reveal" style="transition-delay:80ms" role="listitem" aria-label="Лобби">
+          <div class="gallery-thumb">
+            <span data-key="gal2">Лобби</span>
+          </div>
+        </div>
+        <div class="gallery-item g3 reveal" style="transition-delay:160ms" role="listitem" aria-label="Жилая комната">
+          <div class="gallery-thumb">
+            <span data-key="gal3">Гостиная</span>
+          </div>
+        </div>
+        <div class="gallery-item g4 reveal" style="transition-delay:80ms" role="listitem" aria-label="Кухня">
+          <div class="gallery-thumb">
+            <span data-key="gal4">Кухня</span>
+          </div>
+        </div>
+        <div class="gallery-item g5 reveal" style="transition-delay:160ms" role="listitem" aria-label="Детская площадка">
+          <div class="gallery-thumb">
+            <span data-key="gal5">Двор</span>
+          </div>
+        </div>
+        <div class="gallery-item g6 reveal" style="transition-delay:240ms" role="listitem" aria-label="Вид с высоты">
+          <div class="gallery-thumb">
+            <span data-key="gal6">Панорама</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONTACT FORM
+    ============================================================ -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="section">
+        <div class="section-header reveal">
+          <p class="section-label" data-key="contact_label">Консультация</p>
+          <h2 class="section-title" id="contact-title" data-key="contact_title">Получить консультацию</h2>
+          <span class="gold-line"></span>
+          <p class="section-desc" style="margin-top:16px;" data-key="contact_desc">
+            Оставьте заявку — наш менеджер свяжется с вами в течение 30 минут
+          </p>
+        </div>
+
+        <div class="contact-inner reveal" style="transition-delay:80ms">
+          <form id="contact-form" novalidate aria-label="Форма заявки">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="f-name" data-key="form_name">Имя <span class="req" aria-hidden="true">*</span></label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="f-name"
+                  name="name"
+                  autocomplete="given-name"
+                  placeholder="Ваше имя"
+                  required
+                  aria-required="true"
+                  aria-describedby="f-name-err"
+                  data-key-placeholder="form_name_ph"
+                />
+                <span class="field-error" id="f-name-err" role="alert" aria-live="polite" data-key="err_name"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="f-phone" data-key="form_phone">Телефон <span class="req" aria-hidden="true">*</span></label>
+                <input
+                  class="form-control"
+                  type="tel"
+                  id="f-phone"
+                  name="phone"
+                  autocomplete="tel"
+                  placeholder="+998 (90) 000-00-00"
+                  required
+                  aria-required="true"
+                  aria-describedby="f-phone-err"
+                />
+                <span class="field-error" id="f-phone-err" role="alert" aria-live="polite" data-key="err_phone"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="f-type" data-key="form_apt_type">Тип квартиры</label>
+              <select class="form-control" id="f-type" name="apt_type" autocomplete="off">
+                <option value="" data-key="form_apt_placeholder">Выберите тип</option>
+                <option value="studio" data-key="apt1_type">Студия (35 м²)</option>
+                <option value="1room" data-key="apt2_type_full">1-комнатная (55 м²)</option>
+                <option value="2room" data-key="apt3_type_full">2-комнатная (85 м²)</option>
+                <option value="penthouse" data-key="apt4_type_full">Пентхаус (140 м²)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="f-comment" data-key="form_comment">Комментарий</label>
+              <textarea
+                class="form-control"
+                id="f-comment"
+                name="comment"
+                placeholder="Ваши пожелания или вопросы..."
+                rows="3"
+                data-key-placeholder="form_comment_ph"
+              ></textarea>
+            </div>
+
+            <div class="form-submit-wrap">
+              <button type="submit" class="btn btn--primary" id="submit-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <line x1="22" y1="2" x2="11" y2="13"/>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+                <span data-key="form_submit">Получить консультацию</span>
+              </button>
+            </div>
+
+            <div class="form-message" id="form-msg" role="alert" aria-live="assertive"></div>
+
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer id="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+
+        <div>
+          <div class="footer-logo">
+            GRAND RESIDENCE
+            <span data-key="nav_sub">Жилой комплекс</span>
+          </div>
+          <p class="footer-tagline" data-key="footer_tagline">
+            Бизнес-класс в сердце Ташкента. Качество без компромиссов.
+          </p>
+        </div>
+
+        <div>
+          <p class="footer-col-title" data-key="footer_contacts">Контакты</p>
+          <ul class="footer-list">
+            <li>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span data-key="footer_address">г. Ташкент, Мирзо-Улугбекский район, ул. Амира Темура 1</span>
+            </li>
+            <li>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.03 2.86 2 2 0 012 .68h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              <a href="tel:+998712345678">+998 (71) 234-56-78</a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer-col-title" data-key="footer_nav">Разделы</p>
+          <ul class="footer-list">
+            <li><a href="#about" data-key="nav_project">→ Проект</a></li>
+            <li><a href="#apartments" data-key="nav_apts">→ Квартиры</a></li>
+            <li><a href="#infrastructure" data-key="nav_infra">→ Инфраструктура</a></li>
+            <li><a href="#contact" data-key="nav_contact">→ Контакты</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy" data-key="footer_copy">© 2024–2026 GRAND RESIDENCE. Все права защищены.</p>
+        <p class="footer-dev" data-key="footer_dev">Сайт разработан <a href="https://strova.agency" target="_blank" rel="noopener noreferrer">Strova Agency</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    /* ============================================================
+       TRANSLATIONS
+    ============================================================ */
+    const T = {
+      ru: {
+        nav_sub:          'Жилой комплекс',
+        nav_project:      'Проект',
+        nav_apts:         'Квартиры',
+        nav_infra:        'Инфраструктура',
+        nav_contact:      'Контакты',
+        nav_cta:          'Получить КП',
+        hero_eyebrow:     'Ташкент · Бизнес-класс · 2026',
+        hero_sub:         'Жилой комплекс бизнес-класса в Ташкенте — пространство для тех, кто ценит качество жизни',
+        hero_cta1:        'Смотреть квартиры',
+        hero_cta2:        'Скачать презентацию',
+        stat1:            'Этажа',
+        stat2:            'Квартир',
+        stat3:            'Сдача',
+        about_label:      'О проекте',
+        about_title:      'Архитектура будущего',
+        about_p1:         'GRAND RESIDENCE — это жилой комплекс бизнес-класса в сердце Ташкента, где каждая деталь продумана до совершенства. Монолитно-каркасная конструкция, панорамное остекление, авторская архитектура.',
+        about_p2:         '24 этажа современного жилья с видом на город, развитой инфраструктурой и высочайшим стандартом безопасности. Ваш новый дом — это не просто квартира, это образ жизни.',
+        feat1_title:      'Подземный паркинг',
+        feat1_desc:       'Охраняемый паркинг на 2 уровня с системой контроля доступа и видеонаблюдением',
+        feat2_title:      'Охрана 24/7',
+        feat2_desc:       'Круглосуточная охрана, СКУД, видеонаблюдение по всему периметру и в помещениях',
+        feat3_title:      'Умный дом',
+        feat3_desc:       'Интегрированные системы управления освещением, климатом и безопасностью',
+        feat4_title:      'Детская зона',
+        feat4_desc:       'Безопасные детские площадки и зоны отдыха с профессиональным покрытием',
+        apts_label:       'Планировки',
+        apts_title:       'Выберите свою квартиру',
+        apts_desc:        'Четыре типа планировок для разных стилей жизни — от студии до пентхауса',
+        apt1_type:        'Студия',
+        apt1_area:        '35 м²',
+        apt2_type:        '1-комнатная',
+        apt2_area:        '55 м²',
+        apt3_type:        '2-комнатная',
+        apt3_area:        '85 м²',
+        apt4_type:        'Пентхаус',
+        apt4_area:        '140 м²',
+        apt_btn:          'Подробнее',
+        apt_btn_ph:       'Подробнее',
+        apt2_type_full:   '1-комнатная (55 м²)',
+        apt3_type_full:   '2-комнатная (85 м²)',
+        apt4_type_full:   'Пентхаус (140 м²)',
+        form_apt_placeholder: 'Выберите тип',
+        infra_label:      'Окружение',
+        infra_title:      'Инфраструктура рядом',
+        infra1:           'Школа',
+        infra2:           'ТЦ',
+        infra3:           'Метро',
+        infra4:           'Парк',
+        infra5:           'Клиника',
+        infra6:           'Ресторан',
+        gallery_label:    'Визуализация',
+        gallery_title:    'Фотогалерея',
+        gal1: 'Экстерьер', gal2: 'Лобби', gal3: 'Гостиная',
+        gal4: 'Кухня',     gal5: 'Двор',   gal6: 'Панорама',
+        contact_label:    'Консультация',
+        contact_title:    'Получить консультацию',
+        contact_desc:     'Оставьте заявку — наш менеджер свяжется с вами в течение 30 минут',
+        form_name:        'Имя',
+        form_phone:       'Телефон',
+        form_apt_type:    'Тип квартиры',
+        form_comment:     'Комментарий',
+        form_submit:      'Получить консультацию',
+        form_name_ph:     'Ваше имя',
+        form_comment_ph:  'Ваши пожелания или вопросы...',
+        err_name:         'Пожалуйста, введите ваше имя',
+        err_phone:        'Пожалуйста, введите номер телефона',
+        msg_success:      '✓ Заявка отправлена! Мы свяжемся с вами в течение 30 минут.',
+        msg_error:        '✕ Произошла ошибка. Позвоните нам напрямую: +998 (71) 234-56-78',
+        msg_sending:      'Отправка...',
+        footer_tagline:   'Бизнес-класс в сердце Ташкента. Качество без компромиссов.',
+        footer_contacts:  'Контакты',
+        footer_address:   'г. Ташкент, Мирзо-Улугбекский район, ул. Амира Темура 1',
+        footer_nav:       'Разделы',
+        footer_copy:      '© 2024–2026 GRAND RESIDENCE. Все права защищены.',
+        footer_dev:       'Сайт разработан',
+      },
+      uz: {
+        nav_sub:          'Turar-joy majmuasi',
+        nav_project:      'Loyiha',
+        nav_apts:         'Kvartiralar',
+        nav_infra:        'Infratuzilma',
+        nav_contact:      'Kontaktlar',
+        nav_cta:          'KP olish',
+        hero_eyebrow:     'Toshkent · Biznes-sinf · 2026',
+        hero_sub:         'Toshkent shahrining markazida biznes-sinf turar-joy majmuasi — sifatli hayot uchun',
+        hero_cta1:        'Kvartiralarni ko\'rish',
+        hero_cta2:        'Prezentatsiyani yuklab olish',
+        stat1:            'Qavat',
+        stat2:            'Kvartira',
+        stat3:            'Topshirish',
+        about_label:      'Loyiha haqida',
+        about_title:      'Kelajak arxitekturasi',
+        about_p1:         'GRAND RESIDENCE — Toshkent markazidagi biznes-sinf turar-joy majmuasi. Har bir detal mukammallikgacha o\'ylangan. Monolit-karkas konstruktsiya, panoramik oynalash, mualliflik arxitekturasi.',
+        about_p2:         'Shahar manzarasi ko\'rinadigan 24 qavatli zamonaviy turar-joy, rivojlangan infratuzilma va eng yuqori xavfsizlik standarti. Yangi uyingiz — bu shunchaki kvartira emas, bu hayot tarzi.',
+        feat1_title:      'Yer osti parkingi',
+        feat1_desc:       '2 qavatli qo\'riqlanadigan parking, kirish nazorati va videonazorat tizimi bilan',
+        feat2_title:      '24/7 Qo\'riqlash',
+        feat2_desc:       'Kunduzu va tunda qo\'riqlash, SKUD, perimetr va xonalar bo\'ylab videonazorat',
+        feat3_title:      'Aqlli uy',
+        feat3_desc:       'Yoritish, iqlim va xavfsizlikni boshqarishning integratsiyalashgan tizimlari',
+        feat4_title:      'Bolalar zonasi',
+        feat4_desc:       'Professional qoplamali xavfsiz bolalar maydonchalari va dam olish joylari',
+        apts_label:       'Rejalar',
+        apts_title:       'Kvartiraingizni tanlang',
+        apts_desc:        'Turli hayot uslublari uchun to\'rt turdagi rejalar — studiyadan penthausgacha',
+        apt1_type:        'Studiya',
+        apt1_area:        '35 m²',
+        apt2_type:        '1 xonali',
+        apt2_area:        '55 m²',
+        apt3_type:        '2 xonali',
+        apt3_area:        '85 m²',
+        apt4_type:        'Penxaus',
+        apt4_area:        '140 m²',
+        apt_btn:          'Batafsil',
+        apt_btn_ph:       'Batafsil',
+        apt2_type_full:   '1 xonali (55 m²)',
+        apt3_type_full:   '2 xonali (85 m²)',
+        apt4_type_full:   'Penxaus (140 m²)',
+        form_apt_placeholder: 'Turni tanlang',
+        infra_label:      'Atrofdagi obyektlar',
+        infra_title:      'Yaqin infratuzilma',
+        infra1:           'Maktab',
+        infra2:           'Savdo markazi',
+        infra3:           'Metro',
+        infra4:           'Park',
+        infra5:           'Klinika',
+        infra6:           'Restoran',
+        gallery_label:    'Vizualizatsiya',
+        gallery_title:    'Fotogalereya',
+        gal1: 'Tashqi ko\'rinish', gal2: 'Lobby', gal3: 'Mehmonxona',
+        gal4: 'Oshxona',         gal5: 'Hovli',   gal6: 'Panorama',
+        contact_label:    'Konsultatsiya',
+        contact_title:    'Konsultatsiya olish',
+        contact_desc:     'Ariza qoldiring — menejerimiz 30 daqiqa ichida siz bilan bog\'lanadi',
+        form_name:        'Ism',
+        form_phone:       'Telefon',
+        form_apt_type:    'Kvartira turi',
+        form_comment:     'Izoh',
+        form_submit:      'Konsultatsiya olish',
+        form_name_ph:     'Ismingiz',
+        form_comment_ph:  'Istaklar yoki savollar...',
+        err_name:         'Iltimos, ismingizni kiriting',
+        err_phone:        'Iltimos, telefon raqamingizni kiriting',
+        msg_success:      '✓ Ariza yuborildi! 30 daqiqa ichida siz bilan bog\'lanamiz.',
+        msg_error:        '✕ Xatolik yuz berdi. Bizga to\'g\'ridan-to\'g\'ri qo\'ng\'iroq qiling: +998 (71) 234-56-78',
+        msg_sending:      'Yuborilmoqda...',
+        footer_tagline:   'Toshkent markazida biznes-sinf. Kompromissiz sifat.',
+        footer_contacts:  'Kontaktlar',
+        footer_address:   'Toshkent shahri, Mirzo Ulug\'bek tumani, Amir Temur ko\'chasi 1',
+        footer_nav:       'Bo\'limlar',
+        footer_copy:      '© 2024–2026 GRAND RESIDENCE. Barcha huquqlar himoyalangan.',
+        footer_dev:       'Sayt ishlab chiqildi',
+      },
+      en: {
+        nav_sub:          'Residential Complex',
+        nav_project:      'Project',
+        nav_apts:         'Apartments',
+        nav_infra:        'Infrastructure',
+        nav_contact:      'Contact',
+        nav_cta:          'Get Brochure',
+        hero_eyebrow:     'Tashkent · Business Class · 2026',
+        hero_sub:         'A business-class residential complex in the heart of Tashkent — for those who value quality of life',
+        hero_cta1:        'View Apartments',
+        hero_cta2:        'Download Presentation',
+        stat1:            'Floors',
+        stat2:            'Apartments',
+        stat3:            'Completion',
+        about_label:      'About',
+        about_title:      'Architecture of the Future',
+        about_p1:         'GRAND RESIDENCE is a business-class residential complex in the heart of Tashkent, where every detail is crafted to perfection. Monolithic frame construction, panoramic glazing, signature architecture.',
+        about_p2:         '24 floors of modern living with city views, developed infrastructure, and the highest security standards. Your new home is not just an apartment — it is a lifestyle.',
+        feat1_title:      'Underground Parking',
+        feat1_desc:       '2-level secured parking with access control system and CCTV surveillance',
+        feat2_title:      '24/7 Security',
+        feat2_desc:       'Round-the-clock security, access control, and CCTV throughout the perimeter and premises',
+        feat3_title:      'Smart Home',
+        feat3_desc:       'Integrated systems for controlling lighting, climate and security from your smartphone',
+        feat4_title:      'Children\'s Zone',
+        feat4_desc:       'Safe children\'s playgrounds and recreation areas with professional soft surfacing',
+        apts_label:       'Floor Plans',
+        apts_title:       'Choose Your Apartment',
+        apts_desc:        'Four layout types for different lifestyles — from studio to penthouse',
+        apt1_type:        'Studio',
+        apt1_area:        '35 m²',
+        apt2_type:        '1-Bedroom',
+        apt2_area:        '55 m²',
+        apt3_type:        '2-Bedroom',
+        apt3_area:        '85 m²',
+        apt4_type:        'Penthouse',
+        apt4_area:        '140 m²',
+        apt_btn:          'Details',
+        apt_btn_ph:       'Details',
+        apt2_type_full:   '1-Bedroom (55 m²)',
+        apt3_type_full:   '2-Bedroom (85 m²)',
+        apt4_type_full:   'Penthouse (140 m²)',
+        form_apt_placeholder: 'Select type',
+        infra_label:      'Surroundings',
+        infra_title:      'Nearby Infrastructure',
+        infra1:           'School',
+        infra2:           'Mall',
+        infra3:           'Metro',
+        infra4:           'Park',
+        infra5:           'Clinic',
+        infra6:           'Restaurant',
+        gallery_label:    'Visualization',
+        gallery_title:    'Gallery',
+        gal1: 'Exterior',  gal2: 'Lobby',   gal3: 'Living Room',
+        gal4: 'Kitchen',   gal5: 'Courtyard', gal6: 'Panorama',
+        contact_label:    'Consultation',
+        contact_title:    'Get Consultation',
+        contact_desc:     'Leave a request — our manager will contact you within 30 minutes',
+        form_name:        'Name',
+        form_phone:       'Phone',
+        form_apt_type:    'Apartment Type',
+        form_comment:     'Comment',
+        form_submit:      'Get Consultation',
+        form_name_ph:     'Your name',
+        form_comment_ph:  'Your wishes or questions...',
+        err_name:         'Please enter your name',
+        err_phone:        'Please enter your phone number',
+        msg_success:      '✓ Request sent! We will contact you within 30 minutes.',
+        msg_error:        '✕ An error occurred. Please call us directly: +998 (71) 234-56-78',
+        msg_sending:      'Sending...',
+        footer_tagline:   'Business class in the heart of Tashkent. Quality without compromise.',
+        footer_contacts:  'Contact',
+        footer_address:   'Tashkent, Mirzo-Ulugbek district, Amir Temur str. 1',
+        footer_nav:       'Navigation',
+        footer_copy:      '© 2024–2026 GRAND RESIDENCE. All rights reserved.',
+        footer_dev:       'Website developed by',
+      }
+    };
+
+    let currentLang = 'ru';
+
+    function setLang(l) {
+      if (!T[l]) return;
+      currentLang = l;
+
+      /* Update button states */
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        const active = btn.dataset.lang === l;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+
+      /* Update all data-key text nodes */
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.dataset.key;
+        if (T[l][key] !== undefined) {
+          el.textContent = T[l][key];
+        }
+      });
+
+      /* Update placeholders */
+      document.querySelectorAll('[data-key-placeholder]').forEach(el => {
+        const key = el.dataset.keyPlaceholder;
+        if (T[l][key]) el.placeholder = T[l][key];
+      });
+
+      /* Update select options */
+      const sel = document.getElementById('f-type');
+      if (sel) {
+        sel.options[0].text = T[l]['form_apt_placeholder'] || T[l]['form_apt_placeholder'];
+        sel.options[1].text = (T[l]['apt1_type'] || '') + ' (35 m²)';
+        sel.options[2].text = T[l]['apt2_type_full'] || '';
+        sel.options[3].text = T[l]['apt3_type_full'] || '';
+        sel.options[4].text = T[l]['apt4_type_full'] || '';
+      }
+
+      /* Update html lang attr */
+      document.documentElement.lang = l;
+    }
+
+    /* ============================================================
+       MOBILE MENU
+    ============================================================ */
+    function toggleMenu(btn) {
+      const drawer = document.getElementById('nav-drawer');
+      const open = drawer.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    function closeMenu() {
+      const drawer = document.getElementById('nav-drawer');
+      const btn = document.querySelector('.nav-toggle');
+      drawer.classList.remove('open');
+      if (btn) {
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Открыть меню');
+      }
+      document.body.style.overflow = '';
+    }
+
+    /* Close drawer on Escape */
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    /* ============================================================
+       SCROLL REVEAL — IntersectionObserver
+    ============================================================ */
+    (function initReveal() {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    })();
+
+    /* ============================================================
+       CONTACT FORM — Telegram API
+    ============================================================ */
+    (function initForm() {
+      const TG_TOKEN   = '8294315634:AAHYHAikSetei6pwW-8XmupO7D_AGFPm5Fg';
+      const TG_CHAT_ID = '7118891995';
+
+      const form    = document.getElementById('contact-form');
+      const submitBtn = document.getElementById('submit-btn');
+      const msgBox  = document.getElementById('form-msg');
+      const nameErr = document.getElementById('f-name-err');
+      const phoneErr= document.getElementById('f-phone-err');
+
+      function showFieldError(el, show) {
+        el.classList.toggle('visible', show);
+      }
+
+      function showMessage(text, type) {
+        msgBox.textContent = text;
+        msgBox.className = 'form-message ' + type;
+        msgBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      function hideMessage() {
+        msgBox.className = 'form-message';
+        msgBox.textContent = '';
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        hideMessage();
+
+        const name    = form.elements['name'].value.trim();
+        const phone   = form.elements['phone'].value.trim();
+        const aptType = form.elements['apt_type'].value;
+        const comment = form.elements['comment'].value.trim();
+
+        const t = T[currentLang];
+        let valid = true;
+
+        showFieldError(nameErr, false);
+        showFieldError(phoneErr, false);
+
+        if (!name) {
+          nameErr.textContent = t.err_name;
+          showFieldError(nameErr, true);
+          form.elements['name'].focus();
+          valid = false;
+        }
+
+        if (!phone) {
+          phoneErr.textContent = t.err_phone;
+          showFieldError(phoneErr, true);
+          if (valid) form.elements['phone'].focus();
+          valid = false;
+        }
+
+        if (!valid) return;
+
+        /* Build message */
+        const aptLabels = {
+          studio:    t.apt1_type + ' (35 m²)',
+          '1room':   t.apt2_type_full,
+          '2room':   t.apt3_type_full,
+          penthouse: t.apt4_type_full,
+        };
+        const aptLabel = aptType ? (aptLabels[aptType] || aptType) : '—';
+
+        const text = [
+          '🏢 *GRAND RESIDENCE* — Новая заявка',
+          '',
+          `👤 *Имя:* ${name}`,
+          `📞 *Телефон:* ${phone}`,
+          `🏠 *Тип квартиры:* ${aptLabel}`,
+          comment ? `💬 *Комментарий:* ${comment}` : '',
+          '',
+          `🌐 *Язык:* ${currentLang.toUpperCase()}`,
+          `📅 *Дата:* ${new Date().toLocaleString('ru-RU')}`,
+        ].filter(Boolean).join('\n');
+
+        /* Disable button */
+        submitBtn.disabled = true;
+        const btnText = submitBtn.querySelector('[data-key]');
+        const origText = btnText.textContent;
+        btnText.textContent = t.msg_sending;
+
+        try {
+          const res = await fetch(
+            `https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                chat_id:    TG_CHAT_ID,
+                text:       text,
+                parse_mode: 'Markdown',
+              }),
+            }
+          );
+          const data = await res.json();
+
+          if (data.ok) {
+            showMessage(t.msg_success, 'success');
+            form.reset();
+          } else {
+            throw new Error(data.description || 'API error');
+          }
+        } catch (err) {
+          console.error('Telegram error:', err);
+          showMessage(t.msg_error, 'error');
+        } finally {
+          submitBtn.disabled = false;
+          btnText.textContent = origText;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

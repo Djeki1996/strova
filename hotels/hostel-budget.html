@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StayUz Hostel — Tashkent & Samarkand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFF1F2;
+  --bg2: #FFFFFF;
+  --rose: #E11D48;
+  --rose2: #BE123C;
+  --rose-light: #FF4D6D;
+  --blue: #2563EB;
+  --blue2: #1D4ED8;
+  --text: #1C1917;
+  --text2: #57534E;
+  --border: #FFE4E6;
+  --white: #FFFFFF;
+  --green: #16A34A;
+  --yellow: #F59E0B;
+  --font-head: 'Baloo 2', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --r: 14px;
+  --shadow: 0 4px 20px rgba(225,29,72,0.10);
+  --shadow-blue: 0 4px 20px rgba(37,99,235,0.15);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; }
+
+/* Lang Bar */
+.lang-bar {
+  background: var(--rose);
+  color: rgba(255,255,255,0.9);
+  font-size: 13px;
+  padding: 8px 0;
+}
+.lang-bar .inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.lang-bar .langs { display: flex; gap: 4px; }
+.lang-bar .langs button {
+  background: none; border: none; color: rgba(255,255,255,0.75); cursor: pointer;
+  font-size: 12px; font-family: var(--font-body); font-weight: 600;
+  padding: 4px 10px; border-radius: 6px; transition: all .2s;
+}
+.lang-bar .langs button.active, .lang-bar .langs button:hover {
+  background: rgba(255,255,255,0.2); color: white;
+}
+.lang-bar .promo {
+  font-size: 12px; font-weight: 600;
+  background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px;
+  letter-spacing: .5px;
+}
+
+/* Nav */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  border-bottom: 3px solid var(--rose);
+  box-shadow: 0 2px 16px rgba(225,29,72,0.12);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-mark {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, var(--rose) 0%, var(--rose-light) 100%);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+}
+.logo-mark svg { width: 20px; height: 20px; fill: white; }
+.logo-name { font-family: var(--font-head); font-size: 22px; font-weight: 800; color: var(--text); }
+.logo-name span { color: var(--rose); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--text2); font-size: 14px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--rose); }
+.nav-actions { display: flex; gap: 10px; align-items: center; }
+.nav-btn-ghost {
+  background: none; border: 2px solid var(--rose); color: var(--rose);
+  padding: 8px 18px; border-radius: 8px; font-family: var(--font-body);
+  font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s;
+}
+.nav-btn-ghost:hover { background: var(--rose); color: white; }
+.nav-btn {
+  background: var(--rose); color: white;
+  padding: 8px 18px; border-radius: 8px; border: none;
+  font-family: var(--font-body); font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+}
+.nav-btn:hover { background: var(--rose2); }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 40%, #fecdd3 100%);
+  padding: 80px 0 40px; position: relative; overflow: hidden;
+}
+.hero-bg-shapes {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.shape {
+  position: absolute; border-radius: 50%;
+  background: linear-gradient(135deg, var(--rose), var(--blue));
+  opacity: 0.06;
+}
+.s1 { width: 400px; height: 400px; top: -100px; right: -100px; }
+.s2 { width: 200px; height: 200px; bottom: 0; left: 20%; background: linear-gradient(135deg, var(--blue), var(--rose)); }
+.s3 { width: 100px; height: 100px; top: 30%; left: 10%; }
+.hero-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--rose); color: white;
+  font-size: 12px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; padding: 6px 16px; border-radius: 20px;
+  margin-bottom: 20px; font-family: var(--font-head);
+}
+.hero h1 {
+  font-family: var(--font-head); font-weight: 800;
+  font-size: clamp(36px, 5vw, 58px); line-height: 1.1;
+  color: var(--text); margin-bottom: 18px;
+}
+.hero h1 .rose { color: var(--rose); }
+.hero h1 .blue { color: var(--blue); }
+.hero p { color: var(--text2); font-size: 16px; line-height: 1.7; margin-bottom: 32px; max-width: 460px; }
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+.btn-rose {
+  background: var(--rose); color: white;
+  padding: 14px 28px; border-radius: 10px; border: none;
+  font-family: var(--font-head); font-size: 16px; font-weight: 700;
+  cursor: pointer; transition: all .2s; text-decoration: none; display: inline-block;
+}
+.btn-rose:hover { background: var(--rose2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(225,29,72,0.35); }
+.btn-blue {
+  background: var(--blue); color: white;
+  padding: 14px 28px; border-radius: 10px; border: none;
+  font-family: var(--font-head); font-size: 16px; font-weight: 700;
+  cursor: pointer; transition: all .2s; text-decoration: none; display: inline-block;
+}
+.btn-blue:hover { background: var(--blue2); transform: translateY(-2px); }
+.hero-perks { display: flex; gap: 20px; flex-wrap: wrap; }
+.perk { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text2); font-weight: 500; }
+.perk-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rose); flex-shrink: 0; }
+
+/* Hero right */
+.hero-right { position: relative; }
+.price-card {
+  background: white; border-radius: 20px;
+  padding: 28px; box-shadow: 0 8px 40px rgba(225,29,72,0.15);
+  border: 2px solid #FFE4E6;
+}
+.price-card-title { font-family: var(--font-head); font-size: 14px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+.price-types { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+.price-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-radius: 10px; background: var(--bg);
+  border: 1.5px solid transparent; cursor: pointer; transition: all .2s;
+}
+.price-row:hover, .price-row.active { border-color: var(--rose); background: #FFF1F2; }
+.price-row.active { border-color: var(--rose); }
+.pr-left { display: flex; align-items: center; gap: 12px; }
+.pr-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.pr-icon.dorm { background: rgba(225,29,72,0.1); }
+.pr-icon.private { background: rgba(37,99,235,0.1); }
+.pr-icon.deluxe { background: rgba(22,163,74,0.1); }
+.pr-icon svg { width: 18px; height: 18px; }
+.pr-name { font-weight: 600; font-size: 14px; color: var(--text); }
+.pr-desc { font-size: 12px; color: var(--text2); }
+.pr-price { font-family: var(--font-head); font-size: 22px; font-weight: 800; color: var(--rose); }
+.pr-price small { font-size: 12px; color: var(--text2); font-family: var(--font-body); font-weight: 400; }
+.btn-book-card {
+  width: 100%; background: var(--rose); color: white;
+  padding: 14px; border-radius: 10px; border: none;
+  font-family: var(--font-head); font-size: 16px; font-weight: 700;
+  cursor: pointer; transition: all .2s;
+}
+.btn-book-card:hover { background: var(--rose2); }
+.float-badge {
+  position: absolute; top: -16px; right: -16px;
+  background: var(--yellow); color: var(--text);
+  padding: 10px 16px; border-radius: 12px;
+  font-family: var(--font-head); font-size: 13px; font-weight: 700;
+  box-shadow: 0 4px 16px rgba(245,158,11,0.4); transform: rotate(3deg);
+}
+
+/* Stats bar */
+.stats-bar {
+  background: var(--rose); padding: 20px 0;
+}
+.stats-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;
+}
+.stat-item { text-align: center; color: white; }
+.stat-num { font-family: var(--font-head); font-size: 32px; font-weight: 800; line-height: 1; }
+.stat-lbl { font-size: 12px; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+/* Section */
+section { padding: 72px 0; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section-chip {
+  display: inline-block; background: var(--rose); color: white;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 4px 14px; border-radius: 20px; margin-bottom: 12px;
+  font-family: var(--font-head);
+}
+.section-chip.blue { background: var(--blue); }
+.section-chip.green { background: var(--green); }
+.section-title { font-family: var(--font-head); font-size: clamp(28px, 4vw, 40px); font-weight: 800; color: var(--text); margin-bottom: 14px; }
+.section-desc { font-size: 16px; color: var(--text2); max-width: 520px; line-height: 1.7; }
+
+/* Rooms */
+.rooms-section { background: var(--white); }
+.room-types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.room-type-card {
+  border-radius: 16px; overflow: hidden;
+  border: 2px solid var(--border);
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+  background: white;
+}
+.room-type-card:hover { transform: translateY(-6px); border-color: var(--rose); box-shadow: var(--shadow); }
+.rtc-header {
+  padding: 28px 24px 20px;
+  position: relative; overflow: hidden;
+}
+.rtc-header.dorm-bg { background: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%); }
+.rtc-header.private-bg { background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); }
+.rtc-header.deluxe-bg { background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); }
+.rtc-icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.rtc-icon.rose { background: var(--rose); }
+.rtc-icon.blue { background: var(--blue); }
+.rtc-icon.green { background: var(--green); }
+.rtc-icon svg { width: 28px; height: 28px; stroke: white; fill: none; stroke-width: 1.8; }
+.rtc-header h3 { font-family: var(--font-head); font-size: 22px; font-weight: 800; color: var(--text); }
+.rtc-header .rtc-price {
+  font-family: var(--font-head); font-size: 32px; font-weight: 800;
+  margin-top: 8px;
+}
+.rtc-header .rtc-price.rose { color: var(--rose); }
+.rtc-header .rtc-price.blue { color: var(--blue); }
+.rtc-header .rtc-price.green { color: var(--green); }
+.rtc-header .rtc-per { font-size: 13px; color: var(--text2); font-weight: 400; }
+.rtc-body { padding: 20px 24px; }
+.rtc-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.rtc-features li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text2); }
+.rtc-features li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.rtc-features li.rose::before { background: var(--rose); }
+.rtc-features li.blue::before { background: var(--blue); }
+.rtc-features li.green::before { background: var(--green); }
+.btn-book-type {
+  width: 100%; padding: 12px; border-radius: 10px; border: none;
+  font-family: var(--font-head); font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: all .2s;
+}
+.btn-book-type.rose { background: var(--rose); color: white; }
+.btn-book-type.rose:hover { background: var(--rose2); }
+.btn-book-type.blue { background: var(--blue); color: white; }
+.btn-book-type.blue:hover { background: var(--blue2); }
+.btn-book-type.green { background: var(--green); color: white; }
+.btn-book-type.green:hover { background: #15803D; }
+
+/* Amenities */
+.amenities-section { background: var(--bg); }
+.amenities-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.amenity-card {
+  background: white; border-radius: 14px; padding: 24px 20px;
+  text-align: center; border: 2px solid var(--border);
+  transition: border-color .2s, transform .2s;
+}
+.amenity-card:hover { border-color: var(--rose); transform: translateY(-4px); }
+.am-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 14px;
+}
+.am-icon svg { width: 26px; height: 26px; }
+.am-icon.rose { background: rgba(225,29,72,0.1); }
+.am-icon.rose svg { stroke: var(--rose); fill: none; stroke-width: 1.8; }
+.am-icon.blue { background: rgba(37,99,235,0.1); }
+.am-icon.blue svg { stroke: var(--blue); fill: none; stroke-width: 1.8; }
+.am-icon.green { background: rgba(22,163,74,0.1); }
+.am-icon.green svg { stroke: var(--green); fill: none; stroke-width: 1.8; }
+.am-icon.yellow { background: rgba(245,158,11,0.1); }
+.am-icon.yellow svg { stroke: var(--yellow); fill: none; stroke-width: 1.8; }
+.amenity-card h4 { font-family: var(--font-head); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.amenity-card p { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+/* Cities */
+.cities-section { background: var(--white); }
+.cities-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.city-card {
+  border-radius: 18px; overflow: hidden;
+  position: relative; cursor: pointer;
+  transition: transform .25s;
+  height: 280px;
+}
+.city-card:hover { transform: scale(1.02); }
+.city-bg {
+  width: 100%; height: 100%;
+  display: flex; align-items: flex-end;
+  padding: 24px;
+}
+.city-bg.tash { background: linear-gradient(160deg, #1e3a8a 0%, #7c3aed 50%, #e11d48 100%); }
+.city-bg.sam { background: linear-gradient(160deg, #065f46 0%, #0d9488 50%, #2563eb 100%); }
+.city-bg.bux { background: linear-gradient(160deg, #92400e 0%, #b45309 50%, #d97706 100%); }
+.city-info { color: white; }
+.city-name { font-family: var(--font-head); font-size: 26px; font-weight: 800; }
+.city-desc { font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px; }
+.city-badge {
+  display: inline-block; background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.3);
+  color: white; font-size: 12px; font-weight: 600;
+  padding: 4px 12px; border-radius: 20px; margin-top: 10px;
+}
+
+/* Reviews */
+.reviews-section { background: var(--bg); }
+.reviews-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; }
+.rating-big {
+  display: flex; align-items: center; gap: 20px;
+  background: white; padding: 20px 28px; border-radius: 16px;
+  border: 2px solid var(--border);
+}
+.rb-score { font-family: var(--font-head); font-size: 56px; font-weight: 800; color: var(--rose); line-height: 1; }
+.rb-stars { color: var(--yellow); font-size: 20px; }
+.rb-count { font-size: 13px; color: var(--text2); margin-top: 4px; }
+.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.review-card {
+  background: white; border-radius: 14px; padding: 22px;
+  border: 2px solid var(--border);
+  transition: border-color .2s;
+}
+.review-card:hover { border-color: var(--rose); }
+.rv-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.rv-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  font-family: var(--font-head); font-size: 18px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0;
+}
+.rv-avatar.r { background: var(--rose); }
+.rv-avatar.b { background: var(--blue); }
+.rv-avatar.g { background: var(--green); }
+.rv-name { font-weight: 600; font-size: 14px; color: var(--text); }
+.rv-flag { font-size: 12px; color: var(--text2); }
+.rv-stars { color: var(--yellow); font-size: 13px; margin-bottom: 10px; }
+.rv-text { font-size: 14px; color: var(--text2); line-height: 1.65; }
+.rv-platform { font-size: 11px; color: var(--rose); font-weight: 700; margin-top: 12px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Contact */
+.contact-section { background: linear-gradient(135deg, var(--rose) 0%, var(--rose2) 50%, #9f1239 100%); color: white; }
+.contact-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.contact-text h2 { font-family: var(--font-head); font-size: clamp(28px, 4vw, 44px); font-weight: 800; margin-bottom: 16px; }
+.contact-text p { color: rgba(255,255,255,0.8); font-size: 16px; line-height: 1.7; margin-bottom: 32px; }
+.contact-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-wa {
+  background: #25D366; color: white;
+  padding: 14px 26px; border-radius: 10px; border: none;
+  font-family: var(--font-head); font-size: 15px; font-weight: 700;
+  cursor: pointer; display: flex; align-items: center; gap: 8px;
+  text-decoration: none; transition: all .2s;
+}
+.btn-wa:hover { background: #20ba5a; transform: translateY(-2px); }
+.btn-tg {
+  background: #2AABEE; color: white;
+  padding: 14px 26px; border-radius: 10px; border: none;
+  font-family: var(--font-head); font-size: 15px; font-weight: 700;
+  cursor: pointer; display: flex; align-items: center; gap: 8px;
+  text-decoration: none; transition: all .2s;
+}
+.btn-tg:hover { background: #1a9bd6; transform: translateY(-2px); }
+.contact-info-box {
+  background: rgba(255,255,255,0.12); border-radius: 20px;
+  padding: 32px; border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+}
+.cib-title { font-family: var(--font-head); font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+.cib-items { display: flex; flex-direction: column; gap: 16px; }
+.cib-item { display: flex; align-items: flex-start; gap: 14px; }
+.cib-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: rgba(255,255,255,0.2); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.cib-icon svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 1.8; }
+.cib-label { font-size: 11px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; }
+.cib-val { font-size: 15px; font-weight: 600; color: white; margin-top: 2px; }
+
+/* Footer */
+footer { background: #1C1917; color: rgba(255,255,255,0.75); }
+.footer-top {
+  padding: 48px 0 32px;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+}
+.footer-logo-text { font-family: var(--font-head); font-size: 24px; font-weight: 800; color: white; margin-bottom: 10px; }
+.footer-logo-text span { color: var(--rose); }
+.footer-brand p { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.55); }
+.footer-col h4 { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--rose); margin-bottom: 16px; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 14px; transition: color .2s; }
+.footer-col ul li a:hover { color: white; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 20px 0; display: flex; align-items: center; justify-content: space-between;
+  font-size: 13px; color: rgba(255,255,255,0.4);
+}
+
+/* WA Float */
+.wa-float {
+  position: fixed; bottom: 28px; right: 28px; z-index: 1000;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25D366; box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; transition: transform .2s, box-shadow .2s;
+}
+.wa-float:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.6); }
+.wa-float svg { width: 30px; height: 30px; fill: white; }
+
+/* Reveal */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .55s ease, transform .55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .amenities-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .contact-inner { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  section { padding: 52px 0; }
+  .nav-links, .nav-btn-ghost { display: none; }
+  .room-types { grid-template-columns: 1fr; }
+  .cities-grid { grid-template-columns: 1fr; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .reviews-top { flex-direction: column; gap: 20px; align-items: flex-start; }
+  .amenities-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Lang Bar -->
+<div class="lang-bar">
+  <div class="inner">
+    <div class="langs">
+      <button class="active" onclick="setLang('ru')">RU</button>
+      <button onclick="setLang('uz')">UZ</button>
+      <button onclick="setLang('en')">EN</button>
+    </div>
+    <div class="promo" data-key="promo-text">Скидка 15% при бронировании онлайн</div>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      </div>
+      <div class="logo-name">Stay<span>Uz</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#rooms" data-key="nav-rooms">Номера</a></li>
+      <li><a href="#amenities" data-key="nav-amenities">Удобства</a></li>
+      <li><a href="#cities" data-key="nav-cities">Города</a></li>
+      <li><a href="#reviews" data-key="nav-reviews">Отзывы</a></li>
+      <li><a href="#contact" data-key="nav-contact">Контакты</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-btn-ghost" data-key="nav-login">Войти</button>
+      <button class="nav-btn" data-key="nav-book">Забронировать</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg-shapes">
+    <div class="shape s1"></div>
+    <div class="shape s2"></div>
+    <div class="shape s3"></div>
+  </div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag" data-key="hero-tag">Лучший хостел Узбекистана 2024</div>
+      <h1>
+        <span data-key="h1-line1">Путешествуй</span> <span class="rose" data-key="h1-rose">умно,</span><br>
+        <span data-key="h1-line2">живи</span> <span class="blue" data-key="h1-blue">ярко!</span>
+      </h1>
+      <p data-key="hero-desc">Бюджетное жильё в самых популярных городах Узбекистана. Дормитории и приватные номера от $8/ночь. Включён завтрак, Wi-Fi и экскурсионная поддержка.</p>
+      <div class="hero-btns">
+        <a href="#rooms" class="btn-rose" data-key="hero-cta1">Выбрать номер</a>
+        <a href="#cities" class="btn-blue" data-key="hero-cta2">Наши города</a>
+      </div>
+      <div class="hero-perks">
+        <div class="perk"><div class="perk-dot"></div><span data-key="perk1">Завтрак включён</span></div>
+        <div class="perk"><div class="perk-dot"></div><span data-key="perk2">Бесплатный Wi-Fi</span></div>
+        <div class="perk"><div class="perk-dot"></div><span data-key="perk3">Без скрытых платежей</span></div>
+        <div class="perk"><div class="perk-dot"></div><span data-key="perk4">Помощь с турами</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="float-badge" data-key="float-discount">Скидка 15% онлайн!</div>
+      <div class="price-card">
+        <div class="price-card-title" data-key="pc-title">Выбери тип размещения</div>
+        <div class="price-types">
+          <div class="price-row active">
+            <div class="pr-left">
+              <div class="pr-icon dorm">
+                <svg viewBox="0 0 24 24" stroke="#E11D48" fill="none" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <div class="pr-name" data-key="pr1-name">Дормиторий</div>
+                <div class="pr-desc" data-key="pr1-desc">Общая комната, 4–8 мест</div>
+              </div>
+            </div>
+            <div>
+              <div class="pr-price rose">$8 <small data-key="per-night">/ ночь</small></div>
+            </div>
+          </div>
+          <div class="price-row">
+            <div class="pr-left">
+              <div class="pr-icon private">
+                <svg viewBox="0 0 24 24" stroke="#2563EB" fill="none" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4M8 3v4"/></svg>
+              </div>
+              <div>
+                <div class="pr-name" data-key="pr2-name">Приватный номер</div>
+                <div class="pr-desc" data-key="pr2-desc">Отдельная комната, 1–2 чел.</div>
+              </div>
+            </div>
+            <div>
+              <div class="pr-price blue">$28 <small data-key="per-night">/ ночь</small></div>
+            </div>
+          </div>
+          <div class="price-row">
+            <div class="pr-left">
+              <div class="pr-icon deluxe">
+                <svg viewBox="0 0 24 24" stroke="#16A34A" fill="none" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div>
+                <div class="pr-name" data-key="pr3-name">Делюкс двойной</div>
+                <div class="pr-desc" data-key="pr3-desc">Улучшенный номер, завтрак</div>
+              </div>
+            </div>
+            <div>
+              <div class="pr-price green" style="color:var(--green)">$45 <small data-key="per-night">/ ночь</small></div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-book-card" data-key="btn-book-now">Забронировать сейчас</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Bar -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num">5</div><div class="stat-lbl" data-key="s1">Городов</div></div>
+    <div class="stat-item"><div class="stat-num">2400+</div><div class="stat-lbl" data-key="s2">Гостей в год</div></div>
+    <div class="stat-item"><div class="stat-num">4.8</div><div class="stat-lbl" data-key="s3">Рейтинг</div></div>
+    <div class="stat-item"><div class="stat-num">$8</div><div class="stat-lbl" data-key="s4">Цена от</div></div>
+    <div class="stat-item"><div class="stat-num">24/7</div><div class="stat-lbl" data-key="s5">Ресепшн</div></div>
+  </div>
+</div>
+
+<!-- Rooms -->
+<section class="rooms-section" id="rooms">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:40px">
+      <div class="section-chip" data-key="rooms-chip">Размещение</div>
+      <h2 class="section-title" data-key="rooms-title">Варианты для каждого бюджета</h2>
+      <p class="section-desc" data-key="rooms-desc">От бюджетных дормиториев до комфортных приватных номеров. Завтрак и Wi-Fi включены во все варианты.</p>
+    </div>
+    <div class="room-types">
+      <div class="room-type-card reveal">
+        <div class="rtc-header dorm-bg">
+          <div class="rtc-icon rose">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 data-key="rt1-title">Дормиторий</h3>
+          <div class="rtc-price rose">$8 <span class="rtc-per" data-key="per-night">/ ночь</span></div>
+        </div>
+        <div class="rtc-body">
+          <ul class="rtc-features">
+            <li class="rose" data-key="rt1-f1">Двухъярусные кровати 4 или 8 мест</li>
+            <li class="rose" data-key="rt1-f2">Индивидуальные замки для вещей</li>
+            <li class="rose" data-key="rt1-f3">Общая ванная, 24h горячая вода</li>
+            <li class="rose" data-key="rt1-f4">Общая кухня и гостиная</li>
+            <li class="rose" data-key="rt1-f5">Завтрак + Wi-Fi включено</li>
+          </ul>
+          <button class="btn-book-type rose" data-key="btn-book">Забронировать</button>
+        </div>
+      </div>
+      <div class="room-type-card reveal">
+        <div class="rtc-header private-bg">
+          <div class="rtc-icon blue">
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4M8 3v4"/></svg>
+          </div>
+          <h3 data-key="rt2-title">Приватный номер</h3>
+          <div class="rtc-price blue">$28 <span class="rtc-per" data-key="per-night">/ ночь</span></div>
+        </div>
+        <div class="rtc-body">
+          <ul class="rtc-features">
+            <li class="blue" data-key="rt2-f1">Отдельная комната 1–2 человека</li>
+            <li class="blue" data-key="rt2-f2">Собственная ванная комната</li>
+            <li class="blue" data-key="rt2-f3">Кондиционер и вентилятор</li>
+            <li class="blue" data-key="rt2-f4">Мини-холодильник</li>
+            <li class="blue" data-key="rt2-f5">Завтрак + Wi-Fi включено</li>
+          </ul>
+          <button class="btn-book-type blue" data-key="btn-book">Забронировать</button>
+        </div>
+      </div>
+      <div class="room-type-card reveal">
+        <div class="rtc-header deluxe-bg">
+          <div class="rtc-icon green">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <h3 data-key="rt3-title">Делюкс двойной</h3>
+          <div class="rtc-price" style="color:var(--green)">$45 <span class="rtc-per" data-key="per-night">/ ночь</span></div>
+        </div>
+        <div class="rtc-body">
+          <ul class="rtc-features">
+            <li class="green" data-key="rt3-f1">Двуспальная кровать king-size</li>
+            <li class="green" data-key="rt3-f2">Роскошная ванная с душем</li>
+            <li class="green" data-key="rt3-f3">Телевизор и рабочее место</li>
+            <li class="green" data-key="rt3-f4">Ранний заезд / поздний выезд</li>
+            <li class="green" data-key="rt3-f5">Трансфер + экскурсия в подарок</li>
+          </ul>
+          <button class="btn-book-type green" data-key="btn-book">Забронировать</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Amenities -->
+<section class="amenities-section" id="amenities">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:40px">
+      <div class="section-chip blue" data-key="am-chip">Удобства</div>
+      <h2 class="section-title" data-key="am-title">Всё что нужно для путешествия</h2>
+    </div>
+    <div class="amenities-grid">
+      <div class="amenity-card reveal">
+        <div class="am-icon rose"><svg viewBox="0 0 24 24"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/></svg></div>
+        <h4 data-key="am1-title">Бесплатный Wi-Fi</h4>
+        <p data-key="am1-desc">Высокоскоростной интернет во всех зонах, пароль не нужен</p>
+      </div>
+      <div class="amenity-card reveal">
+        <div class="am-icon blue"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+        <h4 data-key="am2-title">Завтрак</h4>
+        <p data-key="am2-desc">Полноценный узбекский завтрак включён в стоимость каждого номера</p>
+      </div>
+      <div class="amenity-card reveal">
+        <div class="am-icon green"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <h4 data-key="am3-title">Экскурсии</h4>
+        <p data-key="am3-desc">Организуем туры по достопримечательностям с местными гидами</p>
+      </div>
+      <div class="amenity-card reveal">
+        <div class="am-icon yellow"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h4 data-key="am4-title">Общая зона</h4>
+        <p data-key="am4-desc">Уютная гостиная с ТВ, настольными играми и библиотекой</p>
+      </div>
+      <div class="amenity-card reveal">
+        <div class="am-icon rose"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+        <h4 data-key="am5-title">Хранение вещей</h4>
+        <p data-key="am5-desc">Камера хранения и индивидуальные шкафчики с замком</p>
+      </div>
+      <div class="amenity-card reveal">
+        <div class="am-icon blue"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.01z"/></svg></div>
+        <h4 data-key="am6-title">Трансфер</h4>
+        <p data-key="am6-desc">Встреча и проводы в аэропорт / ж/д вокзал по запросу</p>
+      </div>
+      <div class="amenity-card reveal">
+        <div class="am-icon green"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h4 data-key="am7-title">Безопасность 24/7</h4>
+        <p data-key="am7-desc">Охрана, видеонаблюдение и сейфы для ценных вещей</p>
+      </div>
+      <div class="amenity-card reveal">
+        <div class="am-icon yellow"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/></svg></div>
+        <h4 data-key="am8-title">Обмен валют</h4>
+        <p data-key="am8-desc">Выгодный курс прямо на ресепшн, без комиссий</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cities -->
+<section class="cities-section" id="cities">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:40px">
+      <div class="section-chip green" data-key="cities-chip">Наши локации</div>
+      <h2 class="section-title" data-key="cities-title">StayUz в трёх городах Узбекистана</h2>
+      <p class="section-desc" data-key="cities-desc">Путешествуйте по Узбекистану с комфортом — наши хостелы в самых популярных туристических городах.</p>
+    </div>
+    <div class="cities-grid reveal">
+      <div class="city-card">
+        <div class="city-bg tash">
+          <div class="city-info">
+            <div class="city-name" data-key="city1-name">Ташкент</div>
+            <div class="city-desc" data-key="city1-desc">Столица, метро, Чорсу базар</div>
+            <div class="city-badge" data-key="city1-badge">от $8/ночь</div>
+          </div>
+        </div>
+      </div>
+      <div class="city-card">
+        <div class="city-bg sam">
+          <div class="city-info">
+            <div class="city-name" data-key="city2-name">Самарканд</div>
+            <div class="city-desc" data-key="city2-desc">Регистан, Шахи-Зинда, Тимуриды</div>
+            <div class="city-badge" data-key="city2-badge">от $10/ночь</div>
+          </div>
+        </div>
+      </div>
+      <div class="city-card">
+        <div class="city-bg bux">
+          <div class="city-info">
+            <div class="city-name" data-key="city3-name">Бухара</div>
+            <div class="city-desc" data-key="city3-desc">Ляби-Хауз, медресе, мечети</div>
+            <div class="city-badge" data-key="city3-badge">от $9/ночь</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="reviews-section" id="reviews">
+  <div class="container">
+    <div class="reviews-top reveal">
+      <div>
+        <div class="section-chip" data-key="rev-chip">Отзывы</div>
+        <h2 class="section-title" data-key="rev-title">Тысячи довольных путешественников</h2>
+      </div>
+      <div class="rating-big">
+        <div class="rb-score">4.8</div>
+        <div>
+          <div class="rb-stars">★★★★★</div>
+          <div class="rb-count" data-key="rev-count">1,240 отзывов</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:6px;">Hostelworld · Booking</div>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="rv-head">
+          <div class="rv-avatar r">L</div>
+          <div><div class="rv-name">Luca Rossi</div><div class="rv-flag">🇮🇹 Италия</div></div>
+        </div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-text" data-key="rv1">"Best hostel in Central Asia! Super clean, great breakfast, helpful staff. They organized a guided tour to Registan for us. Highly recommend the private room!"</div>
+        <div class="rv-platform">Hostelworld</div>
+      </div>
+      <div class="review-card reveal">
+        <div class="rv-head">
+          <div class="rv-avatar b">Н</div>
+          <div><div class="rv-name">Надежда Соколова</div><div class="rv-flag">🇷🇺 Россия</div></div>
+        </div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-text" data-key="rv2">«Останавливались в трёх городах подряд — Ташкент, Самарканд, Бухара. Везде одинаково хорошо! Завтрак каждый день вкусный, персонал помогает с любыми вопросами.»</div>
+        <div class="rv-platform">Booking.com</div>
+      </div>
+      <div class="review-card reveal">
+        <div class="rv-head">
+          <div class="rv-avatar g">K</div>
+          <div><div class="rv-name">Kim Ji-young</div><div class="rv-flag">🇰🇷 Южная Корея</div></div>
+        </div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-text" data-key="rv3">"Amazing value for money! The dorm was very clean and had lockers. The common room is a great place to meet other travelers. Will definitely come back!"</div>
+        <div class="rv-platform">Google Maps</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-text reveal">
+        <h2 data-key="ct-title">Свяжитесь с нами или бронируйте прямо сейчас</h2>
+        <p data-key="ct-desc">Отвечаем на WhatsApp и Telegram в течение 15 минут. Поможем выбрать лучший вариант размещения и организуем всё путешествие.</p>
+        <div class="contact-btns">
+          <a href="https://wa.me/998901234567" class="btn-wa" target="_blank">
+            <svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+          <a href="https://t.me/stayuz_hostel" class="btn-tg" target="_blank">
+            <svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            Telegram
+          </a>
+        </div>
+      </div>
+      <div class="contact-info-box reveal">
+        <div class="cib-title" data-key="cib-title">Контактная информация</div>
+        <div class="cib-items">
+          <div class="cib-item">
+            <div class="cib-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.01z"/></svg></div>
+            <div><div class="cib-label" data-key="phone-label">Телефон</div><div class="cib-val">+998 90 123 45 67</div></div>
+          </div>
+          <div class="cib-item">
+            <div class="cib-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><div class="cib-label" data-key="email-label">Email</div><div class="cib-val">hello@stayuz.com</div></div>
+          </div>
+          <div class="cib-item">
+            <div class="cib-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="cib-label" data-key="hours-label">Ресепшн</div><div class="cib-val" data-key="hours-val">24 / 7</div></div>
+          </div>
+          <div class="cib-item">
+            <div class="cib-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="cib-label" data-key="cities-label">Города</div><div class="cib-val" data-key="cities-val">Ташкент · Самарканд · Бухара</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo-text">Stay<span>Uz</span></div>
+        <p data-key="footer-desc">Лучшие хостелы Узбекистана для бюджетных путешественников. Доступно, безопасно, весело.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-key="fc1">Хостел</h4>
+        <ul>
+          <li><a href="#rooms" data-key="fc1-1">Размещение</a></li>
+          <li><a href="#amenities" data-key="fc1-2">Удобства</a></li>
+          <li><a href="#cities" data-key="fc1-3">Города</a></li>
+          <li><a href="#reviews" data-key="fc1-4">Отзывы</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-key="fc2">Путешествие</h4>
+        <ul>
+          <li><a href="#" data-key="fc2-1">Экскурсии</a></li>
+          <li><a href="#" data-key="fc2-2">Трансфер</a></li>
+          <li><a href="#" data-key="fc2-3">Прокат велосипедов</a></li>
+          <li><a href="#" data-key="fc2-4">Визовая поддержка</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-key="fc3">Контакты</h4>
+        <ul>
+          <li><a href="tel:+998901234567">+998 90 123 45 67</a></li>
+          <li><a href="mailto:hello@stayuz.com">hello@stayuz.com</a></li>
+          <li><a href="https://t.me/stayuz_hostel">Telegram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-key="footer-copy">© 2024 StayUz Hostel Network. Все права защищены.</span>
+      <div style="display:flex;gap:20px;">
+        <a href="#" data-key="footer-privacy">Политика конфиденциальности</a>
+        <a href="#" data-key="footer-terms">Условия бронирования</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WA Float -->
+<a href="https://wa.me/998901234567" class="wa-float" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+</a>
+
+<script>
+const t = {
+  ru: {
+    'promo-text': 'Скидка 15% при бронировании онлайн',
+    'nav-rooms': 'Номера', 'nav-amenities': 'Удобства', 'nav-cities': 'Города',
+    'nav-reviews': 'Отзывы', 'nav-contact': 'Контакты', 'nav-login': 'Войти', 'nav-book': 'Забронировать',
+    'hero-tag': 'Лучший хостел Узбекистана 2024',
+    'h1-line1': 'Путешествуй', 'h1-rose': 'умно,', 'h1-line2': 'живи', 'h1-blue': 'ярко!',
+    'hero-desc': 'Бюджетное жильё в самых популярных городах Узбекистана. Дормитории и приватные номера от $8/ночь. Включён завтрак, Wi-Fi и экскурсионная поддержка.',
+    'hero-cta1': 'Выбрать номер', 'hero-cta2': 'Наши города',
+    'perk1': 'Завтрак включён', 'perk2': 'Бесплатный Wi-Fi', 'perk3': 'Без скрытых платежей', 'perk4': 'Помощь с турами',
+    's1': 'Городов', 's2': 'Гостей в год', 's3': 'Рейтинг', 's4': 'Цена от', 's5': 'Ресепшн',
+    'rooms-title': 'Варианты для каждого бюджета',
+    'cities-title': 'StayUz в трёх городах Узбекистана',
+    'rev-title': 'Тысячи довольных путешественников',
+    'footer-copy': '© 2024 StayUz Hostel Network. Все права защищены.',
+  },
+  uz: {
+    'promo-text': "Onlayn bronlashda 15% chegirma",
+    'nav-rooms': "Xonalar", 'nav-amenities': "Qulayliklar", 'nav-cities': "Shaharlar",
+    'nav-reviews': "Sharhlar", 'nav-contact': "Aloqa", 'nav-login': "Kirish", 'nav-book': "Bron qilish",
+    'hero-tag': "O'zbekistonning eng yaxshi hosteli 2024",
+    'h1-line1': "Sayohat qil", 'h1-rose': "aqlli,", 'h1-line2': "yasha", 'h1-blue': "yorqin!",
+    'hero-desc': "O'zbekistonning eng mashhur shaharlarida arzon turar joy. Dormitoriy va shaxsiy xonalar $8/kechadan. Nonushta, Wi-Fi va ekskursiya yordami kiradi.",
+    'hero-cta1': "Xona tanlash", 'hero-cta2': "Shaharlarimiz",
+    'perk1': "Nonushta kiradi", 'perk2': "Bepul Wi-Fi", 'perk3': "Yashirin to'lovlar yo'q", 'perk4': "Ekskursiya yordami",
+    's1': "Shahar", 's2': "Yillik mehmonlar", 's3': "Reyting", 's4': "Narx dan", 's5': "Resepshн",
+    'rooms-title': "Har bir byudjet uchun variantlar",
+    'cities-title': "StayUz uch shaharda",
+    'rev-title': "Minglab mamnun sayohatchilar",
+    'footer-copy': "© 2024 StayUz Hostel Network. Barcha huquqlar himoyalangan.",
+  },
+  en: {
+    'promo-text': '15% discount when booking online',
+    'nav-rooms': 'Rooms', 'nav-amenities': 'Amenities', 'nav-cities': 'Cities',
+    'nav-reviews': 'Reviews', 'nav-contact': 'Contact', 'nav-login': 'Login', 'nav-book': 'Book Now',
+    'hero-tag': 'Best Hostel in Uzbekistan 2024',
+    'h1-line1': 'Travel', 'h1-rose': 'smart,', 'h1-line2': 'live', 'h1-blue': 'bright!',
+    'hero-desc': 'Budget accommodation in the most popular cities of Uzbekistan. Dorms and private rooms from $8/night. Breakfast, Wi-Fi and tour support included.',
+    'hero-cta1': 'Choose a Room', 'hero-cta2': 'Our Cities',
+    'perk1': 'Breakfast included', 'perk2': 'Free Wi-Fi', 'perk3': 'No hidden fees', 'perk4': 'Tour assistance',
+    's1': 'Cities', 's2': 'Guests/year', 's3': 'Rating', 's4': 'From', 's5': 'Reception',
+    'rooms-title': 'Options for every budget',
+    'cities-title': 'StayUz in Three Cities',
+    'rev-title': 'Thousands of happy travelers',
+    'footer-copy': '© 2024 StayUz Hostel Network. All rights reserved.',
+  }
+};
+
+function setLang(lang) {
+  document.querySelectorAll('.lang-bar .langs button').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-bar .langs button[onclick="setLang('${lang}')"]`).classList.add('active');
+  const tr = t[lang];
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const k = el.getAttribute('data-key');
+    if (tr[k] !== undefined) el.innerHTML = tr[k];
+  });
+}
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Price row toggle
+document.querySelectorAll('.price-row').forEach(row => {
+  row.addEventListener('click', () => {
+    document.querySelectorAll('.price-row').forEach(r => r.classList.remove('active'));
+    row.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

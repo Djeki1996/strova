@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navbahor Boutique Hotel — Samarkand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F8FAFC;
+  --bg2: #F1F5F9;
+  --navy: #1E3A8A;
+  --navy2: #1e40af;
+  --gold: #A16207;
+  --gold-light: #D97706;
+  --text: #0F172A;
+  --text2: #475569;
+  --border: #E2E8F0;
+  --white: #FFFFFF;
+  --card-bg: #FFFFFF;
+  --pattern: rgba(161,98,7,0.06);
+  --font-head: 'Calistoga', serif;
+  --font-body: 'Inter', sans-serif;
+  --r: 12px;
+  --shadow: 0 4px 24px rgba(30,58,138,0.10);
+  --shadow-lg: 0 12px 48px rgba(30,58,138,0.16);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; }
+
+/* Lang Bar */
+.lang-bar {
+  background: var(--navy);
+  color: rgba(255,255,255,0.75);
+  font-size: 13px;
+  padding: 8px 0;
+}
+.lang-bar .inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.lang-bar .langs { display: flex; gap: 16px; }
+.lang-bar .langs button {
+  background: none; border: none; color: rgba(255,255,255,0.65); cursor: pointer;
+  font-size: 12px; font-family: var(--font-body); letter-spacing: .5px;
+  transition: color .2s; padding: 2px 0;
+}
+.lang-bar .langs button.active, .lang-bar .langs button:hover { color: #FCD34D; }
+.lang-bar .contact-info { display: flex; gap: 20px; align-items: center; }
+.lang-bar .contact-info a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 12px; }
+.lang-bar .contact-info a:hover { color: #FCD34D; }
+
+/* Nav */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 12px rgba(30,58,138,0.08);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 70px;
+}
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-icon {
+  width: 42px; height: 42px; background: var(--navy);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+}
+.logo-icon svg { width: 24px; height: 24px; fill: #FCD34D; }
+.logo-text { font-family: var(--font-head); font-size: 22px; color: var(--navy); line-height: 1.1; }
+.logo-text span { display: block; font-family: var(--font-body); font-size: 11px; font-weight: 500; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--text2); font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--navy); }
+.nav-cta {
+  background: var(--navy); color: var(--white);
+  padding: 10px 24px; border-radius: 8px; border: none;
+  font-family: var(--font-body); font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: background .2s, transform .15s;
+}
+.nav-cta:hover { background: var(--navy2); transform: translateY(-1px); }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, #1e3a8a 50%, #1e40af 100%);
+  position: relative; overflow: hidden;
+  min-height: 92vh; display: flex; align-items: center;
+}
+.hero-pattern {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(161,98,7,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(253,211,77,0.08) 0%, transparent 40%);
+}
+/* Uzbek ornament SVG pattern */
+.hero-ornament {
+  position: absolute; right: -60px; top: 50%; transform: translateY(-50%);
+  width: 640px; height: 640px; opacity: 0.07;
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 1200px; margin: 0 auto; padding: 80px 24px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(253,211,77,0.12); border: 1px solid rgba(253,211,77,0.3);
+  color: #FCD34D; font-size: 12px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; padding: 6px 14px; border-radius: 20px;
+  margin-bottom: 24px;
+}
+.hero-badge svg { width: 14px; height: 14px; fill: currentColor; }
+.hero h1 {
+  font-family: var(--font-head); font-size: clamp(38px, 5vw, 64px);
+  color: var(--white); line-height: 1.15; margin-bottom: 20px;
+}
+.hero h1 em { color: #FCD34D; font-style: normal; }
+.hero p {
+  color: rgba(255,255,255,0.75); font-size: 17px; line-height: 1.7;
+  margin-bottom: 36px; max-width: 480px;
+}
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-primary {
+  background: #FCD34D; color: var(--navy);
+  padding: 14px 32px; border-radius: 10px; border: none;
+  font-family: var(--font-body); font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: all .2s; text-decoration: none; display: inline-block;
+}
+.btn-primary:hover { background: #FDE68A; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(253,211,77,0.4); }
+.btn-outline {
+  background: transparent; color: var(--white);
+  padding: 14px 32px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3);
+  font-family: var(--font-body); font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: all .2s; text-decoration: none; display: inline-block;
+}
+.btn-outline:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
+
+/* Hero stats */
+.hero-stats {
+  display: flex; gap: 32px; margin-top: 48px; padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.hero-stat { text-align: center; }
+.hero-stat .num { font-family: var(--font-head); font-size: 32px; color: #FCD34D; }
+.hero-stat .lbl { font-size: 12px; color: rgba(255,255,255,0.6); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+
+/* Hero visual */
+.hero-visual { position: relative; }
+.hero-card-main {
+  background: var(--white); border-radius: 20px;
+  overflow: hidden; box-shadow: var(--shadow-lg);
+}
+.hero-card-main .room-img {
+  width: 100%; height: 280px;
+  background: linear-gradient(160deg, #c8a96e 0%, #8b6914 50%, #5c4010 100%);
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.room-svg-placeholder { opacity: 0.3; }
+.hero-card-main .room-info { padding: 20px 24px; }
+.hero-card-main .room-name { font-family: var(--font-head); font-size: 22px; color: var(--navy); }
+.hero-card-main .room-price { font-size: 13px; color: var(--text2); margin-top: 4px; }
+.hero-card-main .room-price strong { font-size: 24px; color: var(--gold-light); font-weight: 700; }
+.hero-card-float {
+  position: absolute; top: -20px; right: -20px;
+  background: var(--white); border-radius: 14px; padding: 16px 20px;
+  box-shadow: var(--shadow); min-width: 160px;
+}
+.hero-card-float .fcf-title { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; }
+.hero-card-float .fcf-val { font-family: var(--font-head); font-size: 18px; color: var(--navy); margin-top: 4px; }
+.hero-card-float .stars { color: #F59E0B; font-size: 14px; margin-top: 2px; }
+.hero-card-float2 {
+  position: absolute; bottom: 20px; left: -30px;
+  background: var(--navy); border-radius: 14px; padding: 14px 18px;
+  box-shadow: var(--shadow-lg);
+}
+.hero-card-float2 .fcf2-text { font-size: 12px; color: rgba(255,255,255,0.75); }
+.hero-card-float2 .fcf2-val { font-family: var(--font-head); font-size: 20px; color: #FCD34D; margin-top: 2px; }
+
+/* Booking Bar */
+.booking-bar {
+  background: var(--white);
+  box-shadow: var(--shadow-lg);
+  border-radius: 16px;
+  max-width: 1000px; margin: -40px auto 0; position: relative; z-index: 10;
+  padding: 28px 32px;
+}
+.booking-bar h3 { font-family: var(--font-head); font-size: 20px; color: var(--navy); margin-bottom: 20px; }
+.booking-fields { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 16px; align-items: end; }
+.bf-group label { display: block; font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.bf-group input, .bf-group select {
+  width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
+  border-radius: 8px; font-family: var(--font-body); font-size: 15px;
+  color: var(--text); background: var(--bg); outline: none;
+  transition: border-color .2s;
+}
+.bf-group input:focus, .bf-group select:focus { border-color: var(--navy); }
+.btn-book {
+  background: var(--navy); color: var(--white);
+  padding: 12px 28px; border-radius: 8px; border: none;
+  font-family: var(--font-body); font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: all .2s; white-space: nowrap;
+}
+.btn-book:hover { background: var(--navy2); transform: translateY(-1px); }
+
+/* Section */
+section { padding: 80px 0; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section-label {
+  font-size: 12px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+}
+.section-title { font-family: var(--font-head); font-size: clamp(30px, 4vw, 44px); color: var(--navy); margin-bottom: 16px; }
+.section-desc { font-size: 16px; color: var(--text2); max-width: 520px; line-height: 1.7; }
+.section-head { margin-bottom: 48px; }
+
+/* About */
+.about-section { background: var(--white); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about-visual {
+  position: relative;
+}
+.about-img-main {
+  border-radius: 20px; overflow: hidden;
+  width: 100%; height: 420px;
+  background: linear-gradient(135deg, #c8a96e 0%, #8b6914 60%, #5c4010 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.about-img-float {
+  position: absolute; bottom: -24px; right: -24px;
+  background: var(--navy); border-radius: 16px; padding: 20px 24px;
+  color: white; box-shadow: var(--shadow-lg);
+}
+.about-img-float .af-num { font-family: var(--font-head); font-size: 36px; color: #FCD34D; }
+.about-img-float .af-lbl { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+.about-features { margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.af-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 16px; background: var(--bg); border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.af-icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+  background: rgba(30,58,138,0.08); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.af-icon svg { width: 18px; height: 18px; stroke: var(--navy); fill: none; stroke-width: 1.8; }
+.af-text strong { font-size: 14px; font-weight: 600; color: var(--navy); display: block; }
+.af-text span { font-size: 13px; color: var(--text2); }
+
+/* Rooms */
+.rooms-section { background: var(--bg2); }
+.rooms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.room-card {
+  background: var(--white); border-radius: 16px;
+  overflow: hidden; box-shadow: var(--shadow);
+  transition: transform .25s, box-shadow .25s;
+  border: 1px solid var(--border);
+}
+.room-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.room-card-img {
+  height: 200px;
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.room-card-img.t1 { background: linear-gradient(135deg, #b8936a 0%, #7a5c35 100%); }
+.room-card-img.t2 { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); }
+.room-card-img.t3 { background: linear-gradient(135deg, #065f46 0%, #047857 100%); }
+.room-badge {
+  position: absolute; top: 14px; left: 14px;
+  background: rgba(0,0,0,0.5); color: white; backdrop-filter: blur(6px);
+  font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px;
+  letter-spacing: 1px;
+}
+.room-card-body { padding: 20px; }
+.room-card-body h3 { font-family: var(--font-head); font-size: 20px; color: var(--navy); margin-bottom: 8px; }
+.room-card-body p { font-size: 14px; color: var(--text2); line-height: 1.6; margin-bottom: 16px; }
+.room-amenities { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.room-amenity {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 12px; color: var(--text2); background: var(--bg);
+  padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border);
+}
+.room-amenity svg { width: 12px; height: 12px; stroke: var(--navy); fill: none; stroke-width: 2; }
+.room-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--border); }
+.room-price-block .from { font-size: 11px; color: var(--text2); }
+.room-price-block .price { font-family: var(--font-head); font-size: 24px; color: var(--gold-light); }
+.room-price-block .per { font-size: 12px; color: var(--text2); }
+.btn-room {
+  background: var(--navy); color: white;
+  padding: 9px 20px; border-radius: 8px; border: none;
+  font-family: var(--font-body); font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+}
+.btn-room:hover { background: var(--navy2); transform: translateY(-1px); }
+
+/* Uzbek Experience */
+.uzbek-section { background: var(--white); }
+.uzbek-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.uzbek-items { display: flex; flex-direction: column; gap: 24px; }
+.uzbek-item {
+  display: flex; gap: 20px; padding: 20px;
+  border: 1px solid var(--border); border-radius: 14px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.uzbek-item:hover { border-color: var(--navy); box-shadow: var(--shadow); }
+.uzbek-item-icon {
+  width: 52px; height: 52px; flex-shrink: 0;
+  background: var(--navy); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+.uzbek-item-icon svg { width: 26px; height: 26px; stroke: #FCD34D; fill: none; stroke-width: 1.5; }
+.uzbek-item-text h4 { font-family: var(--font-head); font-size: 18px; color: var(--navy); margin-bottom: 6px; }
+.uzbek-item-text p { font-size: 14px; color: var(--text2); line-height: 1.6; }
+.uzbek-visual {
+  background: linear-gradient(135deg, var(--navy) 0%, #1e40af 100%);
+  border-radius: 24px; padding: 48px 40px; color: white; text-align: center;
+  position: relative; overflow: hidden;
+}
+.uzbek-visual::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 30% 70%, rgba(161,98,7,0.3) 0%, transparent 60%);
+}
+.uzbek-visual h3 { font-family: var(--font-head); font-size: 28px; margin-bottom: 16px; position: relative; }
+.uzbek-visual p { color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1.7; position: relative; }
+.uzbek-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; justify-content: center; position: relative; }
+.uzbek-tag {
+  background: rgba(253,211,77,0.15); border: 1px solid rgba(253,211,77,0.3);
+  color: #FCD34D; font-size: 13px; padding: 6px 16px; border-radius: 20px;
+}
+
+/* Gallery */
+.gallery-section { background: var(--bg2); }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 240px 240px;
+  gap: 12px; border-radius: 20px; overflow: hidden;
+}
+.gallery-item { overflow: hidden; border-radius: 8px; cursor: pointer; }
+.gallery-item:first-child { grid-row: 1 / 3; }
+.gi-img {
+  width: 100%; height: 100%;
+  transition: transform .4s;
+}
+.gallery-item:hover .gi-img { transform: scale(1.06); }
+.gi1 { background: linear-gradient(135deg, #c8a96e 0%, #8b6914 100%); }
+.gi2 { background: linear-gradient(135deg, #1e3a8a 0%, #3b5bdb 100%); }
+.gi3 { background: linear-gradient(135deg, #065f46 0%, #10b981 100%); }
+.gi4 { background: linear-gradient(135deg, #7c2d12 0%, #dc2626 100%); }
+.gi5 { background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%); }
+
+/* Reviews */
+.reviews-section { background: var(--white); }
+.reviews-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; }
+.reviews-overall {
+  display: flex; align-items: center; gap: 20px;
+  background: var(--navy); color: white;
+  padding: 20px 28px; border-radius: 14px;
+}
+.reviews-overall .score { font-family: var(--font-head); font-size: 48px; color: #FCD34D; line-height: 1; }
+.reviews-overall .stars { color: #FCD34D; font-size: 18px; margin-top: 4px; }
+.reviews-overall .count { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 4px; }
+.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.review-card {
+  background: var(--bg); border-radius: 14px; padding: 24px;
+  border: 1px solid var(--border);
+  transition: border-color .2s;
+}
+.review-card:hover { border-color: var(--navy); }
+.review-top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.review-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-size: 18px; color: white; flex-shrink: 0;
+}
+.av1 { background: var(--navy); }
+.av2 { background: var(--gold-light); }
+.av3 { background: #059669; }
+.review-name { font-weight: 600; font-size: 15px; color: var(--text); }
+.review-country { font-size: 12px; color: var(--text2); }
+.review-stars { color: #F59E0B; font-size: 13px; margin-bottom: 10px; }
+.review-text { font-size: 14px; color: var(--text2); line-height: 1.65; }
+.review-platform { font-size: 11px; color: var(--gold); font-weight: 600; margin-top: 12px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Location */
+.location-section { background: var(--bg2); }
+.location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.location-map {
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+  border-radius: 20px; height: 360px;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--border); overflow: hidden; position: relative;
+}
+.map-pin { text-align: center; }
+.map-pin svg { width: 48px; height: 48px; fill: var(--navy); }
+.map-pin p { color: var(--text2); font-size: 14px; margin-top: 12px; }
+.location-info h3 { font-family: var(--font-head); font-size: 28px; color: var(--navy); margin-bottom: 20px; }
+.location-items { display: flex; flex-direction: column; gap: 16px; }
+.loc-item { display: flex; align-items: flex-start; gap: 14px; }
+.loc-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: rgba(30,58,138,0.08); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.loc-icon svg { width: 20px; height: 20px; stroke: var(--navy); fill: none; stroke-width: 1.8; }
+.loc-text strong { font-size: 14px; font-weight: 600; color: var(--navy); display: block; }
+.loc-text span { font-size: 14px; color: var(--text2); }
+.location-contact { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-wa {
+  background: #25D366; color: white;
+  padding: 12px 22px; border-radius: 10px; border: none;
+  font-family: var(--font-body); font-size: 14px; font-weight: 600;
+  cursor: pointer; display: flex; align-items: center; gap: 8px;
+  text-decoration: none; transition: all .2s;
+}
+.btn-wa:hover { background: #20ba5a; transform: translateY(-1px); }
+.btn-tg {
+  background: #2AABEE; color: white;
+  padding: 12px 22px; border-radius: 10px; border: none;
+  font-family: var(--font-body); font-size: 14px; font-weight: 600;
+  cursor: pointer; display: flex; align-items: center; gap: 8px;
+  text-decoration: none; transition: all .2s;
+}
+.btn-tg:hover { background: #1a9bd6; transform: translateY(-1px); }
+
+/* Footer */
+footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.8);
+}
+.footer-top {
+  padding: 60px 0 40px;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+}
+.footer-brand .footer-logo { font-family: var(--font-head); font-size: 26px; color: white; margin-bottom: 12px; }
+.footer-brand p { font-size: 14px; line-height: 1.7; max-width: 260px; color: rgba(255,255,255,0.65); }
+.footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #FCD34D; margin-bottom: 16px; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px; transition: color .2s; }
+.footer-col ul li a:hover { color: white; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 20px 0; display: flex; align-items: center; justify-content: space-between;
+  font-size: 13px; color: rgba(255,255,255,0.5);
+}
+.footer-bottom a { color: rgba(255,255,255,0.65); text-decoration: none; }
+
+/* WhatsApp Float */
+.wa-float {
+  position: fixed; bottom: 28px; right: 28px; z-index: 1000;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25D366; box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: transform .2s, box-shadow .2s;
+  text-decoration: none;
+}
+.wa-float:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.6); }
+.wa-float svg { width: 30px; height: 30px; fill: white; }
+
+/* Scroll reveal */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; gap: 48px; }
+  .hero-visual { display: none; }
+  .about-grid, .uzbek-grid, .location-grid { grid-template-columns: 1fr; }
+  .rooms-grid { grid-template-columns: repeat(2, 1fr); }
+  .booking-fields { grid-template-columns: 1fr 1fr; }
+  .reviews-grid { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .gallery-item:first-child { grid-row: auto; }
+}
+@media (max-width: 768px) {
+  section { padding: 56px 0; }
+  .nav-links { display: none; }
+  .rooms-grid { grid-template-columns: 1fr; }
+  .booking-fields { grid-template-columns: 1fr; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .reviews-header { flex-direction: column; gap: 20px; align-items: flex-start; }
+  .about-features { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Lang Bar -->
+<div class="lang-bar">
+  <div class="inner">
+    <div class="langs">
+      <button class="active" onclick="setLang('ru')">RU</button>
+      <button onclick="setLang('uz')">UZ</button>
+      <button onclick="setLang('en')">EN</button>
+    </div>
+    <div class="contact-info">
+      <a href="tel:+998901234567">+998 90 123 45 67</a>
+      <a href="mailto:info@navbahor.uz">info@navbahor.uz</a>
+    </div>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      </div>
+      <div class="logo-text">
+        Navbahor
+        <span>Boutique Hotel</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#rooms" data-key="nav-rooms">Номера</a></li>
+      <li><a href="#uzbek" data-key="nav-experience">Опыт</a></li>
+      <li><a href="#gallery" data-key="nav-gallery">Галерея</a></li>
+      <li><a href="#reviews" data-key="nav-reviews">Отзывы</a></li>
+      <li><a href="#location" data-key="nav-location">Контакты</a></li>
+    </ul>
+    <button class="nav-cta" onclick="scrollTo('#booking')" data-key="nav-book">Забронировать</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-pattern"></div>
+  <svg class="hero-ornament" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="200" cy="200" r="180" stroke="white" stroke-width="1"/>
+    <circle cx="200" cy="200" r="140" stroke="white" stroke-width="1"/>
+    <circle cx="200" cy="200" r="100" stroke="white" stroke-width="1"/>
+    <line x1="200" y1="20" x2="200" y2="380" stroke="white" stroke-width="1"/>
+    <line x1="20" y1="200" x2="380" y2="200" stroke="white" stroke-width="1"/>
+    <line x1="73" y1="73" x2="327" y2="327" stroke="white" stroke-width="1"/>
+    <line x1="327" y1="73" x2="73" y2="327" stroke="white" stroke-width="1"/>
+    <polygon points="200,60 280,140 280,260 200,340 120,260 120,140" stroke="white" stroke-width="1" fill="none"/>
+    <polygon points="200,100 260,160 260,240 200,300 140,240 140,160" stroke="white" stroke-width="1" fill="none"/>
+  </svg>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span data-key="hero-badge">Бутик-отель в Самарканде</span>
+      </div>
+      <h1 data-key="hero-title">Ощутите душу <em>Узбекистана</em></h1>
+      <p data-key="hero-desc">Navbahor — это не просто гостиница. Это путешествие сквозь историю и традиции Самарканда. Аутентичный узбекский интерьер, домашняя атмосфера и безупречный сервис.</p>
+      <div class="hero-btns">
+        <a href="#booking" class="btn-primary" data-key="hero-cta1">Забронировать номер</a>
+        <a href="#rooms" class="btn-outline" data-key="hero-cta2">Смотреть номера</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">18</div><div class="lbl" data-key="stat-rooms">Номеров</div></div>
+        <div class="hero-stat"><div class="num">4.9</div><div class="lbl" data-key="stat-rating">Рейтинг</div></div>
+        <div class="hero-stat"><div class="num">8+</div><div class="lbl" data-key="stat-years">Лет опыта</div></div>
+        <div class="hero-stat"><div class="num">150м</div><div class="lbl" data-key="stat-registan">До Регистана</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-float">
+        <div class="fcf-title">Гостей довольны</div>
+        <div class="fcf-val">97%</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="hero-card-main">
+        <div class="room-img">
+          <svg class="room-svg-placeholder" width="120" height="80" viewBox="0 0 24 24" fill="white"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        </div>
+        <div class="room-info">
+          <div class="room-name">Deluxe Suite</div>
+          <div class="room-price">от <strong>$85</strong> / ночь</div>
+        </div>
+      </div>
+      <div class="hero-card-float2">
+        <div class="fcf2-text">Завтрак включён</div>
+        <div class="fcf2-val">Бесплатно</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Booking Bar -->
+<div style="padding: 0 24px;">
+  <div class="booking-bar" id="booking">
+    <h3 data-key="booking-title">Быстрое бронирование</h3>
+    <div class="booking-fields">
+      <div class="bf-group">
+        <label data-key="bf-checkin">Заезд</label>
+        <input type="date">
+      </div>
+      <div class="bf-group">
+        <label data-key="bf-checkout">Выезд</label>
+        <input type="date">
+      </div>
+      <div class="bf-group">
+        <label data-key="bf-guests">Гости</label>
+        <select>
+          <option>1 гость</option>
+          <option>2 гостя</option>
+          <option>3 гостя</option>
+          <option>4+ гостя</option>
+        </select>
+      </div>
+      <button class="btn-book" data-key="bf-btn">Найти номер</button>
+    </div>
+  </div>
+</div>
+
+<!-- About -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-img-main">
+          <svg width="100" height="80" viewBox="0 0 24 24" fill="rgba(255,255,255,0.2)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        </div>
+        <div class="about-img-float">
+          <div class="af-num">2016</div>
+          <div class="af-lbl">Год основания</div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="section-label" data-key="about-label">О нас</div>
+        <h2 class="section-title" data-key="about-title">История, воплощённая в каждой детали</h2>
+        <p class="section-desc" data-key="about-desc">Наш бутик-отель расположен в историческом центре Самарканда. Каждый номер оформлен мастерами народного декоративного искусства Узбекистана — ганч, шёлк, изразцы.</p>
+        <div class="about-features">
+          <div class="af-item">
+            <div class="af-icon">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
+            <div class="af-text">
+              <strong data-key="af1-title">Историческое расположение</strong>
+              <span data-key="af1-desc">150м до площади Регистан</span>
+            </div>
+          </div>
+          <div class="af-item">
+            <div class="af-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <div class="af-text">
+              <strong data-key="af2-title">Ранний заезд / поздний выезд</strong>
+              <span data-key="af2-desc">По запросу, без доплаты</span>
+            </div>
+          </div>
+          <div class="af-item">
+            <div class="af-icon">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="af-text">
+              <strong data-key="af3-title">Домашняя атмосфера</strong>
+              <span data-key="af3-desc">Как у родственников в Самарканде</span>
+            </div>
+          </div>
+          <div class="af-item">
+            <div class="af-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="af-text">
+              <strong data-key="af4-title">Безопасность</strong>
+              <span data-key="af4-desc">Охрана 24/7, сейф в каждом номере</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Rooms -->
+<section class="rooms-section" id="rooms">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-label" data-key="rooms-label">Наши номера</div>
+      <h2 class="section-title" data-key="rooms-title">Выберите свой уголок отдыха</h2>
+      <p class="section-desc" data-key="rooms-desc">Каждый номер — уникальный интерьер с элементами узбекского искусства. Все номера с кондиционером, Wi-Fi и завтраком.</p>
+    </div>
+    <div class="rooms-grid">
+      <!-- Room 1 -->
+      <div class="room-card reveal">
+        <div class="room-card-img t1">
+          <div class="room-badge" data-key="badge-standard">Стандарт</div>
+          <svg width="80" height="60" viewBox="0 0 24 24" fill="rgba(255,255,255,0.15)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        </div>
+        <div class="room-card-body">
+          <h3 data-key="r1-name">Стандартный</h3>
+          <p data-key="r1-desc">Уютный номер с аутентичным узбекским декором. Идеально для одиночных путешественников и пар.</p>
+          <div class="room-amenities">
+            <span class="room-amenity"><svg viewBox="0 0 24 24"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/></svg>22 м²</span>
+            <span class="room-amenity"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4M8 3v4"/></svg>Wi-Fi</span>
+            <span class="room-amenity"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Завтрак</span>
+          </div>
+          <div class="room-footer">
+            <div class="room-price-block">
+              <div class="from" data-key="from">от</div>
+              <span class="price">$45</span>
+              <span class="per" data-key="per-night">/ ночь</span>
+            </div>
+            <button class="btn-room" data-key="btn-book-room">Забронировать</button>
+          </div>
+        </div>
+      </div>
+      <!-- Room 2 -->
+      <div class="room-card reveal">
+        <div class="room-card-img t2">
+          <div class="room-badge" data-key="badge-deluxe">Делюкс</div>
+          <svg width="80" height="60" viewBox="0 0 24 24" fill="rgba(255,255,255,0.15)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        </div>
+        <div class="room-card-body">
+          <h3 data-key="r2-name">Делюкс</h3>
+          <p data-key="r2-desc">Просторный номер с видом на внутренний двор в традиционном стиле суфы. Ганчевая лепнина ручной работы.</p>
+          <div class="room-amenities">
+            <span class="room-amenity"><svg viewBox="0 0 24 24"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/></svg>35 м²</span>
+            <span class="room-amenity"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4M8 3v4"/></svg>Wi-Fi</span>
+            <span class="room-amenity"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>Мини-бар</span>
+          </div>
+          <div class="room-footer">
+            <div class="room-price-block">
+              <div class="from" data-key="from">от</div>
+              <span class="price">$85</span>
+              <span class="per" data-key="per-night">/ ночь</span>
+            </div>
+            <button class="btn-room" data-key="btn-book-room">Забронировать</button>
+          </div>
+        </div>
+      </div>
+      <!-- Room 3 -->
+      <div class="room-card reveal">
+        <div class="room-card-img t3">
+          <div class="room-badge" data-key="badge-suite">Люкс</div>
+          <svg width="80" height="60" viewBox="0 0 24 24" fill="rgba(255,255,255,0.15)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        </div>
+        <div class="room-card-body">
+          <h3 data-key="r3-name">Президентский люкс</h3>
+          <p data-key="r3-desc">Роскошный люкс с традиционным айваном, личной террасой и видом на Регистан. Шёлковые ткани, мозаика.</p>
+          <div class="room-amenities">
+            <span class="room-amenity"><svg viewBox="0 0 24 24"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/></svg>60 м²</span>
+            <span class="room-amenity"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Айван</span>
+            <span class="room-amenity"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>Трансфер</span>
+          </div>
+          <div class="room-footer">
+            <div class="room-price-block">
+              <div class="from" data-key="from">от</div>
+              <span class="price">$160</span>
+              <span class="per" data-key="per-night">/ ночь</span>
+            </div>
+            <button class="btn-room" data-key="btn-book-room">Забронировать</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Uzbek Experience -->
+<section class="uzbek-section" id="uzbek">
+  <div class="container">
+    <div class="uzbek-grid">
+      <div class="reveal">
+        <div class="section-label" data-key="uzbek-label">Узбекский опыт</div>
+        <h2 class="section-title" data-key="uzbek-title">Погрузитесь в культуру Шёлкового пути</h2>
+        <div class="uzbek-items">
+          <div class="uzbek-item">
+            <div class="uzbek-item-icon">
+              <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            </div>
+            <div class="uzbek-item-text">
+              <h4 data-key="ux1-title">Узбекский завтрак</h4>
+              <p data-key="ux1-desc">Каждое утро — свежие лепёшки из тандыра, катык, урюк, зелёный чай и горячий плов. Завтрак включён в стоимость.</p>
+            </div>
+          </div>
+          <div class="uzbek-item">
+            <div class="uzbek-item-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div class="uzbek-item-text">
+              <h4 data-key="ux2-title">Экскурсии по Самарканду</h4>
+              <p data-key="ux2-desc">Наши гиды расскажут историю Регистана, Шахи-Зинда и Гур-э-Амира. Организуем туры по вашему желанию.</p>
+            </div>
+          </div>
+          <div class="uzbek-item">
+            <div class="uzbek-item-icon">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="uzbek-item-text">
+              <h4 data-key="ux3-title">Мастер-классы</h4>
+              <p data-key="ux3-desc">Роспись на шёлке, лепка из ганча, приготовление настоящего самаркандского плова — незабываемый опыт.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="uzbek-visual reveal">
+        <h3 data-key="uv-title">Самарканд — жемчужина Востока</h3>
+        <p data-key="uv-desc">Более 2700 лет истории, памятники ЮНЕСКО и бесконечное гостеприимство узбекского народа ждут вас.</p>
+        <div class="uzbek-tags">
+          <span class="uzbek-tag" data-key="tag1">Регистан</span>
+          <span class="uzbek-tag" data-key="tag2">Шахи-Зинда</span>
+          <span class="uzbek-tag" data-key="tag3">Гур-э-Амир</span>
+          <span class="uzbek-tag" data-key="tag4">Биби-Ханым</span>
+          <span class="uzbek-tag" data-key="tag5">Базар Сиаб</span>
+          <span class="uzbek-tag" data-key="tag6">Афросиаб</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="gallery-section" id="gallery">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-label" data-key="gallery-label">Галерея</div>
+      <h2 class="section-title" data-key="gallery-title">Наш отель в фотографиях</h2>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item"><div class="gi-img gi1" style="height:100%"></div></div>
+      <div class="gallery-item"><div class="gi-img gi2" style="height:100%;min-height:230px"></div></div>
+      <div class="gallery-item"><div class="gi-img gi3" style="height:100%;min-height:230px"></div></div>
+      <div class="gallery-item"><div class="gi-img gi4" style="height:100%;min-height:230px"></div></div>
+      <div class="gallery-item"><div class="gi-img gi5" style="height:100%;min-height:230px"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="reviews-section" id="reviews">
+  <div class="container">
+    <div class="reviews-header reveal">
+      <div>
+        <div class="section-label" data-key="reviews-label">Отзывы</div>
+        <h2 class="section-title" data-key="reviews-title">Что говорят наши гости</h2>
+      </div>
+      <div class="reviews-overall">
+        <div>
+          <div class="score">4.9</div>
+          <div class="stars">★★★★★</div>
+          <div class="count" data-key="reviews-count">328 отзывов</div>
+        </div>
+        <div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);" data-key="booking-platform">На Booking.com</div>
+          <div style="font-size:22px;font-family:var(--font-head);color:#FCD34D;margin-top:4px;">Superb</div>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-top">
+          <div class="review-avatar av1">A</div>
+          <div>
+            <div class="review-name">Ahmad Rahimov</div>
+            <div class="review-country">🇺🇿 Узбекистан</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text" data-key="rev1-text">«Атмосфера как дома у бабушки, но с роскошью пятизвёздочного отеля. Завтрак был изумительным — свежие лепёшки и плов с утра. Обязательно вернёмся!»</div>
+        <div class="review-platform">Booking.com</div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-top">
+          <div class="review-avatar av2">S</div>
+          <div>
+            <div class="review-name">Sofia Mueller</div>
+            <div class="review-country">🇩🇪 Германия</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text" data-key="rev2-text">«The most authentic experience in Central Asia! The hand-crafted interiors are breathtaking. Staff speaks English perfectly. 10 minutes walk to Registan.»</div>
+        <div class="review-platform">TripAdvisor</div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-top">
+          <div class="review-avatar av3">М</div>
+          <div>
+            <div class="review-name">Михаил Тарасов</div>
+            <div class="review-country">🇷🇺 Россия</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text" data-key="rev3-text">«Жили в номере с видом на внутренний двор. Потрясающая роспись на потолке. Персонал организовал все экскурсии. Самый лучший отель в Самарканде!»</div>
+        <div class="review-platform">Google Maps</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Location -->
+<section class="location-section" id="location">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-label" data-key="loc-label">Расположение</div>
+      <h2 class="section-title" data-key="loc-title">Найдите нас в сердце Самарканда</h2>
+    </div>
+    <div class="location-grid">
+      <div class="location-map reveal">
+        <div class="map-pin">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3" fill="white"/></svg>
+          <p data-key="map-hint">Кликните, чтобы открыть карту</p>
+        </div>
+      </div>
+      <div class="reveal">
+        <h3 class="location-info" data-key="loc-heading">Как нас найти</h3>
+        <div class="location-items">
+          <div class="loc-item">
+            <div class="loc-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="loc-text">
+              <strong data-key="loc-addr-title">Адрес</strong>
+              <span data-key="loc-addr">ул. Регистон 14А, Самарканд, Узбекистан</span>
+            </div>
+          </div>
+          <div class="loc-item">
+            <div class="loc-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.01z"/></svg>
+            </div>
+            <div class="loc-text">
+              <strong data-key="loc-phone-title">Телефон</strong>
+              <span>+998 90 123 45 67</span>
+            </div>
+          </div>
+          <div class="loc-item">
+            <div class="loc-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="loc-text">
+              <strong data-key="loc-email-title">Email</strong>
+              <span>info@navbahor.uz</span>
+            </div>
+          </div>
+          <div class="loc-item">
+            <div class="loc-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="loc-text">
+              <strong data-key="loc-hours-title">Ресепшн</strong>
+              <span data-key="loc-hours">24/7 — всегда готовы встретить вас</span>
+            </div>
+          </div>
+        </div>
+        <div class="location-contact">
+          <a href="https://wa.me/998901234567" class="btn-wa" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+          <a href="https://t.me/navbahor_hotel" class="btn-tg" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            Telegram
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">Navbahor</div>
+        <p data-key="footer-desc">Бутик-отель в самом сердце Самарканда. Традиции и комфорт для вашего незабываемого путешествия.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-key="fc1-title">Отель</h4>
+        <ul>
+          <li><a href="#" data-key="fc1-1">О нас</a></li>
+          <li><a href="#rooms" data-key="fc1-2">Номера</a></li>
+          <li><a href="#gallery" data-key="fc1-3">Галерея</a></li>
+          <li><a href="#reviews" data-key="fc1-4">Отзывы</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-key="fc2-title">Услуги</h4>
+        <ul>
+          <li><a href="#" data-key="fc2-1">Завтрак</a></li>
+          <li><a href="#" data-key="fc2-2">Экскурсии</a></li>
+          <li><a href="#" data-key="fc2-3">Трансфер</a></li>
+          <li><a href="#" data-key="fc2-4">Мастер-классы</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-key="fc3-title">Контакты</h4>
+        <ul>
+          <li><a href="tel:+998901234567">+998 90 123 45 67</a></li>
+          <li><a href="mailto:info@navbahor.uz">info@navbahor.uz</a></li>
+          <li><a href="#location" data-key="fc3-addr">Самарканд, ул. Регистон 14А</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-key="footer-copy">© 2024 Navbahor Boutique Hotel. Все права защищены.</span>
+      <div style="display:flex;gap:20px;">
+        <a href="#" data-key="footer-privacy">Политика конфиденциальности</a>
+        <a href="#" data-key="footer-terms">Условия бронирования</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/998901234567" class="wa-float" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+</a>
+
+<script>
+// Translations
+const translations = {
+  ru: {
+    'hero-badge': 'Бутик-отель в Самарканде',
+    'hero-title': 'Ощутите душу <em>Узбекистана</em>',
+    'hero-desc': 'Navbahor — это не просто гостиница. Это путешествие сквозь историю и традиции Самарканда. Аутентичный узбекский интерьер, домашняя атмосфера и безупречный сервис.',
+    'hero-cta1': 'Забронировать номер', 'hero-cta2': 'Смотреть номера',
+    'stat-rooms': 'Номеров', 'stat-rating': 'Рейтинг', 'stat-years': 'Лет опыта', 'stat-registan': 'До Регистана',
+    'nav-rooms': 'Номера', 'nav-experience': 'Опыт', 'nav-gallery': 'Галерея', 'nav-reviews': 'Отзывы', 'nav-location': 'Контакты', 'nav-book': 'Забронировать',
+    'booking-title': 'Быстрое бронирование', 'bf-checkin': 'Заезд', 'bf-checkout': 'Выезд', 'bf-guests': 'Гости', 'bf-btn': 'Найти номер',
+    'rooms-label': 'Наши номера', 'rooms-title': 'Выберите свой уголок отдыха',
+    'rooms-desc': 'Каждый номер — уникальный интерьер с элементами узбекского искусства. Все номера с кондиционером, Wi-Fi и завтраком.',
+    'uzbek-label': 'Узбекский опыт', 'uzbek-title': 'Погрузитесь в культуру Шёлкового пути',
+    'gallery-label': 'Галерея', 'gallery-title': 'Наш отель в фотографиях',
+    'reviews-label': 'Отзывы', 'reviews-title': 'Что говорят наши гости', 'reviews-count': '328 отзывов',
+    'loc-label': 'Расположение', 'loc-title': 'Найдите нас в сердце Самарканда',
+    'footer-copy': '© 2024 Navbahor Boutique Hotel. Все права защищены.',
+  },
+  uz: {
+    'hero-badge': 'Samarqandda butik-mehmonxona',
+    'hero-title': "<em>O'zbekiston</em> ruhini his qiling",
+    'hero-desc': "Navbahor — bu oddiy mehmonxona emas. Bu Samarqandning tarixi va an'analari orqali sayohat. Haqiqiy o'zbek interyeri, uy muhiti va benuqson xizmat.",
+    'hero-cta1': "Xona band qilish", 'hero-cta2': "Xonalarni ko'rish",
+    'stat-rooms': 'Xona', 'stat-rating': 'Reyting', 'stat-years': 'Yillik tajriba', 'stat-registan': "Registonga",
+    'nav-rooms': 'Xonalar', 'nav-experience': 'Tajriba', 'nav-gallery': 'Galereya', 'nav-reviews': 'Sharhlar', 'nav-location': 'Aloqa', 'nav-book': 'Band qilish',
+    'booking-title': 'Tez band qilish', 'bf-checkin': 'Kelish', 'bf-checkout': 'Ketish', 'bf-guests': 'Mehmonlar', 'bf-btn': 'Xona topish',
+    'rooms-label': 'Bizning xonalar', 'rooms-title': "Dam olish burchagingizni tanlang",
+    'rooms-desc': "Har bir xona - o'zbek san'ati elementlari bilan noyob interyerga ega. Barcha xonalarda konditsioner, Wi-Fi va nonushta mavjud.",
+    'uzbek-label': "O'zbek tajribasi", 'uzbek-title': "Ipak yo'li madaniyatiga sho'ng'ing",
+    'gallery-label': 'Galereya', 'gallery-title': 'Mehmonxonamiz fotosuratlarda',
+    'reviews-label': 'Sharhlar', 'reviews-title': 'Mehmonlarimiz nima deydi', 'reviews-count': '328 sharh',
+    'loc-label': 'Joylashuv', 'loc-title': "Samarqand markazida bizni toping",
+    'footer-copy': "© 2024 Navbahor Boutique Hotel. Barcha huquqlar himoyalangan.",
+  },
+  en: {
+    'hero-badge': 'Boutique Hotel in Samarkand',
+    'hero-title': 'Feel the soul of <em>Uzbekistan</em>',
+    'hero-desc': 'Navbahor is not just a hotel. It\'s a journey through the history and traditions of Samarkand. Authentic Uzbek interiors, homely atmosphere and impeccable service.',
+    'hero-cta1': 'Book a Room', 'hero-cta2': 'View Rooms',
+    'stat-rooms': 'Rooms', 'stat-rating': 'Rating', 'stat-years': 'Years', 'stat-registan': 'To Registan',
+    'nav-rooms': 'Rooms', 'nav-experience': 'Experience', 'nav-gallery': 'Gallery', 'nav-reviews': 'Reviews', 'nav-location': 'Contact', 'nav-book': 'Book Now',
+    'booking-title': 'Quick Booking', 'bf-checkin': 'Check-in', 'bf-checkout': 'Check-out', 'bf-guests': 'Guests', 'bf-btn': 'Find Room',
+    'rooms-label': 'Our Rooms', 'rooms-title': 'Choose Your Perfect Stay',
+    'rooms-desc': 'Each room features a unique interior with elements of Uzbek art. All rooms include air conditioning, Wi-Fi and breakfast.',
+    'uzbek-label': 'Uzbek Experience', 'uzbek-title': 'Immerse in Silk Road Culture',
+    'gallery-label': 'Gallery', 'gallery-title': 'Our Hotel in Photos',
+    'reviews-label': 'Reviews', 'reviews-title': 'What Our Guests Say', 'reviews-count': '328 reviews',
+    'loc-label': 'Location', 'loc-title': 'Find Us in the Heart of Samarkand',
+    'footer-copy': '© 2024 Navbahor Boutique Hotel. All rights reserved.',
+  }
+};
+
+function setLang(lang) {
+  document.querySelectorAll('.lang-bar .langs button').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-bar .langs button[onclick="setLang('${lang}')"]`).classList.add('active');
+  const t = translations[lang];
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.getAttribute('data-key');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Smooth scroll
+function scrollTo(selector) {
+  const el = document.querySelector(selector);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
